@@ -58,7 +58,7 @@ def pensar_como_arkon_directo(texto_marlon):
         return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar sus estrategias comerciales, expandir su educación financiera o compartir una reflexión poderosa para su día."
 
 async def generar_audio_bucle(texto, voz):
-    communicate = edge_tts.Communicate(texto, voz, rate="+0Hz", pitch="-3Hz") # Le damos el tono grueso e imponente de Gojo
+    communicate =  edge_tts.Communicate(texto, voz ) # Le damos el tono grueso e imponente de Gojo
     await communicate.save("respuesta_arkon.mp3")
 
 # Caja de micrófono interactiva del navegador
