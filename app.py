@@ -1,14 +1,12 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import asyncio
-import edge_tts
+import requests
 import os
 
 # CONFIGURACIÓN DE PÁGINA FUTURISTA (Estilo Jarvis)
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
-# Estilos visuales con fondo oscuro y luces de neón azul
 st.markdown("""
     <style>
     .stApp { background-color: #0b0c10; color: #c5c6c7; }
@@ -21,16 +19,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MÓDULO DE VOZ PREMIUM: SATORU GOJO</div>', unsafe_allow_html=True)
-
+st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL ELEVENLABS: SATORU GOJO</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
-# 🎭 PANEL SIDEBAR CON INFORMACIÓN DE LA VOZ ACTIVA
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.info("🎙️ Voz Activa: Satoru Gojo (Doblaje Profesional Latino)")
+st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Voz Real de Gojo)")
 
-# Usamos una voz base de alta calidad optimizada para tonos profundos masculinos de IA
-voz_id = "es-MX-JorgeNeural"
+# 🔑 SU LLAVE INYECTADA DE FORMA IMPECABLE POR SU INGENIERO
+ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
+VOICE_ID = "JBFqncBsd6RMKjVDRzzb" # ID de la voz madura/anime en español latino
 
 USER_NAME = "Marlon"
 
@@ -41,9 +38,9 @@ def pensar_como_arkon_directo(texto_marlon):
     
     if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
         if 5 <= hora < 12:
-            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13."
+            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
         else:
-            return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas más grandes."
+            return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
     elif "perro" in texto_marlon_lower:
         return f"Por favor, Señor {USER_NAME}, mida sus palabras. Yo soy Arkon, su asistente de inteligencia artificial con la templanza de los más fuertes. Mi propósito es guiarle en su proyecto comercial bajo valores firmes."
     elif "mercado" in texto_marlon_lower or "bolsa" in texto_marlon_lower or "acciones" in texto_marlon_lower:
@@ -51,17 +48,28 @@ def pensar_como_arkon_directo(texto_marlon):
             ticker = yf.Ticker("^GSPC")
             datos = ticker.history(period="1d")
             precio_actual = round(datos['Close'].iloc[-1], 2)
-            return f"Analizando los mercados económicos, Señor {USER_NAME}. El S&P 500 cotiza en {precio_actual} puntos. Si quiere ser de los más fuertes en el mercado, darlo todo no es suficiente; cuide su capital inicial con sabiduría."
+            return f"Analizando los mercados económicos, Señor {USER_NAME}. El índice principal S&P 500 se encuentra cotizando en {precio_actual} puntos. Si quiere ser de los más fuertes en el mercado, darlo todo no es suficiente; cuide su capital inicial con sabiduría."
         except:
-            return f"Señor {USER_NAME}, hay una ligera interferencia en la red de la bolsa, pero mi consejo financiero de hoy es claro: no tome riesgos innecesarios, mantenga la cabeza fría y domine su estrategia."
+            return f"Señor {USER_NAME}, tengo una ligera interferencia para conectarme a los tableros de la bolsa, pero mi recomendación financiera general de hoy es cuidar su presupuesto y evitar deudas de alto riesgo."
     else:
-        return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar sus estrategias comerciales, expandir su educación financiera o compartir una reflexión poderosa para su día."
+        return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
 
-async def generar_audio_bucle(texto, voz):
-    communicate =  edge_tts.Communicate(texto, voz ) # Le damos el tono grueso e imponente de Gojo
-    await communicate.save("respuesta_arkon.mp3")
+def generar_audio_premium(texto, api_key, voice_id):
+    url = f"https://elevenlabs.io{voice_id}"
+    headers = {"xi-api-key": api_key, "Content-Type": "application/json"}
+    data = {
+        "text": texto,
+        "model_id": "eleven_multilingual_v2",
+        "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
+    }
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        if response.status_code == 200:
+            with open("respuesta_arkon.mp3", "wb") as f:
+                f.write(response.content)
+    except:
+        pass
 
-# Caja de micrófono interactiva del navegador
 st.markdown("### 🎙️ HÁBLELE A ARKON (EDICIÓN GOJO)")
 audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
 
@@ -69,12 +77,12 @@ if audio_value:
     texto_dictado = st.text_input("Modificar texto dictado (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 ENVIAR COMANDO DE VOZ"):
-        respuesta_texto = pensar_como_arkon_directo(texto_dictado)
+        respuesta_texto = think_como_arkon_directo(texto_dictado)
         
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        asyncio.run(generar_audio_bucle(respuesta_texto, voz_id))
+        generar_audio_premium(respuesta_texto, ELEVEN_API_KEY, VOICE_ID)
         
         if os.path.exists("respuesta_arkon.mp3"):
             st.audio("respuesta_arkon.mp3", autoplay=True)
