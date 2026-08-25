@@ -77,7 +77,7 @@ if audio_value:
     texto_dictado = st.text_input("Modificar texto dictado (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 ENVIAR COMANDO DE VOZ"):
-        respuesta_texto = think_como_arkon_directo(texto_dictado)
+        respuesta_texto =pensar_como_arkon_directo (texto_dictado)
         
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
