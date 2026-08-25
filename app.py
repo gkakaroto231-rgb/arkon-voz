@@ -25,7 +25,7 @@ st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', un
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
 st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Voz Real de Gojo)")
 
-# 🔑 SU LLAVE INYECTADA DE FORMA IMPECABLE POR SU INGENIERO
+# 🔑 SU LLAVE INYECTADA DE FORMA IMPECABLE
 ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
 VOICE_ID = "JBFqncBsd6RMKjVDRzzb" # ID de la voz madura/anime en español latino
 
@@ -65,10 +65,10 @@ def generar_audio_premium(texto, api_key, voice_id):
     try:
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
-            with open("respuesta_arkon.mp3", "wb") as f:
-                f.write(response.content)
-    except:
+            return response.content
+    except Exception as e:
         pass
+    return None
 
 st.markdown("### 🎙️ HÁBLELE A ARKON (EDICIÓN GOJO)")
 audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
@@ -77,12 +77,15 @@ if audio_value:
     texto_dictado = st.text_input("Modificar texto dictado (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 ENVIAR COMANDO DE VOZ"):
-        respuesta_texto =pensar_como_arkon_directo (texto_dictado)
+        respuesta_texto = pensar_como_arkon_directo(texto_dictado)
         
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        generar_audio_premium(respuesta_texto, ELEVEN_API_KEY, VOICE_ID)
+        # Generar audio directamente en memoria para que Streamlit pinte la barra obligatoriamente
+        audio_bytes = generar_audio_premium(respuesta_texto, ELEVEN_API_KEY, VOICE_ID)
         
-        if os.path.exists("respuesta_arkon.mp3"):
-            st.audio("respuesta_arkon.mp3", autoplay=True)
+        if audio_bytes:
+            st.audio(audio_bytes, format="audio/mp3", autoplay=True)
+        else:
+            st.error("No se pudo generar el audio premium en este milisegundo.")
