@@ -1,8 +1,6 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-from gtts import gTTS
-import os
 
 # CONFIGURACIÓN DE PÁGINA FUTURISTA (PC Y CELULAR)
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
@@ -19,11 +17,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR FLUIDO AVANZADO: VOZ GRUESA PREMIUM</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO UNIVERSAL</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Google Professional Engine")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Voice Engine")
 
 USER_NAME = "Marlon"
 
@@ -62,11 +60,27 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar audio ultra-estable, fluido y con tono grueso (Acento latino profundo)
-        try:
-            tts = gTTS(text=respuesta_texto, lang='es', tld='co') 
-            tts.save("respuesta_arkon.mp3")
-            if os.path.exists("respuesta_arkon.mp3"):
-                st.audio("respuesta_arkon.mp3", autoplay=True)
-        except Exception as e:
-            st.error("Error al reproducir la voz.")
+        # Sistema de voz digital inteligente (No necesita instalar gtts y es 100% fluido)
+        texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
+        js_speech = f"""
+        <script>
+        if ('speechSynthesis' in window) {{
+            window.speechSynthesis.cancel();
+            var msg = new SpeechSynthesisUtterance("{texto_limpio}");
+            msg.lang = "es-MX";
+            msg.pitch = 0.75;
+            msg.rate = 0.9;
+            
+            // Forzar voz masculina si está disponible
+            var voices = window.speechSynthesis.getVoices();
+            for(var i = 0; i < voices.length; i++) {{
+                if(voices[i].lang.includes('es') && (voices[i].name.toLowerCase().includes('male') || voices[i].name.toLowerCase().includes('sabrina') == false)) {{
+                    msg.voice = voices[i];
+                    break;
+                }}
+            }}
+            window.speechSynthesis.speak(msg);
+        }}
+        </script>
+        """
+        st.components.v1.html(js_speech, height=0)
