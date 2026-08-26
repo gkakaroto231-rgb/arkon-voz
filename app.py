@@ -49,7 +49,7 @@ def pensar_como_arkon_directo(texto_marlon):
     else:
         return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
 
-st.markdown("### 🎙️ HÁBLA CON ARKON")
+st.markdown("### 🎙️ HABLA CON ARKON")
 audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
 
 if audio_value:
@@ -61,9 +61,9 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar enlace de audio directo con voz masculina premium, profunda y fluida
+        # Generar enlace directo usando el servidor de Google Translate oficial (100% libre de bloqueos y gratis)
         texto_codificado = urllib.parse.quote(respuesta_texto)
-        url_audio = f"https://voicerss.org{texto_codificado}"
+        url_audio = f"https://google.com{texto_codificado}"
         
         # Pintar la barra de sonido fija en la pantalla para obligar al celular a reproducir
         st.audio(url_audio, format="audio/mp3", autoplay=True)
