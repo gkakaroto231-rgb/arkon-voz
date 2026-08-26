@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 import yfinance as yf
 
-# CONFIGURACIÓN UNIVERSAL CON FORZADO MASCULINO NATIVO ANTI-BLOQUEOS
+# CONFIGURACIÓN UNIVERSAL CON REPRODUCTOR SEGURO ANTI-BLOQUEOS
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -13,15 +13,17 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
+    .btn-audio-custom { background-color: #66fcf1; color: #0b0c10; font-family: 'Courier New', monospace; font-weight: bold; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(102, 252, 241, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+    .btn-audio-custom:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; transform: scale(1.01); }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR INTEGRADO: EDICIÓN VARÓN DE CORRIDO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (INTERFAZ DE AUDIO PREMIUM)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Engine Multiplataforma")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Universal Speech Engine")
 
 USER_NAME = "Marlon"
 
@@ -60,21 +62,24 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Inyección forzada de ResponsiveVoice en código duro de pantalla (Rompemos el candado del celular)
+        # Limpiar el texto para inyectarlo de forma segura en las funciones de audio
         texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
         
-        html_audio_forzado = f"""
+        # Inyección forzada de ResponsiveVoice en un botón físico interactivo de alta fidelidad
+        html_reproductor_fijo = f"""
         <script src="https://responsivevoice.org"></script>
+        <button class="btn-audio-custom" onclick="activarVozArkon()">🔊 ESCUCHAR RESPUESTA (VOZ MASCULINA)</button>
         <script>
-        setTimeout(function() {{
+        function activarVozArkon() {{
             if (typeof responsiveVoice !== 'undefined') {{
                 responsiveVoice.cancel();
-                // "Spanish Latin American Male" obliga al navegador a descargar los datos del hombre de corrido
-                responsiveVoice.speak("{texto_limpio}", "Spanish Latin American Male", {{pitch: 0.8, rate: 0.88}});
+                // Forzamos la descarga del archivo de audio del hombre latino de corrido
+                responsiveVoice.speak("{texto_limpio}", "Spanish Latin American Male", {{pitch: 0.82, rate: 0.9}});
+            }} else {{
+                alert("El motor de audio se está sincronizando, por favor presione de nuevo en un segundo.");
             }}
-        }}, 600);
+        }}
         </script>
         """
-        st.components.v1.html(html_audio_forzado, height=0)
+        st.components.v1.html(html_reproductor_fijo, height=90)
 
-     
