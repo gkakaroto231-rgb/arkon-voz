@@ -1,9 +1,8 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import urllib.parse
 
-# CONFIGURACIÓN UNIVERSAL CON VOZ DE VARÓN GARANTIZADA
+# CONFIGURACIÓN UNIVERSAL CON FORZADO MASCULINO NATIVO ANTI-BLOQUEOS
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -18,11 +17,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR MASCULINO SELECCIONADO: TONO PROFUNDO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR INTEGRADO: EDICIÓN VARÓN DE CORRIDO</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Male Engine")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Engine Multiplataforma")
 
 USER_NAME = "Marlon"
 
@@ -61,9 +60,21 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Servidor privado VoiceRSS con el tono de hombre José (Evita bloqueos de mujer)
-        texto_codificado = urllib.parse.quote(respuesta_texto)
-        url_audio = f"https://voicerss.org{texto_codificado}"
+        # Inyección forzada de ResponsiveVoice en código duro de pantalla (Rompemos el candado del celular)
+        texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
         
-        # Muestra la barra gris de audio fija y fuerza la carga del sonido de hombre
-        st.audio(url_audio, format="audio/mp3", autoplay=True)
+        html_audio_forzado = f"""
+        <script src="https://responsivevoice.org"></script>
+        <script>
+        setTimeout(function() {{
+            if (typeof responsiveVoice !== 'undefined') {{
+                responsiveVoice.cancel();
+                // "Spanish Latin American Male" obliga al navegador a descargar los datos del hombre de corrido
+                responsiveVoice.speak("{texto_limpio}", "Spanish Latin American Male", {{pitch: 0.8, rate: 0.88}});
+            }}
+        }}, 600);
+        </script>
+        """
+        st.components.v1.html(html_audio_forzado, height=0)
+
+     
