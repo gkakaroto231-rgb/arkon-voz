@@ -1,7 +1,7 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import requests
+from gtts import gTTS
 import os
 
 # CONFIGURACIÓN DE PÁGINA FUTURISTA (Estilo Jarvis)
@@ -19,16 +19,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL ELEVENLABS: SATORU GOJO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-RÁPIDO: EDICIÓN PREMIUM ELEGANTE</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Voz Real de Gojo)")
-
-# 🔑 SU LLAVE INYECTADA DE FORMA IMPECABLE
-ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
-VOICE_ID = "pNInz6obpgmA5QC963vl"
- # ID de la voz madura/anime en español latino
+st.sidebar.success("🎙️ Conexión Activa: Google Voice Engine")
 
 USER_NAME = "Marlon"
 
@@ -55,23 +50,7 @@ def pensar_como_arkon_directo(texto_marlon):
     else:
         return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
 
-def generar_audio_premium(texto, api_key, voice_id):
-    url = f"https://elevenlabs.io{voice_id}"
-    headers = {"xi-api-key": api_key, "Content-Type": "application/json"}
-    data = {
-        "text": texto,
-        "model_id": "eleven_multilingual_v2",
-        "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
-    }
-    try:
-        response = requests.post(url, json=data, headers=headers)
-        if response.status_code == 200:
-            return response.content
-    except Exception as e:
-        pass
-    return None
-
-st.markdown("### 🎙️ HÁBLELE A ARKON (EDICIÓN GOJO)")
+st.markdown("### 🎙️ HÁBLELE A ARKON")
 audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
 
 if audio_value:
@@ -83,10 +62,11 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar audio directamente en memoria para que Streamlit pinte la barra obligatoriamente
-        audio_bytes = generar_audio_premium(respuesta_texto, ELEVEN_API_KEY, VOICE_ID)
-        
-        if audio_bytes:
-            st.audio(audio_bytes, format="audio/mp3", autoplay=True)
-        else:
-            st.error("No se pudo generar el audio premium en este milisegundo.")
+        # Generar audio ultra-estable con Google Text-to-Speech
+        try:
+            tts = gTTS(text=respuesta_texto, lang='es', tld='co') # Tono latino elegante
+            tts.save("respuesta_arkon.mp3")
+            if os.path.exists("respuesta_arkon.mp3"):
+                st.audio("respuesta_arkon.mp3", autoplay=True)
+        except Exception as e:
+            st.error("Error al reproducir la voz.")
