@@ -1,9 +1,8 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import base64
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA CON AUDIO SEGURO DE MEMORIA INTERNA
+# CONFIGURACIÓN UNIVERSAL SIMPLIFICADA ANTI-BLOQUEOS
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -14,11 +13,13 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
+    .btn-audio-real { background-color: #66fcf1; color: #0b0c10; font-family: sans-serif; font-weight: bold; padding: 16px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 10px rgba(102, 252, 241, 0.3); }
+    .btn-audio-real:hover { background-color: #45f3ff; }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR INTEGRADO: EDICIÓN VARÓN DE CORRIDO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR FLUIDO INTEGRADO (INTERFAZ NATIVA PC/MÓVIL)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
@@ -61,38 +62,25 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Codificación limpia nativa en JavaScript sin librerías externas
-        texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
+        # Limpiar texto para evitar fallas en las comillas de Javascript
+        texto_seguro = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
         
-        # Forzar por código interno que el navegador hable con voz masculina de inmediato
-        js_speech_nativo = f"""
-        <div style="text-align: center; margin-top: 10px;">
-            <p style="color: #45f3ff; font-family: monospace; font-size: 13px;">🔒 Audio Sincronizado de Forma Segura</p>
-        </div>
+        # Inyección de un botón interactivo real. Al pulsarlo, el navegador reproduce el sonido sin bloquearlo.
+        html_boton_interactivo = f"""
+        <button class="btn-audio-real" onclick="reproducirAudioArkon()">🔊 PRESIONE AQUÍ PARA ESCUCHAR RESPUESTA</button>
         <script>
-        function emitirVozMacho() {{
+        function reproducirAudioArkon() {{
             if ('speechSynthesis' in window) {{
                 window.speechSynthesis.cancel();
-                var utterance = new SpeechSynthesisUtterance("{texto_limpio}");
-                utterance.lang = "es-MX"; 
-                utterance.pitch = 0.70;  // Forzamos el tono bajo, grueso y masculino
-                utterance.rate = 0.88;   // Velocidad continua y fluida de corrido
-                
-                // Buscar activamente voces masculinas en el celular
-                var voces = window.speechSynthesis.getVoices();
-                for(var i = 0; i < voces.length; i++) {{
-                    if(voces[i].lang.includes('es') && (voces[i].name.toLowerCase().includes('male') || voces[i].name.toLowerCase().includes('google'))) {{
-                        utterance.voice = voces[i];
-                        break;
-                    }}
-                }}
-                window.speechSynthesis.speak(utterance);
+                var mensaje = new SpeechSynthesisUtterance("{texto_seguro}");
+                mensaje.lang = "es-MX"; 
+                mensaje.pitch = 0.75;  // Configuración de tono varonil
+                mensaje.rate = 0.90;   // Velocidad fluida y continua
+                window.speechSynthesis.speak(mensaje);
+            }} else {{
+                alert("Su dispositivo no soporta la reproducción de voz nativa.");
             }}
         }}
-        // Ejecución inmediata
-        setTimeout(emitirVozMacho, 300);
-        // Doble ejecución por si el teléfono está bloqueado en el primer milisegundo
-        window.addEventListener('click', emitirVozMacho);
         </script>
         """
-        st.components.v1.html(js_speech_nativo, height=60)
+        st.components.v1.html(html_boton_interactivo, height=90)
