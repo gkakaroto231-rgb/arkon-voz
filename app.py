@@ -1,9 +1,8 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import requests
 
-# CONFIGURACIÓN UNIVERSAL MASCULINA PREMIUM DE ALTA GAMA
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE BLINDADA PARA PC Y CELULAR
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -18,15 +17,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL: SU VOZ PERSONALIZADA</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (CONTROL DIGITAL MASCULINO)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Voz Exclusiva)")
-
-# 🔑 SU LLAVE Y SU NUEVA VOZ PERSONALIZADA INYECTADAS
-ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
-VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
+st.sidebar.success("🎙️ Conexión Activa: Arkon Core Audio Engine")
 
 USER_NAME = "Marlon"
 
@@ -65,21 +60,18 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar audio premium directamente en el servidor seguro para evitar bloqueos
-        url = f"https://elevenlabs.io{VOICE_ID}"
-        headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
-        data = {
-            "text": respuesta_texto,
-            "model_id": "eleven_multilingual_v2",
-            "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
-        }
-        try:
-            response = requests.post(url, json=data, headers=headers)
-            if response.status_code == 200:
-                st.audio(response.content, format="audio/mp3", autoplay=True)
-            else:
-                st.error("Sincronizando los canales de audio con ElevenLabs...")
-        except Exception as e:
-            st.error("Interferencia menor en el módulo premium.")
-
-      
+        # Inyección de voz digital limpia y forzada (Evita bloqueos de Render y ElevenLabs)
+        texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
+        js_speech = f"""
+        <script>
+        if ('speechSynthesis' in window) {{
+            window.speechSynthesis.cancel();
+            var msg = new SpeechSynthesisUtterance("{texto_limpio}");
+            msg.lang = "es-MX";  // Tono latino
+            msg.pitch = 0.75;    // Tono más bajo y varonil
+            msg.rate = 0.9;     // Velocidad moderada para total fluidez
+            window.speechSynthesis.speak(msg);
+        }}
+        </script>
+        """
+        st.components.v1.html(js_speech, height=0)
