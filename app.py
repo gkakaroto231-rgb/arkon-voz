@@ -49,7 +49,7 @@ def pensar_como_arkon_directo(texto_marlon):
     else:
         return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
 
-st.markdown("### 🎙️ HÁBLELE A ARKON")
+st.markdown("### 🎙️ HÁBLA CON ARKON")
 audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
 
 if audio_value:
