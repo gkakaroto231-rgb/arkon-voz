@@ -4,36 +4,76 @@ import yfinance as yf
 import requests
 import base64
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE REPARADA CON SU VOZ DE ELEVENLABS
+# CONFIGURACIÓN DE PÁGINA FUTURISTA TÁCTICA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
+# INTERFAZ DE DISEÑO AVANZADO EN ROJO FUEGO CON SELECTOR
 st.markdown("""
     <style>
-    .stApp { background-color: #0b0c10; color: #c5c6c7; }
-    .titulo { color: #66fcf1; font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold; text-align: center; margin-bottom: 5px; }
-    .subtitulo { color: #45f3ff; font-family: sans-serif; font-size: 14px; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
-    .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
-    .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
-    @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
-    .btn-audio-custom { background-color: #66fcf1; color: #0b0c10; font-family: 'Courier New', monospace; font-weight: bold; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(102, 252, 241, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
-    .btn-audio-custom:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; transform: scale(1.01); }
+    .stApp { background-color: #030303; color: #ffffff; }
+    .titulo { color: #ff2222; font-family: 'Courier New', monospace; font-size: 34px; font-weight: bold; text-align: center; margin-bottom: 5px; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 2px; }
+    .subtitulo { color: #ff6666; font-family: sans-serif; font-size: 13px; text-align: center; margin-bottom: 25px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
+    
+    /* Contenedor del núcleo reactivo */
+    .nucleo-wrapper { display: flex; justify-content: center; align-items: center; margin: 30px 0; height: 160px; position: relative; }
+    
+    /* El núcleo de energía variable */
+    .nucleo-central { width: 130px; height: 130px; border-radius: 50%; position: absolute; border: 3px solid #ff3333; transition: all 0.5s ease; background-size: cover; background-position: center; }
+    
+    /* Animación de ondas expansivas en movimiento al hablar */
+    .ondas-energia { position: absolute; width: 130px; height: 130px; border-radius: 50%; border: 2px solid #ff0000; opacity: 0; }
+    
+    @keyframes pulsarOndas {
+        0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 15px #ff0000; }
+        100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 40px #ff3333; }
+    }
+    
+    /* Botón de reproducción de alta tecnología */
+    .btn-audio-custom { background-color: #ff2222; color: #ffffff; font-family: 'Courier New', monospace; font-weight: bold; padding: 16px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; margin-top: 25px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(255, 34, 34, 0.5); text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; }
+    .btn-audio-custom:hover { background-color: #ff0000; box-shadow: 0px 0px 30px #ff2222; transform: scale(1.01); }
+    
+    /* Estilos para los campos de entrada */
+    .stTextInput>div>div>input { background-color: #0f0f0f; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
+    .stSuccess { background-color: #1c0505; color: #ff9999; border: 1px solid #ff2222; }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL: ELEVENLABS CORREGIDO</div>', unsafe_allow_html=True)
-st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">PANEL DE CONTROL GENERAL: SELECCIÓN DE ARMADURA</div>', unsafe_allow_html=True)
 
-st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Su Voz de Varón)")
+# 🎛️ PANEL LATERAL DE COMANDO
+st.sidebar.markdown("### 🎛️ SELECTOR DE APARIENCIA TÁCTICA")
+opcion_nucleo = st.sidebar.radio(
+    "Elija la imagen interna del núcleo de energía:",
+    ("1. Plasma de Fuego Oscuro", "2. Reactor de Fusión Cuántica", "3. Escudo de Red de Matriz")
+)
 
-# 🔑 SU LLAVE ACTUAL Y EL ID DE LA VOZ QUE USTED MISMO DISEÑÓ
+# Enlaces de imágenes de texturas abstractas de energía roja (Seguras de internet)
+if "1." in opcion_nucleo:
+    url_textura = "https://unsplash.com"
+    st.sidebar.info("Efecto: Plasma Táctico Carmesí Cargado")
+elif "2." in opcion_nucleo:
+    url_textura = "https://unsplash.com"
+    st.sidebar.info("Efecto: Fusión de Núcleo Activo de Alta Densidad")
+else:
+    url_textura = "https://unsplash.com"
+    st.sidebar.info("Efecto: Malla Digital de Blindaje Militar")
+
+# Inyectar el núcleo visual en la interfaz con la imagen elegida por el usuario
+st.markdown(f"""
+    <div class="nucleo-wrapper">
+        <div id="onda1" class="ondas-energia"></div>
+        <div id="onda2" class="ondas-energia"></div>
+        <div class="nucleo-central" style="background-image: url('{url_textura}'); box-shadow: 0px 0px 35px #ff2222;"></div>
+    </div>
+""", unsafe_allow_html=True)
+
+st.sidebar.markdown("---")
+st.sidebar.error("🎙️ Motor de Voz Conectado: ElevenLabs Premium")
+
+# 🔑 LLAVES BLINDADAS DE COMUNICACIÓN
 ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
-
-
-VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
-
-
+VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
 USER_NAME = "Marlon"
 
 def pensar_como_arkon_directo(texto_marlon):
@@ -71,8 +111,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # URL CORREGIDA EXACTAMENTE COMO LO MANDÓ EL CONSEJO TÉCNICO
-        url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"
+        url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
             "text": respuesta_texto,
@@ -83,17 +122,37 @@ if audio_value:
         try:
             response = requests.post(url, json=data, headers=headers)
             if response.status_code == 200:
-                # Convertir a Base64 nativo en un botón físico para obligar al celular a cantar sin bloquearse
                 b64_audio = base64.b64encode(response.content).decode()
                 md_audio = f"data:audio/mp3;base64,{b64_audio}"
                 
+                # REPRODUCTOR INTERACTIVO AVANZADO: Activa las ondas expansivas de neón al darle Play
                 html_reproductor_fijo = f"""
                 <audio id="audio_arkon_premium" src="{md_audio}"></audio>
-                <button class="btn-audio-custom" onclick="document.getElementById('audio_arkon_premium').play()">🔊 ESCUCHAR RESPUESTA EN VOZ PREMIUM</button>
+                <button class="btn-audio-custom" onclick="reproducirYAnimar()">🔊 ESCUCHAR RESPUESTA EN VOZ PREMIUM</button>
+                
+                <script>
+                function reproducirYAnimar() {{
+                    var audio = document.getElementById('audio_arkon_premium');
+                    var o1 = document.getElementById('onda1');
+                    var o2 = document.getElementById('onda2');
+                    
+                    audio.play();
+                    
+                    // Activar la animación de ondas de energía en movimiento estilo Jarvis
+                    o1.style.animation = "pulsarOndas 1.2s infinite linear";
+                    o2.style.animation = "pulsarOndas 1.2s infinite linear 0.6s";
+                    
+                    // Apagar las ondas automáticas cuando el audio termine de hablar
+                    audio.onended = function() {{
+                        o1.style.animation = "none";
+                        o2.style.animation = "none";
+                    }};
+                }}
+                </script>
                 """
-                st.components.v1.html(html_reproductor_fijo, height=90)
+                st.components.v1.html(html_reproductor_fijo, height=100)
             else:
-                st.error(f"Sincronizando canales de audio premium (Código: {response.status_code})")
-                st.code(response.text)
+                st.error(f"Error de comunicación premium (Código: {response.status_code})")
         except Exception as e:
             st.error("Interferencia menor en el módulo de audio.")
+
