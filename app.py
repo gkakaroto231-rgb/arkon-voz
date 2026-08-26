@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 import yfinance as yf
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE BLINDADA PARA PC Y CELULAR
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA CON BOTÓN FORZADO ANTI-BLOQUEOS
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -13,11 +13,13 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
+    .boton-voz { background-color: #66fcf1; color: #0b0c10; font-weight: bold; padding: 12px 24px; border: none; border-radius: 50px; cursor: pointer; font-size: 16px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px #66fcf1; }
+    .boton-voz:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (CONTROL DIGITAL MASCULINO)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (BOTÓN REPRODUCTOR CONTROLADO)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
@@ -32,7 +34,7 @@ def pensar_como_arkon_directo(texto_marlon):
     
     if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
         if 5 <= hora < 12:
-            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
+            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalce."
         else:
             return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
     elif "perro" in texto_marlon_lower:
@@ -60,18 +62,24 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Inyección de voz digital limpia y forzada (Evita bloqueos de Render y ElevenLabs)
+        # Generar botón nativo HTML/JS que obliga al celular a hablar al presionarlo
         texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
-        js_speech = f"""
+        
+        html_boton = f"""
+        <button class="boton-voz" onclick="reproducirVozArkon()">🔊 ESCUCHAR RESPUESTA EN VOZ MASCULINA</button>
         <script>
-        if ('speechSynthesis' in window) {{
-            window.speechSynthesis.cancel();
-            var msg = new SpeechSynthesisUtterance("{texto_limpio}");
-            msg.lang = "es-MX";  // Tono latino
-            msg.pitch = 0.75;    // Tono más bajo y varonil
-            msg.rate = 0.9;     // Velocidad moderada para total fluidez
-            window.speechSynthesis.speak(msg);
+        function reproducirVozArkon() {{
+            if ('speechSynthesis' in window) {{
+                window.speechSynthesis.cancel();
+                var msg = new SpeechSynthesisUtterance("{texto_limpio}");
+                msg.lang = "es-MX";  // Español latino neutro
+                msg.pitch = 0.75;    // Tono más bajo y varonil
+                msg.rate = 0.9;      // Velocidad fluida y continua
+                window.speechSynthesis.speak(msg);
+            }} else {{
+                alert("Este navegador no soporta el motor de voz integrado.");
+            }}
         }}
         </script>
         """
-        st.components.v1.html(js_speech, height=0)
+        st.components.v1.html(html_boton, height=80)
