@@ -1,10 +1,8 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import requests
-import os
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA Y CON AUDIO PROPIO DE SERVIDOR
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA Y LIBRE DE ERRORES
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -19,7 +17,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (AUDIO INTERNO NATIVO)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (NATIVO MASCULINO)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
@@ -62,21 +60,10 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Descargar el archivo físico directamente dentro de Render para burlar el bloqueo del celular
-        try:
-            url = "https://google.com"
-            params = {"ie": "UTF-8", "tl": "es-co", "client": "tw-ob", "q": respuesta_texto}
-            headers = {"User-Agent": "Mozilla/5.0"}
-            
-            response = requests.get(url, params=params, headers=headers)
-            if response.status_code == 200:
-                # Guardar el archivo mp3 real en la memoria de la página
-                with open("audio_arkon.mp3", "wb") as f:
-                    f.write(response.content)
-                
-                # Reproducir el archivo interno (100% libre de bloqueos)
-                st.audio("audio_arkon.mp3", format="audio/mp3", autoplay=True)
-            else:
-                st.error("Revisando canales de audio...")
-        except Exception as e:
-            st.error("Interferencia menor en el módulo.")
+        # Enlace oficial directo sin usar herramientas conflictivas (100% seguro para PC y Celular)
+        texto_limpio = respuesta_texto.replace(' ', '%20')
+        url_audio = f"https://google.com{texto_limpio}"
+        
+        # Pintar la barra de sonido limpia en la pantalla
+        st.audio(url_audio, format="audio/mp3", autoplay=True)
+
