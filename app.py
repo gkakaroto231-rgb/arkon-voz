@@ -21,7 +21,7 @@ st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (MASCULINO MULTIPLAT
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Voz Activa: Arkon Male Premium Engine")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Male Premium Engine")
 
 USER_NAME = "Marlon"
 
