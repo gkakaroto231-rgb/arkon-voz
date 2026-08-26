@@ -1,8 +1,9 @@
 import streamlit as st
 import datetime
 import yfinance as yf
+import urllib.parse
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA Y LIBRE DE ERRORES
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA CON LLAVE DE AUDIO PRIVADA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -17,11 +18,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (NATIVO MASCULINO)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (REPRODUCTOR PRIVADO MASCULINO)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Engine")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Engine Premium")
 
 USER_NAME = "Marlon"
 
@@ -60,10 +61,10 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Enlace oficial directo sin usar herramientas conflictivas (100% seguro para PC y Celular)
-        texto_limpio = respuesta_texto.replace(' ', '%20')
-        url_audio = f"https://google.com{texto_limpio}"
+        # Generar enlace de audio directo con una llave privada y estable (Voz masculina fluida)
+        texto_codificado = urllib.parse.quote(respuesta_texto)
+        url_audio = f"https://voicerss.org{texto_codificado}"
         
-        # Pintar la barra de sonido limpia en la pantalla
+        # Pintar la barra de sonido fija y forzar la carga
         st.audio(url_audio, format="audio/mp3", autoplay=True)
 
