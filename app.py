@@ -4,67 +4,68 @@ import yfinance as yf
 import requests
 import base64
 
-# CONFIGURACIÓN DE PÁGINA FUTURISTA TÁCTICA
+# CONFIGURACIÓN DE PÁGINA FUTURISTA MINIMALISTA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
-# INTERFAZ DE DISEÑO AVANZADO EN ROJO FUEGO CON SELECTOR
+# INTERFAZ PURA SIN TEXTO: LOGO JAPONÉS EN NÚCLEO ROJO FUEGO
+st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
+
 st.markdown("""
     <style>
     .stApp { background-color: #030303; color: #ffffff; }
-    .titulo { color: #ff2222; font-family: 'Courier New', monospace; font-size: 34px; font-weight: bold; text-align: center; margin-bottom: 5px; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 2px; }
-    .subtitulo { color: #ff6666; font-family: sans-serif; font-size: 13px; text-align: center; margin-bottom: 25px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
     
-    /* Contenedor del núcleo reactivo */
-    .nucleo-wrapper { display: flex; justify-content: center; align-items: center; margin: 30px 0; height: 160px; position: relative; }
+    /* Contenedor del núcleo reactivo centrado */
+    .nucleo-wrapper { display: flex; justify-content: center; align-items: center; margin: 40px 0; height: 180px; position: relative; }
     
-    /* El núcleo de energía variable */
-    .nucleo-central { width: 130px; height: 130px; border-radius: 50%; position: absolute; border: 3px solid #ff3333; transition: all 0.5s ease; background-size: cover; background-position: center; }
+    /* El núcleo de energía rojo fuego táctico */
+    .nucleo-central { width: 140px; height: 140px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 35px #ff2222; }
     
-    /* Animación de ondas expansivas en movimiento al hablar */
-    .ondas-energia { position: absolute; width: 130px; height: 130px; border-radius: 50%; border: 2px solid #ff0000; opacity: 0; }
+    /* Letra japonesa サ centrada en color blanco puro */
+    .letra-japonesa { color: #ffffff; font-family: sans-serif; font-size: 55px; font-weight: bold; line-height: 1; text-align: center; display: flex; align-items: center; justify-content: center; transform: translateY(-4px); }
+    
+    /* Animación de ondas expansivas en movimiento estilo TikTok */
+    .ondas-energia { position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 2px solid #ff0000; opacity: 0; }
     
     @keyframes pulsarOndas {
         0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 15px #ff0000; }
-        100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 40px #ff3333; }
+        100% { transform: scale(1.45); opacity: 0; box-shadow: 0 0 45px #ff3333; }
     }
     
-    /* Botón de reproducción de alta tecnología */
+    /* Botón de reproducción blindado rojo fuego */
     .btn-audio-custom { background-color: #ff2222; color: #ffffff; font-family: 'Courier New', monospace; font-weight: bold; padding: 16px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; margin-top: 25px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(255, 34, 34, 0.5); text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; }
     .btn-audio-custom:hover { background-color: #ff0000; box-shadow: 0px 0px 30px #ff2222; transform: scale(1.01); }
     
-    /* Estilos para los campos de entrada */
+    /* Estilos limpios para campos de entrada */
     .stTextInput>div>div>input { background-color: #0f0f0f; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1c0505; color: #ff9999; border: 1px solid #ff2222; }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">PANEL DE CONTROL GENERAL: SELECCIÓN DE ARMADURA</div>', unsafe_allow_html=True)
+# ESPACIO EN BLANCO COMPACTO
+st.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
 
-# 🎛️ PANEL LATERAL DE COMANDO
-st.sidebar.markdown("### 🎛️ SELECTOR DE APARIENCIA TÁCTICA")
+# 🎛️ PANEL LATERAL DE SELECCIÓN DE TEXTURAS INTERNAS
+st.sidebar.markdown("### 🎛️ SELECTOR DE ARMADURA")
 opcion_nucleo = st.sidebar.radio(
-    "Elija la imagen interna del núcleo de energía:",
+    "Elija la textura de fondo del reactor:",
     ("1. Plasma de Fuego Oscuro", "2. Reactor de Fusión Cuántica", "3. Escudo de Red de Matriz")
 )
 
-# Enlaces de imágenes de texturas abstractas de energía roja (Seguras de internet)
 if "1." in opcion_nucleo:
     url_textura = "https://unsplash.com"
-    st.sidebar.info("Efecto: Plasma Táctico Carmesí Cargado")
 elif "2." in opcion_nucleo:
     url_textura = "https://unsplash.com"
-    st.sidebar.info("Efecto: Fusión de Núcleo Activo de Alta Densidad")
 else:
     url_textura = "https://unsplash.com"
-    st.sidebar.info("Efecto: Malla Digital de Blindaje Militar")
 
-# Inyectar el núcleo visual en la interfaz con la imagen elegida por el usuario
+# Inyección del reactor minimalista con el logotipo サ en su interior
 st.markdown(f"""
     <div class="nucleo-wrapper">
         <div id="onda1" class="ondas-energia"></div>
         <div id="onda2" class="ondas-energia"></div>
-        <div class="nucleo-central" style="background-image: url('{url_textura}'); box-shadow: 0px 0px 35px #ff2222;"></div>
+        <div class="nucleo-central" style="background-image: url('{url_textura}');">
+            <div class="letra-japonesa">サ</div>
+        </div>
     </div>
 """, unsafe_allow_html=True)
 
@@ -83,7 +84,7 @@ def pensar_como_arkon_directo(texto_marlon):
     
     if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
         if 5 <= hora < 12:
-            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
+            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalce."
         else:
             return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
     elif "perro" in texto_marlon_lower:
@@ -125,7 +126,7 @@ if audio_value:
                 b64_audio = base64.b64encode(response.content).decode()
                 md_audio = f"data:audio/mp3;base64,{b64_audio}"
                 
-                # REPRODUCTOR INTERACTIVO AVANZADO: Activa las ondas expansivas de neón al darle Play
+                # INTERFAZ CONTROLADA: Despliega las ondas expansivas rojas al presionar Play
                 html_reproductor_fijo = f"""
                 <audio id="audio_arkon_premium" src="{md_audio}"></audio>
                 <button class="btn-audio-custom" onclick="reproducirYAnimar()">🔊 ESCUCHAR RESPUESTA EN VOZ PREMIUM</button>
@@ -138,11 +139,10 @@ if audio_value:
                     
                     audio.play();
                     
-                    // Activar la animación de ondas de energía en movimiento estilo Jarvis
+                    // Activación de las ondas expansivas de neón alrededor del logotipo
                     o1.style.animation = "pulsarOndas 1.2s infinite linear";
                     o2.style.animation = "pulsarOndas 1.2s infinite linear 0.6s";
                     
-                    // Apagar las ondas automáticas cuando el audio termine de hablar
                     audio.onended = function() {{
                         o1.style.animation = "none";
                         o2.style.animation = "none";
