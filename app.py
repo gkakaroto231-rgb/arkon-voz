@@ -34,7 +34,7 @@ def pensar_como_arkon_directo(texto_marlon):
         if 5 <= hora < 12:
             return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
         else:
-            return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
+            return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriening encajar con el resto. Usted está para cosas mucho más grandes."
     elif "perro" in texto_marlon_lower:
         return f"Por favor, Señor {USER_NAME}, mida sus palabras. Yo soy Arkon, su asistente de inteligencia artificial con la templanza de los más fuertes. Mi propósito es guiarle en su proyecto comercial bajo valores firmes."
     elif "mercado" in texto_marlon_lower or "bolsa" in texto_marlon_lower or "acciones" in texto_marlon_lower:
@@ -60,7 +60,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Sistema de voz web nativo (Se ejecuta en los parlantes de cualquier PC o celular sin instalar nada)
+        # Sistema de voz web nativo sin herramientas externas
         js_speech = f"""
         <script>
         var msg = new SpeechSynthesisUtterance("{respuesta_texto}");
@@ -71,4 +71,3 @@ if audio_value:
         </script>
         """
         st.components.v1.html(js_speech, height=0)
-
