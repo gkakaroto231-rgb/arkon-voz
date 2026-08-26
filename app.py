@@ -1,9 +1,10 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import urllib.parse
+import requests
+import os
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA, MASCULINA Y CON REPRODUCTOR FIJO
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA Y CON AUDIO PROPIO DE SERVIDOR
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -18,7 +19,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (REPRODUCTOR DIGITAL MASCULINO)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (AUDIO INTERNO NATIVO)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
@@ -61,11 +62,21 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar enlace directo usando el servidor de Google Translate oficial (100% libre de bloqueos y gratis)
-        texto_codificado = urllib.parse.quote(respuesta_texto)
-        url_audio = f"https://google.com{texto_codificado}"
-        
-        # Pintar la barra de sonido fija en la pantalla para obligar al celular a reproducir
-        st.audio(url_audio, format="audio/mp3", autoplay=True)
-
-       
+        # Descargar el archivo físico directamente dentro de Render para burlar el bloqueo del celular
+        try:
+            url = "https://google.com"
+            params = {"ie": "UTF-8", "tl": "es-co", "client": "tw-ob", "q": respuesta_texto}
+            headers = {"User-Agent": "Mozilla/5.0"}
+            
+            response = requests.get(url, params=params, headers=headers)
+            if response.status_code == 200:
+                # Guardar el archivo mp3 real en la memoria de la página
+                with open("audio_arkon.mp3", "wb") as f:
+                    f.write(response.content)
+                
+                # Reproducir el archivo interno (100% libre de bloqueos)
+                st.audio("audio_arkon.mp3", format="audio/mp3", autoplay=True)
+            else:
+                st.error("Revisando canales de audio...")
+        except Exception as e:
+            st.error("Interferencia menor en el módulo.")
