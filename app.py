@@ -1,9 +1,9 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-import urllib.parse
+import requests
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA CON LLAVE DE AUDIO PRIVADA
+# CONFIGURACIÓN UNIVERSAL MASCULINA PREMIUM DE ALTA GAMA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -18,11 +18,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (REPRODUCTOR PRIVADO MASCULINO)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL: SU VOZ PERSONALIZADA</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Engine Premium")
+st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Voz Exclusiva)")
+
+# 🔑 SU LLAVE Y SU NUEVA VOZ PERSONALIZADA INYECTADAS
+ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
+VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
 
 USER_NAME = "Marlon"
 
@@ -61,10 +65,21 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar enlace de audio directo con una llave privada y estable (Voz masculina fluida)
-        texto_codificado = urllib.parse.quote(respuesta_texto)
-        url_audio = f"https://voicerss.org{texto_codificado}"
-        
-        # Pintar la barra de sonido fija y forzar la carga
-        st.audio(url_audio, format="audio/mp3", autoplay=True)
+        # Generar audio premium directamente en el servidor seguro para evitar bloqueos
+        url = f"https://elevenlabs.io{VOICE_ID}"
+        headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
+        data = {
+            "text": respuesta_texto,
+            "model_id": "eleven_multilingual_v2",
+            "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
+        }
+        try:
+            response = requests.post(url, json=data, headers=headers)
+            if response.status_code == 200:
+                st.audio(response.content, format="audio/mp3", autoplay=True)
+            else:
+                st.error("Sincronizando los canales de audio con ElevenLabs...")
+        except Exception as e:
+            st.error("Interferencia menor en el módulo premium.")
 
+      
