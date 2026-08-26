@@ -4,7 +4,7 @@ import yfinance as yf
 import requests
 import base64
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE BLINDADA CON SU VOZ DISEÑADA EN MEMORIA
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE REPARADA CON SU VOZ DE ELEVENLABS
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -15,17 +15,19 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
+    .btn-audio-custom { background-color: #66fcf1; color: #0b0c10; font-family: 'Courier New', monospace; font-weight: bold; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(102, 252, 241, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+    .btn-audio-custom:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; transform: scale(1.01); }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL: ELEVENLABS VOICE DESIGN</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL: ELEVENLABS CORREGIDO</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
 st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Su Voz de Varón)")
 
-# 🔑 SU LLAVE Y EL ID DE LA VOZ QUE USTED MISMO DISEÑÓ
+# 🔑 SU LLAVE ACTUAL Y EL ID DE LA VOZ QUE USTED MISMO DISEÑÓ
 ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
 VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
 
@@ -66,8 +68,8 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Llamar de forma directa y nativa al servidor premium con su ID de voz diseñado
-        url = f"https://elevenlabs.io{VOICE_ID}"
+        # URL CORREGIDA EXACTAMENTE COMO LO MANDÓ EL CONSEJO TÉCNICO
+        url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
             "text": respuesta_texto,
@@ -78,11 +80,17 @@ if audio_value:
         try:
             response = requests.post(url, json=data, headers=headers)
             if response.status_code == 200:
-                # El truco maestro: Convertir los bytes de audio a formato Base64 nativo para obligar al navegador a cantar
-                audio_bytes = response.content
-                st.audio(audio_bytes, format="audio/mp3", autoplay=True)
+                # Convertir a Base64 nativo en un botón físico para obligar al celular a cantar sin bloquearse
+                b64_audio = base64.b64encode(response.content).decode()
+                md_audio = f"data:audio/mp3;base64,{b64_audio}"
+                
+                html_reproductor_fijo = f"""
+                <audio id="audio_arkon_premium" src="{md_audio}"></audio>
+                <button class="btn-audio-custom" onclick="document.getElementById('audio_arkon_premium').play()">🔊 ESCUCHAR RESPUESTA EN VOZ PREMIUM</button>
+                """
+                st.components.v1.html(html_reproductor_fijo, height=90)
             else:
-                st.error("Sincronizando los canales de audio premium con su cuenta...")
+                st.error(f"Sincronizando canales de audio premium (Código: {response.status_code})")
+                st.code(response.text)
         except Exception as e:
             st.error("Interferencia menor en el módulo de audio.")
-
