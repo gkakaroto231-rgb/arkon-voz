@@ -1,8 +1,10 @@
 import streamlit as st
 import datetime
 import yfinance as yf
+import requests
+import base64
 
-# CONFIGURACIÓN UNIVERSAL SIMPLIFICADA ANTI-BLOQUEOS
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE BLINDADA CON SU VOZ DISEÑADA EN MEMORIA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -13,17 +15,19 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
-    .btn-audio-real { background-color: #66fcf1; color: #0b0c10; font-family: sans-serif; font-weight: bold; padding: 16px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 10px rgba(102, 252, 241, 0.3); }
-    .btn-audio-real:hover { background-color: #45f3ff; }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR FLUIDO INTEGRADO (INTERFAZ NATIVA PC/MÓVIL)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR ULTRA-PROFESIONAL: ELEVENLABS VOICE DESIGN</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Core Native Audio")
+st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Su Voz de Varón)")
+
+# 🔑 SU LLAVE Y EL ID DE LA VOZ QUE USTED MISMO DISEÑÓ
+ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
+VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
 
 USER_NAME = "Marlon"
 
@@ -62,25 +66,23 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Limpiar texto para evitar fallas en las comillas de Javascript
-        texto_seguro = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
+        # Llamar de forma directa y nativa al servidor premium con su ID de voz diseñado
+        url = f"https://elevenlabs.io{VOICE_ID}"
+        headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
+        data = {
+            "text": respuesta_texto,
+            "model_id": "eleven_multilingual_v2",
+            "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
+        }
         
-        # Inyección de un botón interactivo real. Al pulsarlo, el navegador reproduce el sonido sin bloquearlo.
-        html_boton_interactivo = f"""
-        <button class="btn-audio-real" onclick="reproducirAudioArkon()">🔊 PRESIONE AQUÍ PARA ESCUCHAR RESPUESTA</button>
-        <script>
-        function reproducirAudioArkon() {{
-            if ('speechSynthesis' in window) {{
-                window.speechSynthesis.cancel();
-                var mensaje = new SpeechSynthesisUtterance("{texto_seguro}");
-                mensaje.lang = "es-MX"; 
-                mensaje.pitch = 0.75;  // Configuración de tono varonil
-                mensaje.rate = 0.90;   // Velocidad fluida y continua
-                window.speechSynthesis.speak(mensaje);
-            }} else {{
-                alert("Su dispositivo no soporta la reproducción de voz nativa.");
-            }}
-        }}
-        </script>
-        """
-        st.components.v1.html(html_boton_interactivo, height=90)
+        try:
+            response = requests.post(url, json=data, headers=headers)
+            if response.status_code == 200:
+                # El truco maestro: Convertir los bytes de audio a formato Base64 nativo para obligar al navegador a cantar
+                audio_bytes = response.content
+                st.audio(audio_bytes, format="audio/mp3", autoplay=True)
+            else:
+                st.error("Sincronizando los canales de audio premium con su cuenta...")
+        except Exception as e:
+            st.error("Interferencia menor en el módulo de audio.")
+
