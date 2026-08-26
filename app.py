@@ -1,10 +1,8 @@
 import streamlit as st
 import datetime
 import yfinance as yf
-from gtts import gTTS
-import os
 
-# CONFIGURACIÓN DE PÁGINA FÁBRICA
+# CONFIGURACIÓN UNIVERSAL PARA PC Y CELULAR
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -19,11 +17,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">SISTEMA BASE RESTAURADO</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">SISTEMA BASE RESTAURADO HÍBRIDO (PC/CELULAR)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.info("🎙️ Voz Activa: Arkon Base (Estable)")
+st.sidebar.info("🎙️ Voz Activa: Arkon Universal Engine")
 
 USER_NAME = "Marlon"
 
@@ -62,10 +60,15 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        try:
-            tts = gTTS(text=respuesta_texto, lang='es', tld='co')
-            tts.save("respuesta_arkon.mp3")
-            if os.path.exists("respuesta_arkon.mp3"):
-                st.audio("respuesta_arkon.mp3", autoplay=True)
-        except:
-            st.error("Interferencia menor en el módulo de audio.")
+        # Sistema de voz web nativo (Se ejecuta en los parlantes de cualquier PC o celular sin instalar nada)
+        js_speech = f"""
+        <script>
+        var msg = new SpeechSynthesisUtterance("{respuesta_texto}");
+        msg.lang = "es-MX";
+        msg.pitch = 0.8;
+        msg.rate = 0.95;
+        window.speechSynthesis.speak(msg);
+        </script>
+        """
+        st.components.v1.html(js_speech, height=0)
+
