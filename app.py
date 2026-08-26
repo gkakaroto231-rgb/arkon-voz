@@ -27,7 +27,8 @@ st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Voz Real de Go
 
 # 🔑 SU LLAVE INYECTADA DE FORMA IMPECABLE
 ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
-VOICE_ID = "JBFqncBsd6RMKjVDRzzb" # ID de la voz madura/anime en español latino
+VOICE_ID = "pNInz6obpgmA5QC963vl"
+ # ID de la voz madura/anime en español latino
 
 USER_NAME = "Marlon"
 
