@@ -4,7 +4,7 @@ import yfinance as yf
 from gtts import gTTS
 import os
 
-# CONFIGURACIÓN DE PÁGINA FUTURISTA (Estilo Jarvis)
+# CONFIGURACIÓN DE PÁGINA FÁBRICA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -19,11 +19,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-RÁPIDO: EDICIÓN PREMIUM ELEGANTE</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">SISTEMA BASE RESTAURADO</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Google Voice Engine")
+st.sidebar.info("🎙️ Voz Activa: Arkon Base (Estable)")
 
 USER_NAME = "Marlon"
 
@@ -44,11 +44,11 @@ def pensar_como_arkon_directo(texto_marlon):
             ticker = yf.Ticker("^GSPC")
             datos = ticker.history(period="1d")
             precio_actual = round(datos['Close'].iloc[-1], 2)
-            return f"Analizando los mercados económicos, Señor {USER_NAME}. El índice principal S&P 500 se encuentra cotizando en {precio_actual} puntos. Si quiere ser de los más fuertes en el mercado, darlo todo no es suficiente; cuide su capital inicial con sabiduría."
+            return f"Analizando los mercados económicos, Señor {USER_NAME}. El S&P 500 cotiza en {precio_actual} puntos. Si quiere ser de los más fuertes en el mercado, darlo todo no es suficiente; cuide su capital inicial con sabiduría."
         except:
-            return f"Señor {USER_NAME}, tengo una ligera interferencia para conectarme a los tableros de la bolsa, pero mi recomendación financiera general de hoy es cuidar su presupuesto y evitar deudas de alto riesgo."
+            return f"Señor {USER_NAME}, hay una ligera interferencia en la red de la bolsa, pero mi consejo financiero de hoy es claro: no tome riesgos innecesarios, mantenga la cabeza fría y domine su estrategia."
     else:
-        return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
+        return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar sus estrategias comerciales, expandir su educación financiera o compartir una reflexión poderosa para su día."
 
 st.markdown("### 🎙️ HÁBLELE A ARKON")
 audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
@@ -62,11 +62,10 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar audio ultra-estable con Google Text-to-Speech
         try:
-            tts = gTTS(text=respuesta_texto, lang='es', tld='co') # Tono latino elegante
+            tts = gTTS(text=respuesta_texto, lang='es', tld='co')
             tts.save("respuesta_arkon.mp3")
             if os.path.exists("respuesta_arkon.mp3"):
                 st.audio("respuesta_arkon.mp3", autoplay=True)
-        except Exception as e:
-            st.error("Error al reproducir la voz.")
+        except:
+            st.error("Interferencia menor en el módulo de audio.")
