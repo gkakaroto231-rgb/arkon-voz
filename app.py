@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 import yfinance as yf
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA Y MASCULINA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -17,11 +17,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (ESTABLE)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR FLUIDO OPTIMIZADO (MASCULINO MULTIPLATAFORMA)</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Voz Activa: Arkon Fluid Engine")
+st.sidebar.success("🎙️ Voz Activa: Arkon Male Premium Engine")
 
 USER_NAME = "Marlon"
 
@@ -60,18 +60,16 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Ajuste milimétrico para pausar entre frases y que el celular lea perfecto
+        # Inyección de motor externo gratuito ResponsiveVoice (Voz de hombre en español de corrido)
         texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
         js_speech = f"""
+        <script src="https://responsivevoice.org"></script>
         <script>
-        if ('speechSynthesis' in window) {{
-            window.speechSynthesis.cancel();
-            var msg = new SpeechSynthesisUtterance("{texto_limpio}");
-            msg.lang = "es-MX";
-            msg.pitch = 0.7;
-            msg.rate = 0.85;  // Velocidad moderada para evitar que se corte
-            window.speechSynthesis.speak(msg);
-        }}
+        setTimeout(function() {{
+            if (typeof responsiveVoice !== 'undefined') {{
+                responsiveVoice.speak("{texto_limpio}", "Spanish Latin American Male", {{pitch: 0.85, rate: 0.9}});
+            }}
+        }}, 500);
         </script>
         """
         st.components.v1.html(js_speech, height=0)
