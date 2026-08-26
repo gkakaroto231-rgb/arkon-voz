@@ -1,8 +1,9 @@
 import streamlit as st
 import datetime
 import yfinance as yf
+import urllib.parse
 
-# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA CON BOTÓN FORZADO ANTI-BLOQUEOS
+# CONFIGURACIÓN UNIVERSAL CON VOZ DE VARÓN GARANTIZADA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -13,17 +14,15 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
-    .boton-voz { background-color: #66fcf1; color: #0b0c10; font-weight: bold; padding: 12px 24px; border: none; border-radius: 50px; cursor: pointer; font-size: 16px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px #66fcf1; }
-    .boton-voz:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (BOTÓN REPRODUCTOR CONTROLADO)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR MASCULINO SELECCIONADO: TONO PROFUNDO</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Core Audio Engine")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Audio Male Engine")
 
 USER_NAME = "Marlon"
 
@@ -34,7 +33,7 @@ def pensar_como_arkon_directo(texto_marlon):
     
     if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
         if 5 <= hora < 12:
-            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalce."
+            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
         else:
             return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
     elif "perro" in texto_marlon_lower:
@@ -62,24 +61,9 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Generar botón nativo HTML/JS que obliga al celular a hablar al presionarlo
-        texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
+        # Servidor privado VoiceRSS con el tono de hombre José (Evita bloqueos de mujer)
+        texto_codificado = urllib.parse.quote(respuesta_texto)
+        url_audio = f"https://voicerss.org{texto_codificado}"
         
-        html_boton = f"""
-        <button class="boton-voz" onclick="reproducirVozArkon()">🔊 ESCUCHAR RESPUESTA EN VOZ MASCULINA</button>
-        <script>
-        function reproducirVozArkon() {{
-            if ('speechSynthesis' in window) {{
-                window.speechSynthesis.cancel();
-                var msg = new SpeechSynthesisUtterance("{texto_limpio}");
-                msg.lang = "es-MX";  // Español latino neutro
-                msg.pitch = 0.75;    // Tono más bajo y varonil
-                msg.rate = 0.9;      // Velocidad fluida y continua
-                window.speechSynthesis.speak(msg);
-            }} else {{
-                alert("Este navegador no soporta el motor de voz integrado.");
-            }}
-        }}
-        </script>
-        """
-        st.components.v1.html(html_boton, height=80)
+        # Muestra la barra gris de audio fija y fuerza la carga del sonido de hombre
+        st.audio(url_audio, format="audio/mp3", autoplay=True)
