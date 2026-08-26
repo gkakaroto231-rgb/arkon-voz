@@ -1,8 +1,9 @@
 import streamlit as st
 import datetime
 import yfinance as yf
+import base64
 
-# CONFIGURACIÓN UNIVERSAL CON REPRODUCTOR SEGURO ANTI-BLOQUEOS
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE FLUIDA CON AUDIO SEGURO DE MEMORIA INTERNA
 st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
 st.markdown("""
@@ -13,17 +14,15 @@ st.markdown("""
     .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
     .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
     @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
-    .btn-audio-custom { background-color: #66fcf1; color: #0b0c10; font-family: 'Courier New', monospace; font-weight: bold; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(102, 252, 241, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
-    .btn-audio-custom:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; transform: scale(1.01); }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitulo">MOTOR ULTRA-FLUIDO (INTERFAZ DE AUDIO PREMIUM)</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR INTEGRADO: EDICIÓN VARÓN DE CORRIDO</div>', unsafe_allow_html=True)
 st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Conexión Activa: Arkon Universal Speech Engine")
+st.sidebar.success("🎙️ Conexión Activa: Arkon Core Native Audio")
 
 USER_NAME = "Marlon"
 
@@ -62,24 +61,38 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # Limpiar el texto para inyectarlo de forma segura en las funciones de audio
+        # Codificación limpia nativa en JavaScript sin librerías externas
         texto_limpio = respuesta_texto.replace('"', '\\"').replace('\n', ' ')
         
-        # Inyección forzada de ResponsiveVoice en un botón físico interactivo de alta fidelidad
-        html_reproductor_fijo = f"""
-        <script src="https://responsivevoice.org"></script>
-        <button class="btn-audio-custom" onclick="activarVozArkon()">🔊 ESCUCHAR RESPUESTA (VOZ MASCULINA)</button>
+        # Forzar por código interno que el navegador hable con voz masculina de inmediato
+        js_speech_nativo = f"""
+        <div style="text-align: center; margin-top: 10px;">
+            <p style="color: #45f3ff; font-family: monospace; font-size: 13px;">🔒 Audio Sincronizado de Forma Segura</p>
+        </div>
         <script>
-        function activarVozArkon() {{
-            if (typeof responsiveVoice !== 'undefined') {{
-                responsiveVoice.cancel();
-                // Forzamos la descarga del archivo de audio del hombre latino de corrido
-                responsiveVoice.speak("{texto_limpio}", "Spanish Latin American Male", {{pitch: 0.82, rate: 0.9}});
-            }} else {{
-                alert("El motor de audio se está sincronizando, por favor presione de nuevo en un segundo.");
+        function emitirVozMacho() {{
+            if ('speechSynthesis' in window) {{
+                window.speechSynthesis.cancel();
+                var utterance = new SpeechSynthesisUtterance("{texto_limpio}");
+                utterance.lang = "es-MX"; 
+                utterance.pitch = 0.70;  // Forzamos el tono bajo, grueso y masculino
+                utterance.rate = 0.88;   // Velocidad continua y fluida de corrido
+                
+                // Buscar activamente voces masculinas en el celular
+                var voces = window.speechSynthesis.getVoices();
+                for(var i = 0; i < voces.length; i++) {{
+                    if(voces[i].lang.includes('es') && (voces[i].name.toLowerCase().includes('male') || voces[i].name.toLowerCase().includes('google'))) {{
+                        utterance.voice = voces[i];
+                        break;
+                    }}
+                }}
+                window.speechSynthesis.speak(utterance);
             }}
         }}
+        // Ejecución inmediata
+        setTimeout(emitirVozMacho, 300);
+        // Doble ejecución por si el teléfono está bloqueado en el primer milisegundo
+        window.addEventListener('click', emitirVozMacho);
         </script>
         """
-        st.components.v1.html(html_reproductor_fijo, height=90)
-
+        st.components.v1.html(js_speech_nativo, height=60)
