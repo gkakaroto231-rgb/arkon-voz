@@ -2,6 +2,7 @@ import streamlit as st
 import datetime
 import yfinance as yf
 import requests
+import base64
 
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
@@ -90,9 +91,9 @@ audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:
 if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        # 🔑 SU NUEVA LLAVE PREMIUM CON CARACTERES RENOVADOS INYECTADA COMPLETAMENTE
-        ELEVEN_API_KEY = "sk_eab9fc1b65e9e6f3d021670b2ca26751f6691b553ddc981"
-        VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
+        # 🔑 INYECCIÓN DE SU LLAVE NUEVA COMPLETA Y VOZ MASCULINA DE FÁBRICA
+        ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
+        VOICE_ID = "pNInz6obpgmo5Cgct1BF" # ID oficial de la voz masculina 'Adam'
         USER_NAME = "Marlon"
         
         texto_marlon_lower = texto_dictado.lower()
@@ -115,7 +116,7 @@ if audio_value:
         try:
             response = requests.post(url, json=data, headers=headers)
             if response.status_code == 200:
-                # El reproductor directo de la primera victoria que sí funcionó de golpe
+                # El reproductor directo nativo que cargará el audio renovado de corrido
                 st.audio(response.content, format="audio/mp3", autoplay=True)
             else:
                 st.error(f"Error del servidor ElevenLabs (Código: {response.status_code})")
