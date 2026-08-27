@@ -2,7 +2,6 @@ import streamlit as st
 import datetime
 import yfinance as yf
 import requests
-import base64
 
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
@@ -15,7 +14,7 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (ESTILO HUD JARVIS DE LA FOTO)
+# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (ESTILO HUD JARVIS)
 st.markdown("""
     <style>
     .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
@@ -28,14 +27,7 @@ st.markdown("""
     .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; }
     .reactor-nucleo { width: 150px; height: 150px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-color: #000000; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 40px #ff2222; }
     .letra-centro { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 10px #ffffff; }
-    .ondas-energia { position: absolute; width: 150px; height: 150px; border-radius: 50%; border: 2px solid #ff0000; opacity: 0; }
     @keyframes rotarAnillo { 100% { transform: rotate(360deg); } }
-    @keyframes pulsarOndas {
-        0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 15px #ff0000; }
-        100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 45px #ff3333; }
-    }
-    .btn-audio-custom { background-color: #ff2222; color: #ffffff; font-family: 'Courier New', monospace; font-weight: bold; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(255, 34, 34, 0.4); text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; margin-top: 15px; }
-    .btn-audio-custom:hover { background-color: #ff0000; box-shadow: 0px 0px 25px #ff2222; }
     .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
@@ -70,8 +62,6 @@ with col_centro:
     st.markdown("""
         <div class="wrapper-reactor">
             <div class="anillo-exterior"></div>
-            <div id="o1" class="ondas-energia"></div>
-            <div id="o2" class="ondas-energia"></div>
             <div class="reactor-nucleo">
                 <div class="letra-centro">サ</div>
             </div>
@@ -100,7 +90,6 @@ audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:
 if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        # 🔑 SU LLAVE DEFINITIVA CON PERMISOS Y SU ID DE VOZ TOTALMENTE INYECTADOS
         ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
         VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
         USER_NAME = "Marlon"
@@ -114,6 +103,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
+        # 🚀 RECONEXIÓN ORIGINAL DE LA PRIMERA VICTORIA (BYTES DIRECTOS)
         url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
@@ -125,12 +115,9 @@ if audio_value:
         try:
             response = requests.post(url, json=data, headers=headers)
             if response.status_code == 200:
-                b64_audio = base64.b64encode(response.content).decode()
-                md_audio = f"data:audio/mp3;base64,{b64_audio}"
-                js_code = "function ejecutarHUD() { var audio = document.getElementById('audio_hud'); var onda1 = document.getElementById('o1'); var onda2 = document.getElementById('o2'); audio.play(); onda1.style.animation = 'pulsarOndas 1.2s infinite linear'; onda2.style.animation = 'pulsarOndas 1.2s infinite linear 0.6s'; audio.onended = function() { onda1.style.animation = 'none'; onda2.style.animation = 'none'; }; }"
-                html_hud_audio = "<audio id='audio_hud' src='" + md_audio + "'></audio><button class='btn-audio-custom' onclick='ejecutarHUD()'>🔊 DEVELAR RESPUESTA DEL SISTEMA</button><script>" + js_code + "</script>"
-                st.components.v1.html(html_hud_audio, height=90)
+                # El reproductor directo de la primera victoria que sí funcionó de golpe
+                st.audio(response.content, format="audio/mp3", autoplay=True)
             else:
-                st.error(f"Error de comunicación premium (Código: {response.status_code})")
+                st.error(f"Error del servidor ElevenLabs (Código: {response.status_code})")
         except Exception as e:
             st.error("Interferencia menor en el módulo de audio.")
