@@ -3,7 +3,7 @@ import datetime
 import yfinance as yf
 import requests
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (INSPIRADO EN BEHANCE HUD)
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (ESTILO BEHANCE HUD)
 st.set_page_config(page_title="ARKON BIO-HUD", page_icon="🛡️", layout="wide")
 
 # OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO HUD
@@ -14,12 +14,12 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# INGENIERÍA VISUAL DE ALTA FIDELIDAD: CENTRADO MILIMÉTRICO Y DISEÑO BIO-HUD MELO
+# INGENIERÍA VISUAL DE ALTA FIDELIDAD: ESFERA ESTILIZADA MÁS MENOS + ESCÁNER LÁSER
 st.markdown("""
     <style>
     .stApp { background-color: #030305; color: #ffffff; font-family: 'Courier New', monospace; }
     
-    /* Marcos y Paneles HUD con Esquinas Cortadas y Brillo de Neón Rojo */
+    /* Paneles HUD con Esquinas Cortadas y Brillo de Neón Rojo */
     .panel-hud { 
         background: linear-gradient(135deg, rgba(20, 2, 2, 0.7) 0%, rgba(5, 1, 1, 0.9) 100%); 
         border: 1px solid #ff1111; 
@@ -43,10 +43,9 @@ st.markdown("""
     .titulo-militar { color: #ff1111; font-size: 42px; font-weight: bold; text-shadow: 0px 0px 25px #ff0000; letter-spacing: 8px; }
     .sub-militar { color: #ff6666; font-size: 11px; letter-spacing: 4px; font-weight: bold; opacity: 0.8; }
     
-    /* ACOMODO TOTALMENTE MELO: REACTOR SCI-FI PERFECTAMENTE INTEGRADO AL ESCÁNER */
+    /* INTERFAZ DE ESCÁNER BIOMÉTRICO FACIAL EN MOVIMIENTO */
     .wrapper-holograma { display: flex; justify-content: center; align-items: center; height: 280px; position: relative; margin: 15px 0; }
     
-    /* Cuadro de Escaneo Facial Externo (Behance Face Detection) */
     .scanner-box {
         position: relative;
         width: 240px;
@@ -57,14 +56,12 @@ st.markdown("""
         align-items: center;
         overflow: hidden;
     }
-    /* Las 4 esquinas del escáner biometrico que parpadean */
     .esquina { position: absolute; width: 22px; height: 22px; border-color: #ff1111; border-style: solid; animation: parpadeoScanner 2s infinite alternate; }
     .es-top-izq { top: -2px; left: -2px; border-width: 4px 0 0 4px; }
     .es-top-der { top: -2px; right: -2px; border-width: 4px 4px 0 0; }
     .es-bot-izq { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; }
     .es-bot-der { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; }
     
-    /* Línea Láser que realiza el barrido continuo de arriba a abajo */
     .laser-line {
         position: absolute;
         width: 100%;
@@ -75,33 +72,28 @@ st.markdown("""
         z-index: 12;
     }
 
-    /* Anillos Holográficos Giratorios en capas concéntricas */
     .anillo-hud-1 { position: absolute; width: 200px; height: 200px; border: 1px dotted rgba(255, 17, 17, 0.4); border-radius: 50%; animation: rotarDerecha 45s linear infinite; z-index: 2; }
     .anillo-hud-2 { position: absolute; width: 170px; height: 170px; border: 2px dashed #ff2222; border-radius: 50%; animation: rotarIzquierda 25s linear infinite; opacity: 0.6; z-index: 3; }
     
-    /* 🚨 ESFERA MODIFICADA MÁS MENOS: Gradiente ultra suave con transparencia (opacidad baja) y brillo controlado */
+    /* ESFERA MODIFICADA MÁS MENOS (TRANSPARENTE Y SUAVE) */
     .reactor-core { width: 124px; height: 124px; border-radius: 50%; position: absolute; background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.85) 85%); border: 1.5px solid rgba(255, 17, 17, 0.7); display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 20px rgba(255, 17, 17, 0.4); z-index: 10; }
     .letra-hud { color: #ffffff; font-family: sans-serif; font-size: 55px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; }
     
-    /* ANIMACIONES EXCLUSIVAS DE ALTA VELOCIDAD */
     @keyframes rotarDerecha { 100% { transform: rotate(360deg); } }
     @keyframes rotarIzquierda { 100% { transform: rotate(-360deg); } }
     @keyframes parpadeoScanner { 0% { opacity: 0.3; } 100% { opacity: 1; filter: brightness(1.4); } }
     @keyframes barridoLaser { 0% { top: 0%; } 100% { top: 100%; } }
     
-    /* Inputs y Éxitos de la Interfaz Estilo Militar */
     .stTextInput>div>div>input { background-color: #080202; color: #ff6666; border: 1px solid #ff1111; font-family: monospace; }
     .stSuccess { background-color: #150202; color: #ff9999; border: 1px solid #ff1111; font-size: 13px; }
     </style>
 """, unsafe_allow_html=True)
 
-# CABECERA GENERAL DEL SISTEMA HUD
-st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON COMMAND</div><div class="sub-militar">BIOMETRIC INTERFACE // FACE DETECTION ACTIVE</div></div>', unsafe_allow_html=True)
+st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON COMMAND</div><div class="sub-militar">BIOMETRIC INTERFACE // SYSTEM ACTIVE</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
 st.sidebar.error("🎙️ Red de Audio: ElevenLabs Core Active")
 
-# DISTRIBUCIÓN CINEMATOGRÁFICA DEL HUD EN 3 COLUMNAS TÁCTICAS
 col_izq, col_centro, col_der = st.columns([1.2, 1.6, 1.2])
 
 with col_izq:
@@ -157,7 +149,6 @@ with col_der:
         </div>
     """, unsafe_allow_html=True)
 
-# AREA INTERACTIVA DE DICTADO HUD ABAJO DEL REACTOR
 st.markdown("### 🎙️ REGISTRO DE ENTRADA INTERACTIVO")
 audio_value = st.audio_input("Toque el micrófono para transmitir comando general a Arkon:")
 
@@ -165,6 +156,7 @@ if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada manual (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 TRANSMITIR COMANDO OPERATIVO"):
+        # 🔑 REEMPLACE ESTO CON LA NUEVA LLAVE QUE CREÓ EN ELEVENLABS
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
         VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
         USER_NAME = "Marlon"
@@ -178,6 +170,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
+        # URL oficial del endpoint de Text-to-Speech de ElevenLabs
         url = f"https://elevenlabs.io{VOICE_ID}"
         
         headers = {
@@ -187,3 +180,16 @@ if audio_value:
         
         data = {
             "text": respuesta_texto,
+            "model_id": "eleven_multilingual_v2",
+            "voice_settings": {
+                "stability": 0.5,
+                "similarity_boost": 0.75
+            }
+        }
+        
+        try:
+            response = requests.post(url, json=data, headers=headers, timeout=60)
+            if response.status_code == 200:
+                st.audio(response.content, format="audio/mpeg", autoplay=True)
+            else:
+                st.error(f"ElevenLabs devolvió el código de diagnóstico {response.status_code}")
