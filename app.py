@@ -3,7 +3,7 @@ import datetime
 import yfinance as yf
 import requests
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO SUPREMO - EDICIÓN ARKON COMMAND MILITAR
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO SUPREMO - REPLICACIÓN EXACTA DE LA FOTO
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
 
 # OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO S&P 500 TÁCTICO
@@ -14,7 +14,7 @@ try:
 except:
     precio_sp = "7,724.10"
 
-# INGENIERÍA VISUAL AVANZADA: REPLICACIÓN EXACTA DE LA INTERFAZ HUD CINEMATOGRÁFICA DE LA FOTO
+# INGENIERÍA VISUAL AVANZADA: DISEÑO COMPLETO MILITAR ROJO FUEGO
 st.markdown("""
     <style>
     /* Fondo Negro Absoluto y Fuente Monoespaciada Militar */
@@ -70,7 +70,7 @@ st.markdown("""
         box-shadow: 0px 0px 40px #ff0000, inset 0px 0px 20px rgba(255, 0, 0, 0.5); z-index: 10; 
     }
     
-    /* Animación reactiva cuando está en modo SPEAKING */
+    /* Animación reactiva cuando cambia a estado de habla */
     .plasma-core.activado {
         animation: pulsarHablando 0.4s ease-in-out infinite alternate;
         border-color: #ffffff;
@@ -113,15 +113,15 @@ st.markdown("""
 # CABECERA GENERAL DEL CENTRO DE MANDO
 st.markdown('<div class="header-supremo"><div class="titulo-supremo">ARKON COMMAND</div><div class="sub-supremo">BIOMETRIC INTERFACE // HYDRO-CORE 3D ACTIVE</div></div>', unsafe_allow_html=True)
 
-# CONTROL INTERACTIVO DE RECONOCIMIENTO SUGERIDO POR CHATGPT
+# ENTRADA DE DICTADO INTERACTIVA RECOMENDADA POR CHATGPT
 st.markdown("### 🎙️ REGISTRO TÁCTICO DE ENTRADA")
 audio_value = st.audio_input("Transmitir comando de voz a Arkon:")
 
-# Evaluación del estado del micrófono para activar el núcleo reactivo
+# 🚨 EL CONTROL DE RECONOCIMIENTO MAESTRO ANTES DE LAS COLUMNAS TÁCTICAS
 audio_activo = audio_value is not None
 clase_nucleo = "plasma-core activado" if audio_activo else "plasma-core"
 
-# DISTRIBUCIÓN COLUMNAS TÁCTICAS (CALCADO DE LA FOTO)
+# DISTRIBUCIÓN COLUMNAS TÁCTICAS (CALCADO EXACTO DE SU FOTO)
 col_izq, col_centro, col_der = st.columns([1.2, 1.6, 1.2])
 
 with col_izq:
@@ -156,7 +156,7 @@ with col_izq:
     """, unsafe_allow_html=True)
 
 with col_centro:
-    # RECONSTRUCCIÓN CON INTERFAZ CONCATENADA PURA (CERO COMILLAS TRIPLES SUELTAS)
+    # 🚨 RECONSTRUCCIÓN BLINDADA COMPLETA EN UN SOLO BLOQUE HTML (EVITA ERRORES DE LLAVES SUELTAS)
     texto_estado_holograma = "SPEAKING // PROCESSING" if audio_activo else "HABLANDO..."
     
     html_centro_melo = "<div class='wrapper-holograma'>"
