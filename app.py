@@ -3,173 +3,126 @@ import datetime
 import yfinance as yf
 import requests
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO SUPREMO - CLON EXACTO DE LA FOTO
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO ORIGINAL
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
 
-# OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO S&P 500 TÁCTICO
+# OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO S&P 500
 try:
     ticker_sp = yf.Ticker("^GSPC")
     datos_sp = ticker_sp.history(period="1d")
     precio_sp = round(datos_sp['Close'].iloc[-1], 2)
 except:
-    precio_sp = "7,724.10"
+    precio_sp = "5,278.40"
 
-# INGENIERÍA VISUAL AVANZADA: DISEÑO COMPLETO MILITAR ROJO FUEGO PLANO (CALCADO DE LA FOTO)
+# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (SU INTERFAZ ORIGINAL)
 st.markdown("""
     <style>
-    /* Fondo Negro Absoluto y Fuente Monoespaciada Militar */
-    .stApp { background-color: #000000; color: #ff3333; font-family: 'Courier New', monospace; padding: 10px; }
-    
-    /* Paneles Tácticos con Bordes Rojos Neón y Esquinas de Precisión */
-    .panel-militar {
-        background-color: rgba(6, 0, 0, 0.9);
-        border: 1px solid #ff0000;
-        border-radius: 4px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.2), inset 0px 0px 10px rgba(255, 0, 0, 0.1);
-        position: relative;
-    }
-    .panel-militar::before {
-        content: ""; position: absolute; top: 0; left: 0; width: 6px; height: 6px; border-top: 2px solid #ff3333; border-left: 2px solid #ff3333;
-    }
-    .panel-militar::after {
-        content: ""; position: absolute; bottom: 0; right: 0; width: 6px; height: 6px; border-bottom: 2px solid #ff3333; border-right: 2px solid #ff3333;
-    }
-    
-    /* Textos y Títulos del HUD */
-    .titulo-seccion { color: #ff4444; font-size: 13px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px dashed rgba(255, 0, 0, 0.3); padding-bottom: 4px; display: flex; align-items: center; }
-    .status-green { color: #00ff00; font-weight: bold; font-size: 11px; }
-    .status-red { color: #ff0000; font-weight: bold; font-size: 11px; }
-    .status-yellow { color: #ffaa00; font-weight: bold; font-size: 11px; }
-    
-    /* Cabecera Principal ARKON COMMAND */
-    .header-supremo { text-align: center; border-bottom: 2px solid #ff0000; padding-bottom: 10px; margin-bottom: 20px; box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.1); }
-    .titulo-supremo { color: #ff0000; font-size: 45px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 6px; margin: 0; }
-    .sub-supremo { color: #ff6666; font-size: 11px; letter-spacing: 4px; font-weight: bold; opacity: 0.9; margin-top: 5px; }
-    
-    /* NÚCLEO CENTRAL HOLOGRÁFICO: ESFERA DE PLASMA FIJA Y ANILLOS DE RADAR */
-    .wrapper-holograma { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 320px; position: relative; }
-    
-    .scanner-facial-box {
-        position: relative; width: 260px; height: 260px; border: 1px dashed rgba(255, 0, 0, 0.3); border-radius: 4px; display: flex; justify-content: center; align-items: center; overflow: hidden;
-    }
-    .laser-hud {
-        position: absolute; width: 100%; height: 2px; background: linear-gradient(to right, transparent, #ff0000, transparent); box-shadow: 0px 0px 12px #ff0000; animation: barridoLaser 3.5s ease-in-out infinite alternate; z-index: 12;
-    }
-    
-    /* Capas del Radar Giratorio */
-    .anillo-plasma-1 { position: absolute; width: 220px; height: 220px; border: 1px dotted rgba(255, 0, 0, 0.4); border-radius: 50%; animation: girarCW 30s linear infinite; }
-    .anillo-plasma-2 { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff0000; border-radius: 50%; animation: girarCCW 15s linear infinite; opacity: 0.6; }
-    
-    /* El núcleo esférico sólido de la foto */
-    .plasma-core { 
-        width: 140px; height: 140px; border-radius: 50%; position: absolute; 
-        background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, rgba(0,0,0,1) 85%); 
-        border: 2px solid #ff0000; display: flex; justify-content: center; align-items: center; 
-        box-shadow: 0px 0px 40px #ff0000, inset 0px 0px 20px rgba(255, 0, 0, 0.5); z-index: 10; 
-    }
-    
-    .letra-plasma { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; position: relative; z-index: 15; text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; }
-    
-    /* Animación del Ecualizador de Ondas de Sonido */
-    .wave-container { display: flex; justify-content: center; align-items: center; gap: 3px; height: 30px; margin-top: 10px; }
-    .wave-bar { width: 3px; height: 15px; background-color: #ff0000; animation: latidoAudio 0.6s ease-in-out infinite alternate; }
-    .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-    .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-    .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-    .wave-bar:nth-child(5) { animation-delay: 0.4s; }
-    
-    /* Barras de Carga del Sistema (CPU / Memoria) */
-    .progress-hud { background-color: rgba(255,0,0,0.1); border: 1px solid #ff0000; height: 12px; border-radius: 2px; margin-bottom: 8px; overflow: hidden; }
-    .bar-fill { background-color: #ff0000; height: 100%; box-shadow: 0px 0px 8px #ff0000; }
-    
-    /* ANIMACIONES CSS PLANAS */
-    @keyframes girarCW { 100% { transform: rotate(360deg); } }
-    @keyframes girarCCW { 100% { transform: rotate(-360deg); } }
-    @keyframes barridoLaser { 0% { top: 0%; } 100% { top: 100%; } }
-    @keyframes latidoAudio { 0% { height: 5px; } 100% { height: 28px; } }
-    
-    /* Campos de Entrada Modificados */
-    .stTextInput>div>div>input { background-color: #0a0000; color: #ff4444; border: 1px solid #ff0000; font-family: monospace; }
-    .stSuccess { background-color: #120000; color: #ff9999; border: 1px solid #ff0000; font-size: 13px; }
+    .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
+    .panel-tactico { background-color: rgba(15, 3, 3, 0.6); border: 1px solid #ff2222; border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.1); }
+    .titulo-panel { color: #ff6666; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px dashed #ff2222; padding-bottom: 4px; }
+    .header-arkon { text-align: center; margin-bottom: 20px; }
+    .titulo-principal { color: #ff2222; font-size: 38px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 5px; }
+    .sub-principal { color: #ff6666; font-size: 11px; letter-spacing: 3px; font-weight: bold; }
+    .wrapper-reactor { display: flex; justify-content: center; align-items: center; height: 220px; position: relative; margin: 20px 0; }
+    .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; }
+    .reactor-nucleo { width: 150px; height: 150px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-color: #000000; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 40px #ff2222; }
+    .letra-centro { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 10px #ffffff; }
+    @keyframes rotarAnillo { 100% { transform: rotate(360deg); } }
+    .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
+    .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
 """, unsafe_allow_html=True)
 
-# CABECERA GENERAL DEL CENTRO DE MANDO
-st.markdown('<div class="header-supremo"><div class="titulo-supremo">ARKON COMMAND</div><div class="sub-supremo">BIOMETRIC INTERFACE // RECTOR INTERFACE ACTIVE</div></div>', unsafe_allow_html=True)
+# CABECERA GENERAL DEL TABLERO
+st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
 
-# DISTRIBUCIÓN COLUMNAS TÁCTICAS (CALCADO EXACTO DE LA FOTO)
-col_izq, col_centro, col_der = st.columns([1.2, 1.6, 1.2])
+st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
+st.sidebar.error("🎙️ Motor de Voz Conectado: ElevenLabs Premium")
+
+# DISTRIBUCIÓN DEL TABLERO EN 3 COLUMNAS ORIGINALES (2 CUADROS POR LADO)
+col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
 
 with col_izq:
+    # 🔳 CUADRO IZQUIERDO 1
     st.markdown("""
-        <div class="panel-militar">
-            <div class="titulo-seccion">🕵️ RASTREO BIOMÉTRICO</div>
-            <p class="status-green">● DETECCIÓN FACIAL: ONLINE</p>
-            <p class="status-red">● NÚCLEO CORE: ESTABLE</p>
-            <p class="status-yellow">● ESCÁNER LÁSER: EN EJECUCIÓN</p>
+        <div class="panel-tactico">
+            <div class="titulo-panel">🛡️ ESTADO DEL SISTEMA</div>
+            <p style="color:#00ff00; font-size:12px; margin:4px 0;">● CONECTADO</p>
+            <p style="color:#ff3333; font-size:12px; margin:4px 0;">● NÚCLEO ESTABLE</p>
+            <p style="color:#ffaa00; font-size:12px; margin:4px 0;">● OPERATIVOS 100%</p>
         </div>
     """, unsafe_allow_html=True)
     
+    # 🔳 CUADRO IZQUIERDO 2
     st.markdown(f"""
-        <div class="panel-militar">
-            <div class="titulo-seccion">⏱️ RELOJ DE SECUENCIA</div>
-            <h3 style="color:#ff0000; font-size:32px; margin:5px 0; text-align:center; font-weight:bold; letter-spacing:2px; text-shadow: 0 0 10px #ff0000;">{datetime.datetime.now().strftime('%H:%M:%S')}</h3>
-            <p style="font-size:9px; color:#aa0000; text-align:center; text-transform:uppercase;">Eje Temporal del Búnker</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-        <div class="panel-militar">
-            <div class="titulo-seccion">📊 ESTADO DEL SISTEMA</div>
-            <p style="font-size:11px; margin:2px 0;">CPU USAGE [64%]</p>
-            <div class="progress-hud"><div class="bar-fill" style="width: 64%;"></div></div>
-            <p style="font-size:11px; margin:2px 0;">MEMORY [72%]</p>
-            <div class="progress-hud"><div class="bar-fill" style="width: 72%;"></div></div>
-            <p style="font-size:11px; margin:2px 0;">SECURITY [100%]</p>
-            <div class="progress-hud"><div class="bar-fill" style="width: 100%;"></div></div>
-            <p class="status-green" style="font-size:10px; margin-top:5px;">ALL SYSTEMS OPERATIONAL // AUTHORIZATION ALFA</p>
+        <div class="panel-tactico">
+            <div class="titulo-panel">🛡️ CRONOLOGÍA LOCAL</div>
+            <h3 style="color:#ff6666; font-size:20px; margin:5px 0; text-align:center;">{datetime.datetime.now().strftime('%H:%M:%S')}</h3>
+            <p style="font-size:10px; color:#888; text-align:center; text-transform:uppercase;">Eje Temporal Activo</p>
         </div>
     """, unsafe_allow_html=True)
 
 with col_centro:
-    # EL NÚCLEO ORIGINAL DE SU FOTO CON EL PARPADEO LÁSER PLANO DIRECTO
-    html_centro_melo = "<div class='wrapper-holograma'>"
-    html_centro_melo += "  <div class='scanner-facial-box'>"
-    html_centro_melo += "    <div class='laser-hud'></div>"
-    html_centro_melo += "    <div class='anillo-plasma-1'></div>"
-    html_centro_melo += "    <div class='anillo-plasma-2'></div>"
-    html_centro_melo += "    <div class='plasma-core'>"
-    html_centro_melo += "      <div class='letra-plasma'>サ</div>"
-    html_centro_melo += "    </div>"
-    html_centro_melo += "  </div>"
-    html_centro_melo += "  <p style='color:#ff3333; font-size:11px; letter-spacing:3px; margin-top:15px; font-weight:bold;'>HABLANDO...</p>"
-    html_centro_melo += "  <div class='wave-container'>"
-    html_centro_melo += "    <div class='wave-bar'></div><div class='wave-bar'></div><div class='wave-bar'></div><div class='wave-bar'></div><div class='wave-bar'></div>"
-    html_centro_melo += "  </div>"
-    html_centro_melo += "</div>"
-    
-    st.markdown(html_centro_melo, unsafe_allow_html=True)
+    st.markdown("""
+        <div class="wrapper-reactor">
+            <div class="anillo-exterior"></div>
+            <div class="reactor-nucleo">
+                <div class="letra-centro">サ</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 with col_der:
+    # 🔳 CUADRO DERECHO 1
     st.markdown("""
-        <div class="panel-militar">
-            <div class="titulo-seccion">🔊 MODULACIÓN DE TRANSMISIÓN</div>
-            <p class="status-red">CANAL: DIGITAL PREMIUM</p>
-            <p style="font-size:11px; margin:4px 0; color:#aa0000;">FRECUENCIA: 5280.11 HZ</p>
-            <p class="status-green">ESTADO: TRANSMISIÓN ÓPTIMA</p>
+        <div class="panel-tactico">
+            <div class="titulo-panel">🔊 TRANSMISIÓN</div>
+            <p style="color:#ff6666; font-size:11px; margin:0;">STATUS: LISTO</p>
+            <p style="color:#888; font-size:10px; margin:5px 0 0 0;">Canal de comunicación encriptado por ElevenLabs.</p>
         </div>
     """, unsafe_allow_html=True)
     
+    # 🔳 CUADRO DERECHO 2
     st.markdown(f"""
-        <div class="panel-militar">
-            <div class="titulo-seccion">📈 FLUJO ECONÓMICO REAL</div>
-            <p style="color:#ffaa00; font-size:11px; margin:0; font-weight:bold;">S&P 500 MARKET INDEX</p>
-            <h3 style="color:#ffffff; font-size:28px; margin:4px 0; font-weight:bold; letter-spacing:1px; text-shadow:0 0 10px rgba(255,255,255,0.2);">{precio_sp} PTS</h3>
-            <p class="status-green" style="font-size:11px;">VARIACIÓN: +0.77% ▲</p>
+        <div class="panel-tactico">
+            <div class="titulo-panel">🛡️ MERCADOS</div>
+            <p style="color:#ffaa00; font-size:11px; margin:0;">S&P 500 INDEX</p>
+            <h4 style="color:#ffffff; font-size:16px; margin:2px 0;">{precio_sp} PTS</h4>
         </div>
     """, unsafe_allow_html=True)
-    
-    st.markdown("""
-        <div class="panel-militar">
+
+# AREA INTERACTIVA DE DICTADO ORIGINAL
+st.markdown("### 🎙️ INTERFAZ DE DICTADO")
+audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:")
+
+if audio_value:
+    texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
+    if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
+        ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
+        VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
+        USER_NAME = "Marlon"
+        
+        texto_marlon_lower = texto_dictado.lower()
+        if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
+            respuesta_texto = f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
+        else:
+            respuesta_texto = f"Recibiendo transmisión, Señor {USER_NAME}. Estoy listo para evaluar las estrategias comerciales o la educación financiera que necesite hoy."
+        
+        st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
+        st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
+        
+        url = f"https://elevenlabs.io{VOICE_ID}"
+        headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
+        
+        # Diccionario plano consolidado de ChatGPT libre de errores de apertura/cierre de llaves
+        data = {"text": respuesta_texto, "model_id": "eleven_multilingual_v2", "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}}
+        
+        try:
+            response = requests.post(url, json=data, headers=headers, timeout=60)
+            if response.status_code == 200:
+                st.audio(response.content, format="audio/mp3", autoplay=True)
+            else:
+                st.error(f"ElevenLabs devolvió el código de diagnóstico {response.status_code}")
+                st.code(response.text)
+        except Exception as e:
+            st.error("Interferencia menor en el módulo de audio.")
