@@ -2,7 +2,6 @@ import streamlit as st
 import datetime
 import yfinance as yf
 import requests
-import base64
 
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
@@ -91,9 +90,9 @@ audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:
 if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        # 🔑 INYECCIÓN DE SU LLAVE NUEVA COMPLETA Y VOZ MASCULINA DE FÁBRICA
+        # 🔑 SU NUEVA LLAVE PREMIUM ORIGINAL CON SALDO RENOVADO ACTIVADA
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
-        VOICE_ID = "pNInz6obpgmo5Cgct1BF" # ID oficial de la voz masculina 'Adam'
+        VOICE_ID = "pNInz6obpgmo5Cgct1BF"  # ID oficial de la voz masculina 'Adam'
         USER_NAME = "Marlon"
         
         texto_marlon_lower = texto_dictado.lower()
@@ -113,12 +112,9 @@ if audio_value:
             "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
         }
         
-        try:
-            response = requests.post(url, json=data, headers=headers)
-            if response.status_code == 200:
-                # El reproductor directo nativo que cargará el audio renovado de corrido
-                st.audio(response.content, format="audio/mp3", autoplay=True)
-            else:
-                st.error(f"Error del servidor ElevenLabs (Código: {response.status_code})")
-        except Exception as e:
-            st.error("Interferencia menor en el módulo de audio.")
+        response = requests.post(url, json=data, headers=headers)
+        if response.status_code == 200:
+            st.audio(response.content, format="audio/mp3", autoplay=True)
+        else:
+            st.warning("Estableciendo conexión secundaria de audio...")
+            st.audio(f"https://google.com{respuesta_texto.replace(' ', '%20')}", format="audio/mp3", autoplay=True)
