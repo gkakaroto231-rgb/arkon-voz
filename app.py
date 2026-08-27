@@ -123,7 +123,6 @@ with col_izq:
     """, unsafe_allow_html=True)
 
 with col_centro:
-    # EL ENGRANAJE MAESTRO QUEDÓ PERFECTAMENTE CENTRALIZADO Y FLUIDO
     st.markdown("""
         <div class="wrapper-holograma">
             <div class="scanner-box">
@@ -166,7 +165,6 @@ if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada manual (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 TRANSMITIR COMANDO OPERATIVO"):
-        # 🔑 SU NUEVA LLAVE CON SALDO Y SU VOICE ID DE ADM TOTALMENTE INYECTADOS
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
         VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
         USER_NAME = "Marlon"
@@ -187,4 +185,7 @@ if audio_value:
             "Content-Type": "application/json"
         }
         
+        # 🚨 AQUÍ QUEDARON LAS LLAVES PERFECTAMENTE CERRADAS COMO LO EXIGE PYTHON
         data = {
+            "text": respuesta_texto,
+            "model_id": "eleven_multilingual_v2",
