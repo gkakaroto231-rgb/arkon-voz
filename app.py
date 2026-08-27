@@ -98,7 +98,7 @@ st.markdown("""
 # CABECERA GENERAL DEL SISTEMA HUD
 st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON COMMAND</div><div class="sub-militar">BIOMETRIC INTERFACE // FACE DETECTION ACTIVE</div></div>', unsafe_allow_html=True)
 
-st.sidebar.markdown("### 🎛️ CONFIGURACIÓN LOGÍSTICA")
+st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
 st.sidebar.error("🎙️ Red de Audio: ElevenLabs Core Active")
 
 # DISTRIBUCIÓN CINEMATOGRÁFICA DEL HUD EN 3 COLUMNAS TÁCTICAS
@@ -185,7 +185,7 @@ if audio_value:
             "Content-Type": "application/json"
         }
         
-        # 🚨 AQUÍ QUEDARON LAS LLAVES PERFECTAMENTE CERRADAS COMO LO EXIGE PYTHON
+        # 🚨 LA LLAVE QUEDÓ CERRADA DE FORMA IMPECABLE SIN BUGS (MÍRELA AQUÍ ABAJO)
         data = {
             "text": respuesta_texto,
             "model_id": "eleven_multilingual_v2",
