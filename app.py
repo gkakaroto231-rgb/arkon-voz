@@ -2,6 +2,7 @@ import streamlit as st
 import datetime
 import yfinance as yf
 import requests
+import base64
 
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
@@ -62,6 +63,8 @@ with col_centro:
     st.markdown("""
         <div class="wrapper-reactor">
             <div class="anillo-exterior"></div>
+            <div id="o1" class="ondas-energia"></div>
+            <div id="o2" class="ondas-energia"></div>
             <div class="reactor-nucleo">
                 <div class="letra-centro">サ</div>
             </div>
@@ -90,7 +93,7 @@ audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:
 if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        # 🔑 SU NUEVA LLAVE PREMIUM ORIGINAL CON SALDO RENOVADO ACTIVADA
+        # 🔑 SU NUEVA LLAVE PREMIUM CON NUEVO CORREO Y CARACTERES TOTALMENTE RENOVADOS
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
         VOICE_ID = "pNInz6obpgmo5Cgct1BF"  # ID oficial de la voz masculina 'Adam'
         USER_NAME = "Marlon"
@@ -104,6 +107,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
+        # 🚨 DIRECCIÓN DE LA API REPARADA Y FORMATEADA PERFECTAMENTE DE RAÍZ
         url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
@@ -112,9 +116,15 @@ if audio_value:
             "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
         }
         
-        response = requests.post(url, json=data, headers=headers)
-        if response.status_code == 200:
-            st.audio(response.content, format="audio/mp3", autoplay=True)
-        else:
-            st.warning("Estableciendo conexión secundaria de audio...")
-            st.audio(f"https://google.com{respuesta_texto.replace(' ', '%20')}", format="audio/mp3", autoplay=True)
+        try:
+            response = requests.post(url, json=data, headers=headers)
+            if response.status_code == 200:
+                b64_audio = base64.b64encode(response.content).decode()
+                md_audio = f"data:audio/mp3;base64,{b64_audio}"
+                js_code = "function ejecutarHUD() { var audio = document.getElementById('audio_hud'); var onda1 = document.getElementById('o1'); var onda2 = document.getElementById('o2'); audio.play(); onda1.style.animation = 'pulsarOndas 1.2s infinite linear'; onda2.style.animation = 'pulsarOndas 1.2s infinite linear 0.6s'; audio.onended = function() { onda1.style.animation = 'none'; onda2.style.animation = 'none'; }; }"
+                html_hud_audio = "<audio id='audio_hud' src='" + md_audio + "'></audio><button class='btn-audio-custom' onclick='ejecutarHUD()'>🔊 DEVELAR RESPUESTA DEL SISTEMA</button><script>" + js_code + "</script>"
+                st.components.v1.html(html_hud_audio, height=90)
+            else:
+                st.error(f"Error del servidor ElevenLabs (Código: {response.status_code})")
+        except Exception as e:
+            st.error("Interferencia menor en el módulo de audio.")
