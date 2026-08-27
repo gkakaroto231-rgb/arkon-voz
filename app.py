@@ -3,7 +3,7 @@ import datetime
 import yfinance as yf
 import requests
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (INSPIRADO EN BEHANCE HUD)
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (ESTILO BEHANCE HUD)
 st.set_page_config(page_title="ARKON BIO-HUD", page_icon="🛡️", layout="wide")
 
 # OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO HUD
@@ -185,6 +185,4 @@ if audio_value:
             "Content-Type": "application/json"
         }
         
-        # 🚨 FORMATO DE DICCIONARIO DIRECTO TOTALMENTE CERRADO SEGURO
-        data = {
-            "text": respuesta_texto,
+        # 🚨 LA ESTRUCTURA FLUIDA DE CHATGPT TOTALMENTE FORMATEADA DE UNA SOLA LÍNEA SIN RIESGOS DE CIERRE
