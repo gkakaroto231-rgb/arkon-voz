@@ -20,9 +20,6 @@ st.markdown("""
     /* Fondo Negro Absoluto y Fuente Monoespaciada Militar */
     .stApp { background-color: #000000; color: #ff3333; font-family: 'Courier New', monospace; padding: 10px; }
     
-    /* Contenedor Principal HUD */
-    .hud-grid { display: grid; grid-template-columns: 1.2fr 2fr 1.2fr; gap: 15px; width: 100%; margin-top: 10px; }
-    
     /* Paneles Tácticos con Bordes Rojos Neón y Esquinas de Precisión */
     .panel-militar {
         background-color: rgba(6, 0, 0, 0.85);
@@ -61,7 +58,7 @@ st.markdown("""
         position: absolute; width: 100%; height: 2px; background: linear-gradient(to right, transparent, #ff0000, transparent); box-shadow: 0px 0px 12px #ff0000; animation: barridoLaser 3.5s ease-in-out infinite alternate; z-index: 12;
     }
     
-    /* Capas del Reactor Giratorio */
+    /* Capas del Radar Giratorio */
     .anillo-plasma-1 { position: absolute; width: 220px; height: 220px; border: 1px dotted rgba(255, 0, 0, 0.4); border-radius: 50%; animation: girarCW 30s linear infinite; }
     .anillo-plasma-2 { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff0000; border-radius: 50%; animation: girarCCW 15s linear infinite; opacity: 0.6; }
     
@@ -71,6 +68,13 @@ st.markdown("""
         background: radial-gradient(circle, rgba(255,0,0,0.15) 0%, rgba(0,0,0,1) 85%); 
         border: 2px solid #ff0000; display: flex; justify-content: center; align-items: center; 
         box-shadow: 0px 0px 40px #ff0000, inset 0px 0px 20px rgba(255, 0, 0, 0.5); z-index: 10; 
+    }
+    
+    /* Animación reactiva cuando está en modo SPEAKING */
+    .plasma-core.activado {
+        animation: pulsarHablando 0.4s ease-in-out infinite alternate;
+        border-color: #ffffff;
+        box-shadow: 0px 0px 50px #ffffff, inset 0px 0px 25px rgba(255, 255, 255, 0.6);
     }
     
     /* Movimiento continuo de las olas internas del plasma */
@@ -98,6 +102,7 @@ st.markdown("""
     @keyframes girarCCW { 100% { transform: rotate(-360deg); } }
     @keyframes barridoLaser { 0% { top: 0%; } 100% { top: 100%; } }
     @keyframes latidoAudio { 0% { height: 5px; } 100% { height: 28px; } }
+    @keyframes pulsarHablando { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
     
     /* Campos de Entrada Modificados */
     .stTextInput>div>div>input { background-color: #0a0000; color: #ff4444; border: 1px solid #ff0000; font-family: monospace; }
@@ -108,7 +113,15 @@ st.markdown("""
 # CABECERA GENERAL DEL CENTRO DE MANDO
 st.markdown('<div class="header-supremo"><div class="titulo-supremo">ARKON COMMAND</div><div class="sub-supremo">BIOMETRIC INTERFACE // HYDRO-CORE 3D ACTIVE</div></div>', unsafe_allow_html=True)
 
-# DISTRIBUCIÓN COLUMNAS TÁCTICAS
+# CONTROL INTERACTIVO DE RECONOCIMIENTO SUGERIDO POR CHATGPT
+st.markdown("### 🎙️ REGISTRO TÁCTICO DE ENTRADA")
+audio_value = st.audio_input("Transmitir comando de voz a Arkon:")
+
+# Evaluación del estado del micrófono para activar el núcleo reactivo
+audio_activo = audio_value is not None
+clase_nucleo = "plasma-core activado" if audio_activo else "plasma-core"
+
+# DISTRIBUCIÓN COLUMNAS TÁCTICAS (CALCADO DE LA FOTO)
 col_izq, col_centro, col_der = st.columns([1.2, 1.6, 1.2])
 
 with col_izq:
@@ -143,35 +156,17 @@ with col_izq:
     """, unsafe_allow_html=True)
 
 with col_centro:
-    # EL NÚCLEO DE PLASMA LÍQUIDO ROJO DE LA FOTO CON EL PARPADEO LÁSER
-    st.markdown("""
-        <div class="wrapper-holograma">
-            <div class="scanner-facial-box">
-                <div class="laser-hud"></div>
-                <div class="anillo-plasma-1"></div>
-                <div class="anillo-plasma-2"></div>
-                <div class="plasma-core">
-                    <div class="letra-plasma">サ</div>
-                </div>
-            </div>
-            <p style="color:#ff3333; font-size:11px; letter-spacing:3px; margin-top:15px; font-weight:bold;">HABLANDO...</p>
-            <div class="wave-container">
-                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_der:
-    st.markdown("""
-        <div class="panel-militar">
-            <div class="titulo-seccion">🔊 MODULACIÓN DE TRANSMISIÓN</div>
-            <p class="status-red">CANAL: DIGITAL PREMIUM</p>
-            <p style="font-size:11px; margin:4px 0; color:#aa0000;">FRECUENCIA: 5280.11 HZ</p>
-            <p class="status-green">ESTADO: TRANSMISIÓN ÓPTIMA</p>
-        </div>
-    """, unsafe_allow_html=True)
+    # RECONSTRUCCIÓN CON INTERFAZ CONCATENADA PURA (CERO COMILLAS TRIPLES SUELTAS)
+    texto_estado_holograma = "SPEAKING // PROCESSING" if audio_activo else "HABLANDO..."
     
-    st.markdown(f"""
-        <div class="panel-militar">
-            <div class="titulo-seccion">📈 FLUJO ECONÓMICO REAL</div>
-            <p style="color:#ffaa00; font-size:11px; margin:0; font-weight:bold;">S&P 500 MARKET INDEX</p>
+    html_centro_melo = "<div class='wrapper-holograma'>"
+    html_centro_melo += "  <div class='scanner-facial-box'>"
+    html_centro_melo += "    <div class='laser-hud'></div>"
+    html_centro_melo += "    <div class='anillo-plasma-1'></div>"
+    html_centro_melo += "    <div class='anillo-plasma-2'></div>"
+    html_centro_melo += "    <div class='" + clase_nucleo + "'>"
+    html_centro_melo += "      <div class='letra-plasma'>サ</div>"
+    html_centro_melo += "    </div>"
+    html_centro_melo += "  </div>"
+    html_centro_melo += "  <p style='color:#ff3333; font-size:11px; letter-spacing:3px; margin-top:15px; font-weight:bold;'>" + texto_estado_holograma + "</p>"
+    html_centro_melo += "  <div class='wave-container'>"
