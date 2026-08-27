@@ -132,10 +132,8 @@ with col_der:
     """, unsafe_allow_html=True)
 
 # ============================================================
-# ÁREA INTERACTIVA DE RECONOCIMIENTO SUGERIDA POR CHATGPT
+# INTERFAZ INTERACTIVA SIN TÍTULO DE TEXTO (SOLO EL MICRÓFONO PREMIUM)
 # ============================================================
-st.markdown("### 🎙️ REGISTRO DE ENTRADA INTERACTIVO")
-
 st.markdown("""
     <div class="microfono-bunker-box">
         <div class="circulo-mic"><span class="icono-mic">🎙️</span></div>
@@ -143,7 +141,7 @@ st.markdown("""
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
             <div class="contenedor-ondas">
                 <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
+                <div class="barra-onda"></div><div class="barra-onda de-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
             </div>
         </div>
     </div>
