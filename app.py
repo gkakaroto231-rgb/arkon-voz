@@ -112,14 +112,85 @@ st.markdown("""
 
     .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
+    
+    /* 🚨 CORTINA DE CARGA SÓNICA CON ANIMACIÓN MILITAR DE ENTRADA */
+    .pantalla-carga-arkon {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: #000000; z-index: 99999;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        animation: desaparecerCortina 0.5s ease-in forwards; animation-delay: 2.5s;
+        pointer-events: none;
+    }
+    .texto-carga-neon {
+        color: #ff0000; font-size: 16px; font-weight: bold; letter-spacing: 4px;
+        text-shadow: 0px 0px 15px #ff0000; margin-bottom: 15px;
+        animation: parpadeoAlerta 0.8s infinite alternate;
+    }
+    .barra-carga-militar {
+        width: 250px; height: 4px; background-color: rgba(255,0,0,0.1);
+        border: 1px solid #ff0000; border-radius: 2px; overflow: hidden;
+    }
+    .progreso-carga {
+        width: 0%; height: 100%; background-color: #ff0000;
+        box-shadow: 0px 0px 10px #ff0000;
+        animation: llenarBarra 2.3s ease-out forwards;
+    }
+    @keyframes desaparecerCortina { 100% { opacity: 0; visibility: hidden; } }
+    @keyframes parpadeoAlerta { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+    @keyframes llenarBarra { 100% { width: 100%; } }
     </style>
 """, unsafe_allow_html=True)
+
+# 🚨 INYECTOR SÓNICO DE BIENVENIDA AUTOMÁTICO (SONIDO SCI-FI DE CARGA EN VIVO)
+st.components.v1.html("""
+    <div class="pantalla-carga-arkon">
+        <div class="texto-carga-neon">INICIALIZANDO NÚCLEO ARKON</div>
+        <div class="barra-carga-militar">
+            <div class="progreso-carga"></div>
+        </div>
+    </div>
+    <script>
+    // Sintetizador de audio web nativo para generar el sonido mecánico de encendido IA
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            try {
+                var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Pulso sónico 1: Frecuencia baja de poder
+                var osc1 = audioCtx.createOscillator();
+                var gain1 = audioCtx.createGain();
+                osc1.type = 'sawtooth';
+                osc1.frequency.setValueAtTime(80, audioCtx.currentTime);
+                osc1.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + 1.5);
+                gain1.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.8);
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                
+                // Pulso sónico 2: Pitido digital de confirmación
+                var osc2 = audioCtx.createOscillator();
+                var gain2 = audioCtx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(880, audioCtx.currentTime + 1.2);
+                gain2.gain.setValueAtTime(0.0, audioCtx.currentTime);
+                gain2.gain.setValueAtTime(0.1, audioCtx.currentTime + 1.2);
+                gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.6);
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                
+                osc1.start(); osc1.stop(audioCtx.currentTime + 1.8);
+                osc2.start(audioCtx.currentTime + 1.2); osc2.stop(audioCtx.currentTime + 1.6);
+            } catch(e) { console.log("Interferencia de audio mitigada"); }
+        }, 300);
+    });
+    </script>
+""", height=0, width=0)
 
 # CABECERA GENERAL DEL TABLERO
 st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Registrador: Bitácora de Enlace Lista")
+st.sidebar.success("🎙 => Registrador: Bitácora de Enlace Lista")
 
 # DISTRIBUCIÓN DEL TABLERO CON SUS 2 CUADROS ORIGINALES POR LADO
 col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
@@ -137,81 +208,3 @@ with col_izq:
     st.markdown(f"""
         <div class="panel-tactico">
             <div class="titulo-panel">🛡️ CRONOLOGÍA LOCAL</div>
-            <h3 style="color:#ff6666; font-size:20px; margin:5px 0; text-align:center;">{datetime.datetime.now().strftime('%H:%M:%S')}</h3>
-            <p style="font-size:10px; color:#888; text-align:center; text-transform:uppercase;">Eje Temporal Activo</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_centro:
-    st.markdown("""
-        <div class="wrapper-reactor">
-            <div class="anillo-exterior"></div>
-            <div class="reactor-nucleo">
-                <div class="letra-centro">サ</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col_der:
-    st.markdown("""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🔊 TRANSMISIÓN</div>
-            <p style="color:#ff6666; font-size:11px; margin:0;">STATUS: LISTO</p>
-            <p style="color:#888; font-size:10px; margin:5px 0 0 0;">Canal de comunicación táctica local habilitado.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown(f"""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🛡️ MERCADOS</div>
-            <p style="color:#ffaa00; font-size:11px; margin:0;">S&P 500 INDEX</p>
-            <h4 style="color:#ffffff; font-size:16px; margin:2px 0;">{precio_sp} PTS</h4>
-        </div>
-    """, unsafe_allow_html=True)
-
-# INTERFAZ INTERACTIVA DEL MICRÓFONO PREMIUM REPLICADO
-st.markdown("""
-    <div class="microfono-bunker-box">
-        <div class="circulo-mic"><span class="icono-mic">🎙️</span></div>
-        <div class="info-mic">
-            <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
-            <div class="contenedor-ondas">
-                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-            </div>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
-
-# Capturador oculto de audio para procesar el dictado por voz
-audio_value = st.audio_input("Registro oculto:")
-
-# Crear la división táctica en la parte inferior para alojar el chat manual y el historial melo
-col_chat_izq, col_chat_der = st.columns([1.5, 2.5])
-
-entrada_texto_marlon = ""
-procesar_entrada = False
-
-with col_chat_izq:
-    st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
-    entrada_texto_marlon = st.text_input("💻 INYECTAR COMANDO MANUAL (ESCRIBIR):", key="input_manual_marlon")
-    if st.button("🚀 ENVIAR REGISTRO"):
-        if entrada_texto_marlon.strip() != "":
-            procesar_entrada = True
-            texto_final_entrada = entrada_texto_marlon
-
-# Evaluar si la señal vino por el micrófono de fábrica
-if audio_value and not procesar_entrada:
-    procesar_entrada = True
-    texto_final_entrada = "Arkon, buenos días" 
-
-# PROCESAMIENTO GENERAL DE LA INTELIGENCIA TÁCTICA
-if procesar_entrada:
-    USER_NAME = "Marlon"
-    texto_marlon_lower = texto_final_entrada.lower()
-    
-    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-        respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo bajo sus órdenes."
-    else:
-        respuesta_texto = f"Transmisión recibida, Señor {USER_NAME}. El núcleo ARKON está preparado para evaluar la estrategia financiera."
-    
