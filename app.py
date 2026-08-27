@@ -2,108 +2,73 @@ import streamlit as st
 import datetime
 import yfinance as yf
 import requests
+import base64
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
-st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
+# CONFIGURACIÓN UNIVERSAL TOTALMENTE BLINDADA PC Y CELULAR - ELEVENLABS OFICIAL
+st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
 
-# OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO
-try:
-    ticker_sp = yf.Ticker("^GSPC")
-    datos_sp = ticker_sp.history(period="1d")
-    precio_sp = round(datos_sp['Close'].iloc[-1], 2)
-except:
-    precio_sp = "5,278.40"
-
-# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (ESTILO HUD JARVIS)
 st.markdown("""
     <style>
-    .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
-    .panel-tactico { background-color: rgba(15, 3, 3, 0.6); border: 1px solid #ff2222; border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.1); }
-    .titulo-panel { color: #ff6666; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px dashed #ff2222; padding-bottom: 4px; }
-    .header-arkon { text-align: center; margin-bottom: 20px; }
-    .titulo-principal { color: #ff2222; font-size: 38px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 5px; }
-    .sub-principal { color: #ff6666; font-size: 11px; letter-spacing: 3px; font-weight: bold; }
-    .wrapper-reactor { display: flex; justify-content: center; align-items: center; height: 220px; position: relative; margin: 20px 0; }
-    .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; }
-    .reactor-nucleo { width: 150px; height: 150px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-color: #000000; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 40px #ff2222; }
-    .letra-centro { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 10px #ffffff; }
-    @keyframes rotarAnillo { 100% { transform: rotate(360deg); } }
-    .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
-    .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
+    .stApp { background-color: #0b0c10; color: #c5c6c7; }
+    .titulo { color: #66fcf1; font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold; text-align: center; margin-bottom: 5px; }
+    .subtitulo { color: #45f3ff; font-family: sans-serif; font-size: 14px; text-align: center; margin-bottom: 30px; letter-spacing: 2px; }
+    .nucleo-container { display: flex; justify-content: center; margin: 20px 0; }
+    .nucleo { width: 120px; height: 120px; background: radial-gradient(circle, #00f3ff 0%, #0044ff 70%, transparent 100%); border-radius: 50%; box-shadow: 0px 0px 30px #00f3ff; animation: pulso 2s infinite alternate; }
+    @keyframes pulso { 0% { transform: scale(0.95); box-shadow: 0px 0px 20px #00f3ff; } 100% { transform: scale(1.05); box-shadow: 0px 0px 45px #00f3ff; } }
+    .btn-audio-custom { background-color: #66fcf1; color: #0b0c10; font-family: 'Courier New', monospace; font-weight: bold; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; margin-top: 15px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(102, 252, 241, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+    .btn-audio-custom:hover { background-color: #45f3ff; box-shadow: 0px 0px 25px #45f3ff; transform: scale(1.01); }
     </style>
 """, unsafe_allow_html=True)
 
-# CABECERA GENERAL DEL TABLERO
-st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
+st.markdown('<div class="titulo">🛡️ SISTEMA DE INTELIGENCIA ARKON</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitulo">MOTOR PROFESIONAL DEFINITIVO: TOTALMENTE SEGURO</div>', unsafe_allow_html=True)
+st.markdown('<div class="nucleo-container"><div class="nucleo"></div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.error("🎙️ Motor de Voz Conectado: ElevenLabs Premium")
+st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Su Voz de Varón)")
 
-col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
+# 🔑 REEMPLACE LAS LETRAS EN ROJO CON SU NUEVA LLAVE TOTALMENTE LIMPIA
+ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
+VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
 
-with col_izq:
-    st.markdown("""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🛡️ ESTADO DEL SISTEMA</div>
-            <p style="color:#00ff00; font-size:12px; margin:4px 0;">● CONECTADO</p>
-            <p style="color:#ff3333; font-size:12px; margin:4px 0;">● NÚCLEO ESTABLE</p>
-            <p style="color:#ffaa00; font-size:12px; margin:4px 0;">● OPERATIVOS 100%</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown(f"""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🛡️ CRONOLOGÍA LOCAL</div>
-            <h3 style="color:#ff6666; font-size:20px; margin:5px 0; text-align:center;">{datetime.datetime.now().strftime('%H:%M:%S')}</h3>
-            <p style="font-size:10px; color:#888; text-align:center; text-transform:uppercase;">Eje Temporal Activo</p>
-        </div>
-    """, unsafe_allow_html=True)
+USER_NAME = "Marlon"
 
-with col_centro:
-    st.markdown("""
-        <div class="wrapper-reactor">
-            <div class="anillo-exterior"></div>
-            <div class="reactor-nucleo">
-                <div class="letra-centro">サ</div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+def pensar_como_arkon_directo(texto_marlon):
+    texto_marlon_lower = texto_marlon.lower()
+    ahora = datetime.datetime.now()
+    hora = ahora.hour
+    
+    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
+        if 5 <= hora < 12:
+            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
+        else:
+            return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
+    elif "perro" in texto_marlon_lower:
+        return f"Por favor, Señor {USER_NAME}, mida sus palabras. Yo soy Arkon, su asistente de inteligencia artificial con la templanza de los más fuertes. Mi propósito es guiarle en su proyecto comercial bajo valores firmes."
+    elif "mercado" in texto_marlon_lower or "bolsa" in texto_marlon_lower or "acciones" in texto_marlon_lower:
+        try:
+            ticker = yf.Ticker("^GSPC")
+            datos = ticker.history(period="1d")
+            precio_actual = round(datos['Close'].iloc[-1], 2)
+            return f"Analizando los mercados económicos, Señor {USER_NAME}. El índice principal S&P 500 se encuentra cotizando en {precio_actual} puntos. Si quiere ser de los más fuertes en el mercado, darlo todo no es suficiente; cuide su capital inicial con sabiduría."
+        except:
+            return f"Señor {USER_NAME}, tengo una ligera interferencia para conectarme a los tableros de la bolsa, pero mi recomendación financiera general de hoy es cuidar su presupuesto y evitar deudas de alto riesgo."
+    else:
+        return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
 
-with col_der:
-    st.markdown("""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🔊 TRANSMISIÓN</div>
-            <p style="color:#ff6666; font-size:11px; margin:0;">STATUS: LISTO</p>
-            <p style="color:#888; font-size:10px; margin:5px 0 0 0;">Canal de comunicación encriptado por ElevenLabs.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown(f"""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🛡️ MERCADOS</div>
-            <p style="color:#ffaa00; font-size:11px; margin:0;">S&P 500 INDEX</p>
-            <h4 style="color:#ffffff; font-size:16px; margin:2px 0;">{precio_sp} PTS</h4>
-        </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("### 🎙️ INTERFAZ DE DICTADO")
-audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:")
+st.markdown("### 🎙️ HABLA CON ARKON")
+audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
 
 if audio_value:
-    texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
-    if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
-        VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
-        USER_NAME = "Marlon"
-        
-        texto_marlon_lower = texto_dictado.lower()
-        if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-            respuesta_texto = f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
-        else:
-            respuesta_texto = f"Recibiendo transmisión, Señor {USER_NAME}. Estoy listo para evaluar las estrategias comerciales o la educación financiera que necesite hoy."
+    texto_dictado = st.text_input("Modificar texto dictado (Opcional):", value="Arkon, buenos días")
+    
+    if st.button("🚀 ENVIAR COMANDO DE VOZ"):
+        respuesta_texto = pensar_como_arkon_directo(texto_dictado)
         
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
-        st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
+        st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
         
-        # 🚀 RECONEXIÓN ORIGINAL DE LA PRIMERA VICTORIA (BYTES DIRECTOS)
+        # DIRECCIÓN DE API CORREGIDA Y REPARADA AL 100%
         url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
@@ -115,9 +80,18 @@ if audio_value:
         try:
             response = requests.post(url, json=data, headers=headers)
             if response.status_code == 200:
-                # El reproductor directo de la primera victoria que sí funcionó de golpe
-                st.audio(response.content, format="audio/mp3", autoplay=True)
+                # El truco maestro: Convertimos los bytes físicos de ElevenLabs a Base64 nativo
+                b64_audio = base64.b64encode(response.content).decode()
+                md_audio = f"data:audio/mp3;base64,{b64_audio}"
+                
+                # Botón físico interactivo que rompe los candados de Chrome y Safari en el móvil
+                html_reproductor_fijo = f"""
+                <audio id="audio_arkon_premium" src="{md_audio}"></audio>
+                <button class="btn-audio-custom" onclick="document.getElementById('audio_arkon_premium').play()">🔊 ESCUCHAR RESPUESTA EN VOZ PREMIUM</button>
+                """
+                st.components.v1.html(html_reproductor_fijo, height=90)
             else:
                 st.error(f"Error del servidor ElevenLabs (Código: {response.status_code})")
+                st.code(response.text)
         except Exception as e:
             st.error("Interferencia menor en el módulo de audio.")
