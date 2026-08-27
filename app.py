@@ -15,7 +15,7 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (ESTILO HUD JARVIS DE LA FOTO)
+# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (ESTILO HUD JARVIS)
 st.markdown("""
     <style>
     .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
@@ -131,7 +131,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
-        # 🚨 DIRECCIÓN DE API REPARADA AL 100% PARA QUE SÍ COJA LA VOZ
+        # URL de API reparada oficialmente para que coja la voz premium
         url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
@@ -146,7 +146,7 @@ if audio_value:
                 b64_audio = base64.b64encode(response.content).decode()
                 md_audio = f"data:audio/mp3;base64,{b64_audio}"
                 
-                # REPRODUCCIÓN EN CADENAS SIMPLES PLANAS CONCATENADAS (SÍ SUENA SEGURO)
+                # REPRODUCCIÓN EN CADENAS SIMPLES PLANAS CONCATENADAS (EVITA CUALQUIER BUG)
                 js_code = "function ejecutarHUD() { var audio = document.getElementById('audio_hud'); var onda1 = document.getElementById('o1'); var onda2 = document.getElementById('o2'); audio.play(); onda1.style.animation = 'pulsarOndas 1.2s infinite linear'; onda2.style.animation = 'pulsarOndas 1.2s infinite linear 0.6s'; audio.onended = function() { onda1.style.animation = 'none'; onda2.style.animation = 'none'; }; }"
                 html_hud_audio = "<audio id='audio_hud' src='" + md_audio + "'></audio><button class='btn-audio-custom' onclick='ejecutarHUD()'>🔊 DEVELAR RESPUESTA DEL SISTEMA</button><script>" + js_code + "</script>"
                 
