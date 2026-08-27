@@ -2,7 +2,6 @@ import streamlit as st
 import datetime
 import yfinance as yf
 import requests
-import base64
 
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
@@ -91,8 +90,8 @@ audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:
 if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        # 🔑 DATOS NUEVOS Y LÍNEA 98 BLINDADA CON SUS DOS COMILLAS CORRECTAS
-        ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
+        # 🔑 BORRE ESTO Y PEGUE AQUÍ SU NUEVA LLAVE TOTALMENTE PRIVADA Y LIMPIA
+        ELEVEN_API_KEY = "TU_NUEVA_API_KEY"
         VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
         USER_NAME = "Marlon"
         
@@ -105,20 +104,30 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
-        url = f"https://elevenlabs.io{VOICE_ID}"
-
-        headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
+        # 🚨 LA CORRECCIÓN MAESTRA DE LA URL RECOMENDADA POR CHATGPT
+        url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"
+        
+        headers = {
+            "xi-api-key": ELEVEN_API_KEY,
+            "Content-Type": "application/json"
+        }
+        
         data = {
             "text": respuesta_texto,
             "model_id": "eleven_multilingual_v2",
-            "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
+            "voice_settings": {
+                "stability": 0.5,
+                "similarity_boost": 0.75
+            }
         }
         
         try:
-            response = requests.post(url, json=data, headers=headers)
+            response = requests.post(url, json=data, headers=headers, timeout=60)
             if response.status_code == 200:
-                st.audio(response.content, format="audio/mp3", autoplay=True)
+                st.audio(response.content, format="audio/mpeg", autoplay=True)
             else:
-                st.error(f"Error del servidor ElevenLabs (Código: {response.status_code})")
-        except Exception as e:
-            st.error("Interferencia menor en el módulo de audio.")
+                # 🚨 CÓDIGO DE DIAGNÓSTICO EN CASO DE RECHAZO DEL SERVIDOR
+                st.error(f"ElevenLabs devolvió el código {response.status_code}")
+                st.code(response.text)
+        except requests.RequestException as e:
+            st.error(f"Error de conexión: {e}")
