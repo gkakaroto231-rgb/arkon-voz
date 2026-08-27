@@ -3,7 +3,7 @@ import datetime
 import yfinance as yf
 import requests
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (ESTILO BEHANCE HUD)
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (EDICIÓN AGUA 3D)
 st.set_page_config(page_title="ARKON BIO-HUD", page_icon="🛡️", layout="wide")
 
 # OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO HUD
@@ -14,7 +14,7 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# INGENIERÍA VISUAL DE ALTA FIDELIDAD: CENTRADO MILIMÉTRICO Y DISEÑO BIO-HUD MELO
+# INGENIERÍA VISUAL AVANZADA: ESCÁNER BIOMÉTRICO + RECTOR DE AGUA LÍQUIDA EN 3D
 st.markdown("""
     <style>
     .stApp { background-color: #030305; color: #ffffff; font-family: 'Courier New', monospace; }
@@ -46,7 +46,7 @@ st.markdown("""
     /* ACOMODO TOTALMENTE MELO: REACTOR SCI-FI PERFECTAMENTE INTEGRADO AL ESCÁNER */
     .wrapper-holograma { display: flex; justify-content: center; align-items: center; height: 280px; position: relative; margin: 15px 0; }
     
-    /* Cuadro de Escaneo Facial Externo (Behance Face Detection) */
+    /* Cuadro de Escaneo Facial Externo */
     .scanner-box {
         position: relative;
         width: 240px;
@@ -57,7 +57,7 @@ st.markdown("""
         align-items: center;
         overflow: hidden;
     }
-    /* Las 4 esquinas del escáner biometrico que parpadean */
+    /* Las 4 esquinas del escáner biométrico que parpadean */
     .esquina { position: absolute; width: 22px; height: 22px; border-color: #ff1111; border-style: solid; animation: parpadeoScanner 2s infinite alternate; }
     .es-top-izq { top: -2px; left: -2px; border-width: 4px 0 0 4px; }
     .es-top-der { top: -2px; right: -2px; border-width: 4px 4px 0 0; }
@@ -75,19 +75,71 @@ st.markdown("""
         z-index: 12;
     }
 
-    /* Anillos Holográficos Giratorios en capas concéntricas */
+    /* Anillos Holográficos Giratorios */
     .anillo-hud-1 { position: absolute; width: 200px; height: 200px; border: 1px dotted rgba(255, 17, 17, 0.4); border-radius: 50%; animation: rotarDerecha 45s linear infinite; z-index: 2; }
     .anillo-hud-2 { position: absolute; width: 170px; height: 170px; border: 2px dashed #ff2222; border-radius: 50%; animation: rotarIzquierda 25s linear infinite; opacity: 0.6; z-index: 3; }
     
-    /* ESFERA MODIFICADA MÁS MENOS (TRANSPARENTE Y SUAVE) */
-    .reactor-core { width: 124px; height: 124px; border-radius: 50%; position: absolute; background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.85) 85%); border: 1.5px solid rgba(255, 17, 17, 0.7); display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 20px rgba(255, 17, 17, 0.4); z-index: 10; }
-    .letra-hud { color: #ffffff; font-family: sans-serif; font-size: 55px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; }
+    /* 🌊 INGENIERÍA 3D: REACTOR ESFÉRICO LÍQUIDO SIMULANDO OLAS DE AGUA EN MOVIMIENTO CONTINUO */
+    .reactor-core { 
+        width: 124px; 
+        height: 124px; 
+        border-radius: 50%; 
+        position: absolute; 
+        border: 2px solid #ff1111; 
+        overflow: hidden; 
+        background: transparent; 
+        box-shadow: 0px 0px 30px rgba(255, 17, 17, 0.6), inset 0px 0px 20px rgba(255, 0, 0, 0.4); 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        z-index: 10;
+        transform: translateZ(0);
+    }
     
-    /* ANIMACIONES EXCLUSIVAS DE ALTA VELOCIDAD */
+    /* Efecto de fluido de agua en 3D usando doble capa hidrodinámica */
+    .reactor-core::before, .reactor-core::after {
+        content: "";
+        position: absolute;
+        width: 230px;
+        height: 230px;
+        background-color: rgba(255, 17, 17, 0.45);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        border-radius: 38%;
+        animation: olasLiquidas3D 5s linear infinite;
+        pointer-events: none;
+        z-index: 4;
+    }
+    /* Segunda ola cruzada para simular líquido tridimensional real */
+    .reactor-core::after {
+        background-color: rgba(255, 50, 50, 0.25);
+        border-radius: 35%;
+        animation: olasLiquidas3D 7s linear infinite;
+        top: 47%;
+    }
+    
+    /* Letra Japonesa サ Flotando fijamente por encima del agua con brillo cuántico */
+    .letra-hud { 
+        color: #ffffff; 
+        font-family: sans-serif; 
+        font-size: 55px; 
+        font-weight: bold; 
+        position: relative;
+        z-index: 15; 
+        transform: translateY(-4px); 
+        text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; 
+    }
+    
+    /* ANIMACIONES EXCLUSIVAS */
     @keyframes rotarDerecha { 100% { transform: rotate(360deg); } }
     @keyframes rotarIzquierda { 100% { transform: rotate(-360deg); } }
     @keyframes parpadeoScanner { 0% { opacity: 0.3; } 100% { opacity: 1; filter: brightness(1.4); } }
     @keyframes barridoLaser { 0% { top: 0%; } 100% { top: 100%; } }
+    @keyframes olasLiquidas3D {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
     
     /* Inputs y Éxitos de la Interfaz Estilo Militar */
     .stTextInput>div>div>input { background-color: #080202; color: #ff6666; border: 1px solid #ff1111; font-family: monospace; }
@@ -96,7 +148,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # CABECERA GENERAL DEL SISTEMA HUD
-st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON COMMAND</div><div class="sub-militar">BIOMETRIC INTERFACE // FACE DETECTION ACTIVE</div></div>', unsafe_allow_html=True)
+st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON COMMAND</div><div class="sub-militar">BIOMETRIC INTERFACE // HYDRO-CORE 3D ACTIVE</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
 st.sidebar.error("🎙️ Red de Audio: ElevenLabs Core Active")
@@ -109,7 +161,7 @@ with col_izq:
         <div class="panel-hud">
             <div class="titulo-hud">📡 RASTREO BIOMÉTRICO</div>
             <p style="color:#00ff00; font-size:12px; margin:4px 0; font-weight:bold;">● DETECCIÓN FACIAL: ONLINE</p>
-            <p style="color:#ff1111; font-size:12px; margin:4px 0;">● ENFOQUE DE RASTREO: ESTABLE</p>
+            <p style="color:#ff1111; font-size:12px; margin:4px 0;">● NÚCLEO LÍQUIDO 3D: ESTABLE</p>
             <p style="color:#ffaa00; font-size:12px; margin:4px 0;">● ESCÁNER LÁSER: EN EJECUCIÓN</p>
         </div>
     """, unsafe_allow_html=True)
@@ -166,23 +218,3 @@ if audio_value:
     
     if st.button("🚀 TRANSMITIR COMANDO OPERATIVO"):
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
-        VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
-        USER_NAME = "Marlon"
-        
-        texto_marlon_lower = texto_dictado.lower()
-        if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-            respuesta_texto = f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalece."
-        else:
-            respuesta_texto = f"Recibiendo transmisión, Señor {USER_NAME}. Estoy listo para evaluar las estrategias comerciales o la educación financiera que necesite hoy."
-        
-        st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
-        st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
-        
-        url = f"https://elevenlabs.io{VOICE_ID}"
-        
-        headers = {
-            "xi-api-key": ELEVEN_API_KEY,
-            "Content-Type": "application/json"
-        }
-        
-        # 🚨 LA ESTRUCTURA FLUIDA DE CHATGPT TOTALMENTE FORMATEADA DE UNA SOLA LÍNEA SIN RIESGOS DE CIERRE
