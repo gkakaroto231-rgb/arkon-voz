@@ -21,7 +21,7 @@ st.markdown("""
     .stApp { background-color: #000000; color: #ff3333; font-family: 'Courier New', monospace; padding: 10px; }
     
     /* Contenedor Principal HUD */
-    .hud-grid { display: grid; grid-template-columns: 1.2s 2s 1.2s; gap: 15px; width: 100%; margin-top: 10px; }
+    .hud-grid { display: grid; grid-template-columns: 1.2fr 2fr 1.2fr; gap: 15px; width: 100%; margin-top: 10px; }
     
     /* Paneles Tácticos con Bordes Rojos Neón y Esquinas de Precisión */
     .panel-militar {
