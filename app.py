@@ -28,8 +28,9 @@ st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
 st.sidebar.success("🎙️ Conexión Activa: ElevenLabs Premium (Su Voz de Varón)")
 
 # 🔑 REEMPLACE LAS LETRAS EN ROJO CON SU NUEVA LLAVE TOTALMENTE LIMPIA
-ELEVEN_API_KEY = "sk_74f7b61fcad24ebb646476e4469a4c1555069602ae605c93" 
 VOICE_ID = "sVKnZo8dSXhqnJxx8vnx" 
+ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
+
 
 USER_NAME = "Marlon"
 
