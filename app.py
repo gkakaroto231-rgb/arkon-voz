@@ -90,7 +90,8 @@ audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:
 if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, buenos días")
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
-        ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
+        # 🔑 SU NUEVA LLAVE PREMIUM CON CARACTERES RENOVADOS INYECTADA COMPLETAMENTE
+        ELEVEN_API_KEY = "sk_eab9fc1b65e9e6f3d021670b2ca26751f6691b553ddc981"
         VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
         USER_NAME = "Marlon"
         
@@ -103,7 +104,6 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
-        # 🚀 RECONEXIÓN ORIGINAL DE LA PRIMERA VICTORIA (BYTES DIRECTOS)
         url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
