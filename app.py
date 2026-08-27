@@ -95,7 +95,9 @@ if audio_value:
     if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
         # 🔑 SU NUEVA LLAVE PREMIUM CON NUEVO CORREO Y CARACTERES TOTALMENTE RENOVADOS
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
-        VOICE_ID = "pNInz6obpgmo5Cgct1BF"  # ID oficial de la voz masculina 'Adam'
+        VOICE_ID = aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
+
+  # ID oficial de la voz masculina 'Adam'
         USER_NAME = "Marlon"
         
         texto_marlon_lower = texto_dictado.lower()
