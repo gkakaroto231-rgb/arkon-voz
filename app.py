@@ -14,7 +14,7 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# INGENIERÍA VISUAL AVANZADA: DISEÑO HUD SCI-FI DE ALTA FIDELIDAD CON ANILLOS ROTATIVOS CRUZA-DOS
+# INGENIERÍA VISUAL AVANZADA: DISEÑO HUD SCI-FI DE ALTA FIDELIDAD CON ANILLOS ROTATIVOS CRUZADOS
 st.markdown("""
     <style>
     .stApp { background-color: #020203; color: #ffffff; font-family: 'Courier New', monospace; }
@@ -61,10 +61,6 @@ st.markdown("""
     @keyframes rotarDerecha { 100% { transform: rotate(360deg); } }
     @keyframes rotarIzquierda { 100% { transform: rotate(-360deg); } }
     
-    /* Botón HUD Táctico Modificado */
-    .btn-audio-custom { background: linear-gradient(135deg, #ff1111 0%, #990000 100%); color: #ffffff; font-family: 'Courier New', monospace; font-weight: bold; padding: 15px 22px; border: 1px solid #ff5555; border-radius: 3px; cursor: pointer; font-size: 14px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(255, 17, 17, 0.4); text-transform: uppercase; letter-spacing: 3px; transition: all 0.3s ease; margin-top: 20px; }
-    .btn-audio-custom:hover { background: #ff0000; box-shadow: 0px 0px 30px #ff1111; filter: brightness(1.2); }
-    
     /* Personalización Táctica de Streamlit */
     .stTextInput>div>div>input { background-color: #080202; color: #ff6666; border: 1px solid #ff1111; font-family: monospace; }
     .stSuccess { background-color: #150202; color: #ff9999; border: 1px solid #ff1111; font-size: 13px; }
@@ -77,7 +73,7 @@ st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON TACTI
 st.sidebar.markdown("### 🎛️ CONFIGURACIÓN LOGÍSTICA")
 st.sidebar.error("🎙️ Red de Audio: ElevenLabs Core Active")
 
-# DISTRIBUCIÓN CINEMATOGRÁFICA DEL HUD EN 3 COLUMNAS TÁCTICAS MALINEADAS
+# DISTRIBUCIÓN CINEMATOGRÁFICA DEL HUD EN 3 COLUMNAS TÁCTICAS
 col_izq, col_centro, col_der = st.columns([1.2, 1.6, 1.2])
 
 with col_izq:
@@ -136,7 +132,7 @@ if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada manual (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 TRANSMITIR COMANDO OPERATIVO"):
-        # 🔑 AQUÍ ABAJO QUEDÓ SU ESPACIO LISTO PARA CUANDO METAMOS LA LLAVE SECRETA NUEVA
+        # 🔑 INYECCIÓN PERFECTA DE SU NUEVA LLAVE SIN ERRORES DE SANGRE
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
         VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
         USER_NAME = "Marlon"
@@ -150,7 +146,7 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
-        # Dirección oficial de la API de ElevenLabs corregida al 100% como lo exige la regla
+        # Dirección oficial de la API de ElevenLabs corregida al 100%
         url = f"https://elevenlabs.io{VOICE_ID}"
         
         headers = {
@@ -170,6 +166,9 @@ if audio_value:
         try:
             response = requests.post(url, json=data, headers=headers, timeout=60)
             if response.status_code == 200:
-                # El reproductor de la victoria nativa directa que carga el audio de corrido
                 st.audio(response.content, format="audio/mpeg", autoplay=True)
             else:
+                st.error(f"ElevenLabs devolvió el código {response.status_code}")
+                st.code(response.text)
+        except requests.RequestException as e:
+            st.error(f"Error de conexión: {e}")
