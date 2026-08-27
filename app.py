@@ -5,6 +5,10 @@ import yfinance as yf
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO ORIGINAL
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
 
+# Inicializar la memoria del chat en el servidor para que no se borre la conversación
+if "historial_arkon" not in st.session_state:
+    st.session_state.historial_arkon = []
+
 # OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO S&P 500
 try:
     ticker_sp = yf.Ticker("^GSPC")
@@ -72,6 +76,40 @@ st.markdown("""
     .barra-onda:nth-child(4n) { animation-delay: 0.3s; }
     
     @keyframes latirOnda { 0% { height: 4px; } 100% { height: 18px; } }
+    
+    /* DISEÑO EXCLUSIVO DEL HISTORIAL DE TRANSMISIONES COMPACTO Y EXTRA FINO */
+    .chat-box-hud {
+        background-color: rgba(10, 2, 2, 0.85);
+        border: 1px solid #ff1111;
+        border-radius: 4px;
+        padding: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 11px;
+        margin-top: 10px;
+        box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.15);
+    }
+    .msg-marlon { color: #38bdf8; margin: 3px 0; font-weight: bold; }
+    .msg-arkon { color: #ff3333; margin: 3px 0 8px 0; line-height: 1.3; }
+    
+    /* Botón Táctico Pequeño */
+    .stButton>button {
+        background-color: #1a0303 !important;
+        color: #ff6666 !important;
+        border: 1px solid #ff2222 !important;
+        font-family: monospace !important;
+        font-size: 11px !important;
+        font-weight: bold !important;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .stButton>button:hover {
+        background-color: #ff2222 !important;
+        color: #ffffff !important;
+        box-shadow: 0px 0px 10px #ff2222;
+    }
+
     .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
@@ -81,7 +119,7 @@ st.markdown("""
 st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Red de Entrada: Micrófono Sincronizado")
+st.sidebar.success("🎙️ Registrador: Bitácora de Enlace Lista")
 
 # DISTRIBUCIÓN DEL TABLERO CON SUS 2 CUADROS ORIGINALES POR LADO
 col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
@@ -131,9 +169,7 @@ with col_der:
         </div>
     """, unsafe_allow_html=True)
 
-# ============================================================
-# INTERFAZ INTERACTIVA SIN TÍTULO DE TEXTO (SOLO EL MICRÓFONO PREMIUM)
-# ============================================================
+# INTERFAZ INTERACTIVA DEL MICRÓFONO PREMIUM REPLICADO
 st.markdown("""
     <div class="microfono-bunker-box">
         <div class="circulo-mic"><span class="icono-mic">🎙️</span></div>
@@ -141,36 +177,40 @@ st.markdown("""
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
             <div class="contenedor-ondas">
                 <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-                <div class="barra-onda"></div><div class="barra-onda de-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
+                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
             </div>
         </div>
     </div>
 """, unsafe_allow_html=True)
 
-# Capturador oculto de audio para procesar el dictado
+# Capturador oculto de audio para procesar el dictado por voz
 audio_value = st.audio_input("Registro oculto:")
 
-if audio_value:
-    st.success("🟢 SEÑAL DE AUDIO RECIBIDA")
-    texto_dictado = st.text_input("Registro de entrada:", value="Arkon, buenos días")
+# Crear la división táctica en la parte inferior para alojar el chat manual y el historial melo
+col_chat_izq, col_chat_der = st.columns([1.5, 2.5])
+
+entrada_texto_marlon = ""
+procesar_entrada = False
+
+with col_chat_izq:
+    # 🔳 EL CUADRITO PEQUEÑO Y BONITO PARA ESCRIBIR COMANDOS MANUALES
+    st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
+    entrada_texto_marlon = st.text_input("💻 INYECTAR COMANDO MANUAL (ESCRIBIR):", key="input_manual_marlon")
+    if st.button("🚀 ENVIAR REGISTRO"):
+        if entrada_texto_marlon.strip() != "":
+            procesar_entrada = True
+            texto_final_entrada = entrada_texto_marlon
+
+# Evaluar si la señal vino por el micrófono de fábrica
+if audio_value and not procesar_entrada:
+    procesar_entrada = True
+    texto_final_entrada = "Arkon, buenos días" # Simulación del dictado por voz por defecto
+
+# PROCESAMIENTO GENERAL DE LA INTELIGENCIA TÁCTICA
+if procesar_entrada:
+    USER_NAME = "Marlon"
+    texto_marlon_lower = texto_final_entrada.lower()
     
-    if st.button("🚀 PROCESAR TRANSMISIÓN"):
-        USER_NAME = "Marlon"
-        texto_marlon_lower = texto_dictado.lower()
-        
-        if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-            respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo."
-        else:
-            respuesta_texto = f"Transmisión recibida, Señor {USER_NAME}. El núcleo ARKON está preparado para procesar su solicitud."
-            
-        st.write(f"🗣️ **Entrada:** {texto_dictado}")
-        st.success(f"🤖 **ARKON EN LÍNEA:** {respuesta_texto}")
-        
-        st.markdown("""
-            <div class="panel-tactico">
-                <div class="titulo-panel">🧠 ESTADO DEL NÚCLEO</div>
-                <p style="color:#00ff00; margin: 4px 0;">● TRANSMISIÓN RECIBIDA</p>
-                <p style="color:#ff4444; margin: 4px 0;">● PROCESAMIENTO COMPLETADO</p>
-                <p style="color:#ffaa00; margin: 4px 0;">● NÚCLEO HOLOGRÁFICO: ACTIVO</p>
-            </div>
-        """, unsafe_allow_html=True)
+    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
+        respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo bajo sus órdenes."
+    else:
