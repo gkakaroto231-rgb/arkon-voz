@@ -110,3 +110,4 @@ if audio_value:
                 st.error(f"Error de comunicación premium (Código: {response.status_code})")
         except Exception as e:
             st.error("Interferencia menor en el módulo de audio.")
+
