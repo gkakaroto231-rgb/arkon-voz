@@ -193,7 +193,6 @@ entrada_texto_marlon = ""
 procesar_entrada = False
 
 with col_chat_izq:
-    # 🔳 EL CUADRITO PEQUEÑO Y BONITO PARA ESCRIBIR COMANDOS MANUALES
     st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
     entrada_texto_marlon = st.text_input("💻 INYECTAR COMANDO MANUAL (ESCRIBIR):", key="input_manual_marlon")
     if st.button("🚀 ENVIAR REGISTRO"):
@@ -204,7 +203,7 @@ with col_chat_izq:
 # Evaluar si la señal vino por el micrófono de fábrica
 if audio_value and not procesar_entrada:
     procesar_entrada = True
-    texto_final_entrada = "Arkon, buenos días" # Simulación del dictado por voz por defecto
+    texto_final_entrada = "Arkon, buenos días" 
 
 # PROCESAMIENTO GENERAL DE LA INTELIGENCIA TÁCTICA
 if procesar_entrada:
@@ -214,3 +213,5 @@ if procesar_entrada:
     if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
         respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo bajo sus órdenes."
     else:
+        respuesta_texto = f"Transmisión recibida, Señor {USER_NAME}. El núcleo ARKON está preparado para evaluar la estrategia financiera."
+    
