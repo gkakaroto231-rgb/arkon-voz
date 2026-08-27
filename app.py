@@ -79,8 +79,8 @@ st.markdown("""
     .anillo-hud-1 { position: absolute; width: 200px; height: 200px; border: 1px dotted rgba(255, 17, 17, 0.4); border-radius: 50%; animation: rotarDerecha 45s linear infinite; z-index: 2; }
     .anillo-hud-2 { position: absolute; width: 170px; height: 170px; border: 2px dashed #ff2222; border-radius: 50%; animation: rotarIzquierda 25s linear infinite; opacity: 0.6; z-index: 3; }
     
-    /* Núcleo Central Táctico con su Logotipo Japonés サ */
-    .reactor-core { width: 124px; height: 124px; border-radius: 50%; position: absolute; background: radial-gradient(circle, rgba(20,0,0,0.4) 0%, rgba(0,0,0,1) 85%); border: 2px solid #ff1111; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 35px #ff1111; z-index: 10; }
+    /* 🚨 ESFERA MODIFICADA MÁS MENOS: Gradiente ultra suave con transparencia (opacidad baja) y brillo controlado */
+    .reactor-core { width: 124px; height: 124px; border-radius: 50%; position: absolute; background: radial-gradient(circle, rgba(255, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.85) 85%); border: 1.5px solid rgba(255, 17, 17, 0.7); display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 20px rgba(255, 17, 17, 0.4); z-index: 10; }
     .letra-hud { color: #ffffff; font-family: sans-serif; font-size: 55px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; }
     
     /* ANIMACIONES EXCLUSIVAS DE ALTA VELOCIDAD */
@@ -185,7 +185,5 @@ if audio_value:
             "Content-Type": "application/json"
         }
         
-        # 🚨 LA LLAVE QUEDÓ CERRADA DE FORMA IMPECABLE SIN BUGS (MÍRELA AQUÍ ABAJO)
         data = {
             "text": respuesta_texto,
-            "model_id": "eleven_multilingual_v2",
