@@ -185,7 +185,6 @@ if audio_value:
             "Content-Type": "application/json"
         }
         
+        # 🚨 FORMATO DE DICCIONARIO DIRECTO TOTALMENTE CERRADO SEGURO
         data = {
             "text": respuesta_texto,
-            "model_id": "eleven_multilingual_v2",
-            "voice_settings": {
