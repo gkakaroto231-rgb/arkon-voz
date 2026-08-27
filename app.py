@@ -106,6 +106,7 @@ if audio_value:
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
         url = f"https://elevenlabs.io{VOICE_ID}"
+
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
             "text": respuesta_texto,
