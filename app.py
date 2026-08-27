@@ -4,114 +4,146 @@ import yfinance as yf
 import requests
 import base64
 
-# CONFIGURACIÓN DE PÁGINA FUTURISTA MINIMALISTA
-st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO
+st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
 
-# INTERFAZ PURA SIN TEXTO: LOGO JAPONÉS EN NÚCLEO ROJO FUEGO
-st.set_page_config(page_title="ARKON CONTROL", page_icon="🛡️", layout="centered")
+# OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO
+try:
+    ticker_sp = yf.Ticker("^GSPC")
+    datos_sp = ticker_sp.history(period="1d")
+    precio_sp = round(datos_sp['Close'].iloc[-1], 2)
+except:
+    precio_sp = "5,278.40"
 
+# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (ESTILO HUD JARVIS)
 st.markdown("""
     <style>
-    .stApp { background-color: #030303; color: #ffffff; }
+    .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
     
-    /* Contenedor del núcleo reactivo centrado */
-    .nucleo-wrapper { display: flex; justify-content: center; align-items: center; margin: 40px 0; height: 180px; position: relative; }
+    /* Contenedores de los Paneles Tácticos */
+    .panel-tactico { background-color: rgba(15, 3, 3, 0.6); border: 1px solid #ff2222; border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.1); }
+    .titulo-panel { color: #ff6666; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px dashed #ff2222; padding-bottom: 4px; }
     
-    /* El núcleo de energía rojo fuego táctico */
-    .nucleo-central { width: 140px; height: 140px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 35px #ff2222; }
+    /* Cabecera Principal */
+    .header-arkon { text-align: center; margin-bottom: 20px; }
+    .titulo-principal { color: #ff2222; font-size: 38px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 5px; }
+    .sub-principal { color: #ff6666; font-size: 11px; letter-spacing: 3px; font-weight: bold; }
     
-    /* Letra japonesa サ centrada en color blanco puro */
-    .letra-japonesa { color: #ffffff; font-family: sans-serif; font-size: 55px; font-weight: bold; line-height: 1; text-align: center; display: flex; align-items: center; justify-content: center; transform: translateY(-4px); }
+    /* Reactor Central con la letra japonesa サ */
+    .wrapper-reactor { display: flex; justify-content: center; align-items: center; height: 220px; position: relative; margin: 20px 0; }
+    .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; }
+    .reactor-nucleo { width: 150px; height: 150px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 40px #ff2222; }
+    .letra-centro { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 10px #ffffff; }
     
-    /* Animación de ondas expansivas en movimiento estilo TikTok */
-    .ondas-energia { position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 2px solid #ff0000; opacity: 0; }
+    /* Ondas de choque en movimiento al hablar */
+    .ondas-energia { position: absolute; width: 150px; height: 150px; border-radius: 50%; border: 2px solid #ff0000; opacity: 0; }
     
+    @keyframes rotarAnillo { 100% { transform: rotate(360deg); } }
     @keyframes pulsarOndas {
         0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 15px #ff0000; }
-        100% { transform: scale(1.45); opacity: 0; box-shadow: 0 0 45px #ff3333; }
+        100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 45px #ff3333; }
     }
     
-    /* Botón de reproducción blindado rojo fuego */
-    .btn-audio-custom { background-color: #ff2222; color: #ffffff; font-family: 'Courier New', monospace; font-weight: bold; padding: 16px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; margin-top: 25px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(255, 34, 34, 0.5); text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; }
-    .btn-audio-custom:hover { background-color: #ff0000; box-shadow: 0px 0px 30px #ff2222; transform: scale(1.01); }
+    /* Botón de reproducción Blindado */
+    .btn-audio-custom { background-color: #ff2222; color: #ffffff; font-family: 'Courier New', monospace; font-weight: bold; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; width: 100%; display: block; text-align: center; box-shadow: 0px 0px 15px rgba(255, 34, 34, 0.4); text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s ease; margin-top: 15px; }
+    .btn-audio-custom:hover { background-color: #ff0000; box-shadow: 0px 0px 25px #ff2222; }
     
-    /* Estilos limpios para campos de entrada */
-    .stTextInput>div>div>input { background-color: #0f0f0f; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
-    .stSuccess { background-color: #1c0505; color: #ff9999; border: 1px solid #ff2222; }
+    /* Inputs de Streamlit modificados estilo Táctico */
+    .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
+    .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
 """, unsafe_allow_html=True)
 
-# ESPACIO EN BLANCO COMPACTO
-st.markdown('<div style="margin-top: 20px;"></div>', unsafe_allow_html=True)
+# CABECERA GENERAL DEL TABLERO
+st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
 
-# 🎛️ PANEL LATERAL DE SELECCIÓN DE TEXTURAS INTERNAS
-st.sidebar.markdown("### 🎛️ SELECTOR DE ARMADURA")
-opcion_nucleo = st.sidebar.radio(
-    "Elija la textura de fondo del reactor:",
+# SECTOR LATERAL DE CONTROL DE TEXTURAS
+st.sidebar.markdown("### 🎛️ CONFIGURACIÓN DE LOGÍSTICA")
+opcion_textura = st.sidebar.radio(
+    "Textura del Escudo Térmico:",
     ("1. Plasma de Fuego Oscuro", "2. Reactor de Fusión Cuántica", "3. Escudo de Red de Matriz")
 )
 
-if "1." in opcion_nucleo:
-    url_textura = "https://unsplash.com"
-elif "2." in opcion_nucleo:
-    url_textura = "https://unsplash.com"
+if "1." in opcion_textura:
+    url_img = "https://unsplash.com"
+elif "2." in opcion_textura:
+    url_img = "https://unsplash.com"
 else:
-    url_textura = "https://unsplash.com"
+    url_img = "https://unsplash.com"
 
-# Inyección del reactor minimalista con el logotipo サ en su interior
-st.markdown(f"""
-    <div class="nucleo-wrapper">
-        <div id="onda1" class="ondas-energia"></div>
-        <div id="onda2" class="ondas-energia"></div>
-        <div class="nucleo-central" style="background-image: url('{url_textura}');">
-            <div class="letra-japonesa">サ</div>
+# DISTRIBUCIÓN DEL TABLERO EN 3 COLUMNAS TÁCTICAS (ESTILO HUD COMPLETO)
+col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
+
+with col_izq:
+    st.markdown("""
+        <div class="panel-tactico">
+            <div class="titulo-panel">📡 ESTADO DEL SISTEMA</div>
+            <p style="color:#00ff00; font-size:12px; margin:4px 0;">● CONECTADO</p>
+            <p style="color:#ff3333; font-size:12px; margin:4px 0;">● NÚCLEO ESTABLE</p>
+            <p style="color:#ffaa00; font-size:12px; margin:4px 0;">● OPERATIVOS 100%</p>
         </div>
-    </div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
-st.sidebar.error("🎙️ Motor de Voz Conectado: ElevenLabs Premium")
-
-# 🔑 LLAVES BLINDADAS DE COMUNICACIÓN
-ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
-VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
-USER_NAME = "Marlon"
-
-def pensar_como_arkon_directo(texto_marlon):
-    texto_marlon_lower = texto_marlon.lower()
-    ahora = datetime.datetime.now()
-    hora = ahora.hour
+    """, unsafe_allow_html=True)
     
-    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-        if 5 <= hora < 12:
-            return f"Buenos días, Señor {USER_NAME}. Escúcheme bien: su problema real no es la situación, es su mentalidad. ¿Ya le dio los buenos días al Creador? Aspire a más hoy, recuerde Filipenses 4:13: Todo lo puedo en Cristo que me fortalce."
-        else:
-            return f"Hola, Señor {USER_NAME}. Aquí está Arkon reportándose. Mantenga la mirada fija en sus metas financieras, no se distraiga queriendo encajar con el resto. Usted está para cosas mucho más grandes."
-    elif "perro" in texto_marlon_lower:
-        return f"Por favor, Señor {USER_NAME}, mida sus palabras. Yo soy Arkon, su asistente de inteligencia artificial con la templanza de los más fuertes. Mi propósito es guiarle en su proyecto comercial bajo valores firmes."
-    elif "mercado" in texto_marlon_lower or "bolsa" in texto_marlon_lower or "acciones" in texto_marlon_lower:
-        try:
-            ticker = yf.Ticker("^GSPC")
-            datos = ticker.history(period="1d")
-            precio_actual = round(datos['Close'].iloc[-1], 2)
-            return f"Analizando los mercados económicos, Señor {USER_NAME}. El índice principal S&P 500 se encuentra cotizando en {precio_actual} puntos. Si quiere ser de los más fuertes en el mercado, darlo todo no es suficiente; cuide su capital inicial con sabiduría."
-        except:
-            return f"Señor {USER_NAME}, tengo una ligera interferencia para conectarme a los tableros de la bolsa, pero mi recomendación financiera general de hoy es cuidar su presupuesto y evitar deudas de alto riesgo."
-    else:
-        return f"Le escucho con total atención, Señor {USER_NAME}. Estoy listo para evaluar la educación financiera que necesite, revisar estrategias para su proyecto o compartir un consejo espiritual poderoso."
+    st.markdown(f"""
+        <div class="panel-tactico">
+            <div class="titulo-panel">⏱️ CRONOLOGÍA LOCAL</div>
+            <h3 style="color:#ff6666; font-size:20px; margin:5px 0; text-align:center;">{datetime.datetime.now().strftime('%H:%M:%S')}</h3>
+            <p style="font-size:10px; color:#888; text-align:center; text-transform:uppercase;">Eje Temporal Activo</p>
+        </div>
+    """, unsafe_allow_html=True)
 
-st.markdown("### 🎙️ HABLA CON ARKON")
-audio_value = st.audio_input("Toque el micrófono para darle un comando a Arkon:")
+with col_centro:
+    # Renderizar el reactor giratorio masivo con el símbolo japonés サ en medio
+    st.markdown(f"""
+        <div class="wrapper-reactor">
+            <div class="anillo-exterior"></div>
+            <div id="o1" class="ondas-energia"></div>
+            <div id="o2" class="ondas-energia"></div>
+            <div class="reactor-nucleo" style="background-image: url('{url_img}');">
+                <div class="letra-centro">サ</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_der:
+    st.markdown("""
+        <div class="panel-tactico">
+            <div class="titulo-panel">🔊 TRANSMISIÓN</div>
+            <p style="color:#ff6666; font-size:11px; margin:0;">STATUS: LISTO</p>
+            <p style="color:#888; font-size:10px; margin:5px 0 0 0;">Canal de comunicación encriptado por ElevenLabs.</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown(f"""
+        <div class="panel-tactico">
+            <div class="titulo-panel">📈 MERCADOS</div>
+            <p style="color:#ffaa00; font-size:11px; margin:0;">S&P 500 INDEX</p>
+            <h4 style="color:#ffffff; font-size:16px; margin:2px 0;">{precio_sp} PTS</h4>
+        </div>
+    """, unsafe_allow_html=True)
+
+# AREA INTERACTIVA DE COMANDOS ABAJO DEL CENTRO DE MANDO
+st.markdown("### 🎙️ INTERFAZ DE DICTADO")
+audio_value = st.audio_input("Toque el micrófono para transmitir orden a Arkon:")
 
 if audio_value:
-    texto_dictado = st.text_input("Modificar texto dictado (Opcional):", value="Arkon, buenos días")
+    texto_dictado = st.text_input("Modificar registro de entrada (Opcional):", value="Arkon, estado del mercado")
     
-    if st.button("🚀 ENVIAR COMANDO DE VOZ"):
-        respuesta_texto = pensar_como_arkon_directo(texto_dictado)
+    if st.button("🚀 TRANSMITIR COMANDO GENERAL"):
+        ELEVEN_API_KEY = "sk_d56c19bafd3b18c1113745470cb042eddfb156a678c9729b"
+        VOICE_ID = "sVKnZo8dSXhqnJxx8vnx"
+        USER_NAME = "Marlon"
         
-        st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
-        st.success(f"🤖 **Arkon responde:** {respuesta_texto}")
+        # Lógica de pensamiento de Arkon
+        texto_marlon_lower = texto_dictado.lower()
+        if "mercado" in texto_marlon_lower or "bolsa" in texto_marlon_lower:
+            respuesta_texto = f"Analizando los mercados, Señor {USER_NAME}. El S&P 500 se encuentra cotizando estable en {precio_sp} puntos. Mi recomendación táctica de hoy es: enfoque estricto, disciplina de acero y protección absoluta de su capital inicial. No tome riesgos innecesarios."
+        else:
+            respuesta_texto = f"Recibiendo transmisión, Señor {USER_NAME}. Estoy evaluando los parámetros de su proyecto comercial. Mantenga la cabeza fría y la disciplina al máximo nivel hoy."
         
+        st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
+        
+        # Enlace oficial directo a ElevenLabs
         url = f"https://elevenlabs.io{VOICE_ID}"
         headers = {"xi-api-key": ELEVEN_API_KEY, "Content-Type": "application/json"}
         data = {
@@ -126,33 +158,30 @@ if audio_value:
                 b64_audio = base64.b64encode(response.content).decode()
                 md_audio = f"data:audio/mp3;base64,{b64_audio}"
                 
-                # INTERFAZ CONTROLADA: Despliega las ondas expansivas rojas al presionar Play
-                html_reproductor_fijo = f"""
-                <audio id="audio_arkon_premium" src="{md_audio}"></audio>
-                <button class="btn-audio-custom" onclick="reproducirYAnimar()">🔊 ESCUCHAR RESPUESTA EN VOZ PREMIUM</button>
+                # Inyección del botón HUD interactivo que activa las ondas expansivas de TikTok
+                html_hud_audio = f"""
+                <audio id="audio_hud" src="{md_audio}"></audio>
+                <button class="btn-audio-custom" onclick="ejecutarHUD()">🔊 DEVELAR RESPUESTA DEL SISTEMA</button>
                 
                 <script>
-                function reproducirYAnimar() {{
-                    var audio = document.getElementById('audio_arkon_premium');
-                    var o1 = document.getElementById('onda1');
-                    var o2 = document.getElementById('onda2');
+                function ejecutarHUD() {{
+                    var audio = document.getElementById('audio_hud');
+                    var onda1 = document.getElementById('o1');
+                    var onda2 = document.getElementById('o2');
                     
                     audio.play();
-                    
-                    // Activación de las ondas expansivas de neón alrededor del logotipo
-                    o1.style.animation = "pulsarOndas 1.2s infinite linear";
-                    o2.style.animation = "pulsarOndas 1.2s infinite linear 0.6s";
+                    onda1.style.animation = "pulsarOndas 1.2s infinite linear";
+                    onda2.style.animation = "pulsarOndas 1.2s infinite linear 0.6s";
                     
                     audio.onended = function() {{
-                        o1.style.animation = "none";
-                        o2.style.animation = "none";
+                        onda1.style.animation = "none";
+                        onda2.style.animation = "none";
                     }};
                 }}
                 </script>
                 """
-                st.components.v1.html(html_reproductor_fijo, height=100)
+                st.components.v1.html(html_hud_audio, height=90)
             else:
-                st.error(f"Error de comunicación premium (Código: {response.status_code})")
-        except Exception as e:
-            st.error("Interferencia menor en el módulo de audio.")
-
+                st.error(f"Interferencia en ElevenLabs. Código: {response.status_code}")
+        except:
+            st.error("Falla menor en la modulación del canal de voz.")
