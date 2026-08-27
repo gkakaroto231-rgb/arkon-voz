@@ -3,8 +3,8 @@ import datetime
 import yfinance as yf
 import requests
 
-# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO CINEMATOGRÁFICO (INSPIRADO EN BEHANCE HUD)
-st.set_page_config(page_title="ARKON QUANTUM HUD", page_icon="🛡️", layout="wide")
+# CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO BIOMÉTRICO (INSPIRADO EN BEHANCE HUD)
+st.set_page_config(page_title="ARKON BIO-HUD", page_icon="🛡️", layout="wide")
 
 # OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO HUD
 try:
@@ -14,10 +14,10 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# INGENIERÍA VISUAL AVANZADA: DISEÑO HUD SCI-FI DE ALTA FIDELIDAD CON ANILLOS ROTATIVOS CRUZADOS
+# INGENIERÍA VISUAL DE ALTA FIDELIDAD: CENTRADO MILIMÉTRICO Y DISEÑO BIO-HUD MELO
 st.markdown("""
     <style>
-    .stApp { background-color: #020203; color: #ffffff; font-family: 'Courier New', monospace; }
+    .stApp { background-color: #030305; color: #ffffff; font-family: 'Courier New', monospace; }
     
     /* Marcos y Paneles HUD con Esquinas Cortadas y Brillo de Neón Rojo */
     .panel-hud { 
@@ -43,32 +43,60 @@ st.markdown("""
     .titulo-militar { color: #ff1111; font-size: 42px; font-weight: bold; text-shadow: 0px 0px 25px #ff0000; letter-spacing: 8px; }
     .sub-militar { color: #ff6666; font-size: 11px; letter-spacing: 4px; font-weight: bold; opacity: 0.8; }
     
-    /* REACTOR SCI-FI COMPLEJO DE ANILLOS CONCÉNTRICOS EN MOVIMIENTO (ESTILO BEHANCE) */
-    .wrapper-holograma { display: flex; justify-content: center; align-items: center; height: 260px; position: relative; margin: 15px 0; }
+    /* ACOMODO TOTALMENTE MELO: REACTOR SCI-FI PERFECTAMENTE INTEGRADO AL ESCÁNER */
+    .wrapper-holograma { display: flex; justify-content: center; align-items: center; height: 280px; position: relative; margin: 15px 0; }
     
-    /* Capa 1: Anillo Externo de Puntos */
-    .anillo-hud-1 { position: absolute; width: 230px; height: 230px; border: 1px dotted rgba(255, 17, 17, 0.4); border-radius: 50%; animation: rotarDerecha 40s linear infinite; }
-    /* Capa 2: Anillo de Control Escalonado */
-    .anillo-hud-2 { position: absolute; width: 200px; height: 200px; border: 2px dashed #ff2222; border-radius: 50%; animation: rotarIzquierda 20s linear infinite; opacity: 0.7; }
-    /* Capa 3: Anillo de Cierre de Radar */
-    .anillo-hud-3 { position: absolute; width: 174px; height: 174px; border-top: 3px solid #ff3333; border-bottom: 3px solid #ff3333; border-left: 3px solid transparent; border-right: 3px solid transparent; border-radius: 50%; animation: rotarDerecha 8s linear infinite; }
+    /* Cuadro de Escaneo Facial Externo (Behance Face Detection) */
+    .scanner-box {
+        position: relative;
+        width: 240px;
+        height: 240px;
+        border: 1px dashed rgba(255, 17, 17, 0.25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    /* Las 4 esquinas del escáner biometrico que parpadean */
+    .esquina { position: absolute; width: 22px; height: 22px; border-color: #ff1111; border-style: solid; animation: parpadeoScanner 2s infinite alternate; }
+    .es-top-izq { top: -2px; left: -2px; border-width: 4px 0 0 4px; }
+    .es-top-der { top: -2px; right: -2px; border-width: 4px 4px 0 0; }
+    .es-bot-izq { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; }
+    .es-bot-der { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; }
     
-    /* Núcleo Central de Energía Absoluta con la letra japonesa サ */
-    .reactor-core { width: 136px; height: 130px; border-radius: 50%; position: absolute; background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, rgba(0,0,0,1) 80%); border: 2px solid #ff1111; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 35px #ff1111; z-index: 10; }
-    .letra-hud { color: #ffffff; font-family: sans-serif; font-size: 60px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; }
+    /* Línea Láser que realiza el barrido continuo de arriba a abajo */
+    .laser-line {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, transparent, #ff3333, transparent);
+        box-shadow: 0px 0px 14px #ff1111;
+        animation: barridoLaser 3.5s ease-in-out infinite alternate;
+        z-index: 12;
+    }
+
+    /* Anillos Holográficos Giratorios en capas concéntricas */
+    .anillo-hud-1 { position: absolute; width: 200px; height: 200px; border: 1px dotted rgba(255, 17, 17, 0.4); border-radius: 50%; animation: rotarDerecha 45s linear infinite; z-index: 2; }
+    .anillo-hud-2 { position: absolute; width: 170px; height: 170px; border: 2px dashed #ff2222; border-radius: 50%; animation: rotarIzquierda 25s linear infinite; opacity: 0.6; z-index: 3; }
     
-    /* Movimientos del Radar */
+    /* Núcleo Central Táctico con su Logotipo Japonés サ */
+    .reactor-core { width: 124px; height: 124px; border-radius: 50%; position: absolute; background: radial-gradient(circle, rgba(20,0,0,0.4) 0%, rgba(0,0,0,1) 85%); border: 2px solid #ff1111; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 35px #ff1111; z-index: 10; }
+    .letra-hud { color: #ffffff; font-family: sans-serif; font-size: 55px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 15px #ffffff, 0px 0px 30px #ff0000; }
+    
+    /* ANIMACIONES EXCLUSIVAS DE ALTA VELOCIDAD */
     @keyframes rotarDerecha { 100% { transform: rotate(360deg); } }
     @keyframes rotarIzquierda { 100% { transform: rotate(-360deg); } }
+    @keyframes parpadeoScanner { 0% { opacity: 0.3; } 100% { opacity: 1; filter: brightness(1.4); } }
+    @keyframes barridoLaser { 0% { top: 0%; } 100% { top: 100%; } }
     
-    /* Personalización Táctica de Streamlit */
+    /* Inputs y Éxitos de la Interfaz Estilo Militar */
     .stTextInput>div>div>input { background-color: #080202; color: #ff6666; border: 1px solid #ff1111; font-family: monospace; }
     .stSuccess { background-color: #150202; color: #ff9999; border: 1px solid #ff1111; font-size: 13px; }
     </style>
 """, unsafe_allow_html=True)
 
 # CABECERA GENERAL DEL SISTEMA HUD
-st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON TACTICAL</div><div class="sub-militar">CENTER COMMAND INTERFACE // SYSTEM ACTIVE</div></div>', unsafe_allow_html=True)
+st.markdown('<div class="header-militar"><div class="titulo-militar">ARKON COMMAND</div><div class="sub-militar">BIOMETRIC INTERFACE // FACE DETECTION ACTIVE</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ CONFIGURACIÓN LOGÍSTICA")
 st.sidebar.error("🎙️ Red de Audio: ElevenLabs Core Active")
@@ -79,10 +107,10 @@ col_izq, col_centro, col_der = st.columns([1.2, 1.6, 1.2])
 with col_izq:
     st.markdown("""
         <div class="panel-hud">
-            <div class="titulo-hud">📡 RASTREO DE ENERGÍA</div>
-            <p style="color:#00ff00; font-size:12px; margin:4px 0; font-weight:bold;">● ONLINE // ENLACE ESTABLE</p>
-            <p style="color:#ff1111; font-size:12px; margin:4px 0;">● REGENERACIÓN DE NÚCLEO: 100%</p>
-            <p style="color:#ffaa00; font-size:12px; margin:4px 0;">● ANILLOS HOLOGRÁFICOS: ACTIVOS</p>
+            <div class="titulo-hud">📡 RASTREO BIOMÉTRICO</div>
+            <p style="color:#00ff00; font-size:12px; margin:4px 0; font-weight:bold;">● DETECCIÓN FACIAL: ONLINE</p>
+            <p style="color:#ff1111; font-size:12px; margin:4px 0;">● ENFOQUE DE RASTREO: ESTABLE</p>
+            <p style="color:#ffaa00; font-size:12px; margin:4px 0;">● ESCÁNER LÁSER: EN EJECUCIÓN</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -95,14 +123,20 @@ with col_izq:
     """, unsafe_allow_html=True)
 
 with col_centro:
-    # RENDERIZAR EL REACTOR AVANZADO CON LAS TRES CAPAS EN MOVIMIENTO ESTILO BEHANCE
+    # EL ENGRANAJE MAESTRO QUEDÓ PERFECTAMENTE CENTRALIZADO Y FLUIDO
     st.markdown("""
         <div class="wrapper-holograma">
-            <div class="anillo-hud-1"></div>
-            <div class="anillo-hud-2"></div>
-            <div class="anillo-hud-3"></div>
-            <div class="reactor-core">
-                <div class="letra-hud">サ</div>
+            <div class="scanner-box">
+                <div class="esquina es-top-izq"></div>
+                <div class="esquina es-top-der"></div>
+                <div class="esquina es-bot-izq"></div>
+                <div class="esquina es-bot-der"></div>
+                <div class="laser-line"></div>
+                <div class="anillo-hud-1"></div>
+                <div class="anillo-hud-2"></div>
+                <div class="reactor-core">
+                    <div class="letra-hud">サ</div>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -132,7 +166,7 @@ if audio_value:
     texto_dictado = st.text_input("Modificar registro de entrada manual (Opcional):", value="Arkon, buenos días")
     
     if st.button("🚀 TRANSMITIR COMANDO OPERATIVO"):
-        # 🔑 INYECCIÓN PERFECTA DE SU NUEVA LLAVE SIN ERRORES DE SANGRE
+        # 🔑 SU NUEVA LLAVE CON SALDO Y SU VOICE ID DE ADM TOTALMENTE INYECTADOS
         ELEVEN_API_KEY = "sk_67e840e482143b4b4a559eba35f4a1f94578128732250fa0"
         VOICE_ID = "aefae6a1387d7cae6e577fcc628ef1388392109bb5d9e327529ed00affa9e892"
         USER_NAME = "Marlon"
@@ -146,7 +180,6 @@ if audio_value:
         st.write(f"🗣️ **Usted dijo:** {texto_dictado}")
         st.success(f"🤖 ARKON EN LÍNEA: {respuesta_texto}")
         
-        # Dirección oficial de la API de ElevenLabs corregida al 100%
         url = f"https://elevenlabs.io{VOICE_ID}"
         
         headers = {
@@ -155,20 +188,3 @@ if audio_value:
         }
         
         data = {
-            "text": respuesta_texto,
-            "model_id": "eleven_multilingual_v2",
-            "voice_settings": {
-                "stability": 0.5,
-                "similarity_boost": 0.75
-            }
-        }
-        
-        try:
-            response = requests.post(url, json=data, headers=headers, timeout=60)
-            if response.status_code == 200:
-                st.audio(response.content, format="audio/mpeg", autoplay=True)
-            else:
-                st.error(f"ElevenLabs devolvió el código {response.status_code}")
-                st.code(response.text)
-        except requests.RequestException as e:
-            st.error(f"Error de conexión: {e}")
