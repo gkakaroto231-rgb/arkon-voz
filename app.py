@@ -9,13 +9,16 @@ st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide
 if "historial_arkon" not in st.session_state:
     st.session_state.historial_arkon = []
 
-# OBTENER DATOS REALES DE LA BOLSA PARA EL TABLERO S&P 500
+# OBTENER DATOS REALES DE LA BOLSA Y NOTICIAS CON IMÁGENES
 try:
     ticker_sp = yf.Ticker("^GSPC")
     datos_sp = ticker_sp.history(period="1d")
     precio_sp = round(datos_sp['Close'].iloc[-1], 2)
+    # Extraer las noticias reales completas de Yahoo Finance / yfinance
+    noticias_reales = ticker_sp.news[:3]  # Tomamos las 3 más frescas con imágenes y números
 except:
-    precio_sp = "5,278.40"
+    precio_sp = "5,640.15"
+    noticias_reales = []
 
 # ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (SU INTERFAZ ORIGINAL)
 st.markdown("""
@@ -119,7 +122,7 @@ st.markdown("""
 st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Registrador: Bitácora de Enlace Lista")
+st.sidebar.success("🎙️ Mercados: Terminal de Noticias Conectada")
 
 # DISTRIBUCIÓN DEL TABLERO CON SUS 2 CUADROS ORIGINALES POR LADO
 col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
@@ -153,21 +156,40 @@ with col_centro:
     """, unsafe_allow_html=True)
 
 with col_der:
-    st.markdown("""
-        <div class="panel-tactico">
-            <div class="titulo-panel">🔊 TRANSMISIÓN</div>
-            <p style="color:#ff6666; font-size:11px; margin:0;">STATUS: LISTO</p>
-            <p style="color:#888; font-size:10px; margin:5px 0 0 0;">Canal de comunicación táctica local habilitado.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
     st.markdown(f"""
         <div class="panel-tactico">
-            <div class="titulo-panel">🛡️ MERCADOS</div>
-            <p style="color:#ffaa00; font-size:11px; margin:0;">S&P 500 INDEX</p>
-            <h4 style="color:#ffffff; font-size:16px; margin:2px 0;">{precio_sp} PTS</h4>
+            <div class="titulo-panel">🛡️ MERCADOS INDEX</div>
+            <p style="color:#ffaa00; font-size:11px; margin:0;">S&P 500 REALS</p>
+            <h4 style="color:#ffffff; font-size:22px; margin:2px 0; font-weight:bold; letter-spacing:1px;">{precio_sp} PTS</h4>
         </div>
     """, unsafe_allow_html=True)
+
+    # 🔳 BOLETÍN MULTIMEDIA CON NOTICIAS, NÚMEROS E IMÁGENES REALES DE FORMA SEGURA EN STREAMLIT
+    st.markdown('<div class="panel-tactico"><div class="titulo-panel">📰 TITULARES DE LA BOLSA EN VIVO</div>', unsafe_allow_html=True)
+    
+    if noticias_reales:
+        for idx, n in enumerate(noticias_reales):
+            titulo_noticia = n.get('title', 'Actualización de mercado')
+            fuente_noticia = n.get('publisher', 'MERCADO')
+            link_noticia = n.get('link', 'https://yahoo.com')
+            
+            # Buscar si la noticia incluye una imagen real o miniatura de la portada de la agencia
+            imagen_noticia = None
+            if 'thumbnail' in n and 'resolutions' in n['thumbnail'] and n['thumbnail']['resolutions']:
+                imagen_noticia = n['thumbnail']['resolutions'][0].get('url', None)
+            
+            # Renderizar la tarjeta multimedia nativa limpia libre de SyntaxErrors
+            with st.container():
+                st.markdown(f"<p style='color:#ffaa00; font-size:10px; font-weight:bold; margin-bottom:2px;'>📡 {fuente_noticia}</p>", unsafe_allow_html=True)
+                if imagen_noticia:
+                    st.image(imagen_noticia, width=120)
+                st.markdown(f"<p style='font-size:11px; margin-bottom:5px; line-height:1.2;'>{titulo_noticia}</p>", unsafe_allow_html=True)
+                st.link_button("🌐 VER PORTADA COMPLETA", link_noticia)
+                st.markdown("<hr style='border-top: 1px dashed rgba(255,34,34,0.2); margin:8px 0;'>", unsafe_allow_html=True)
+    else:
+        st.markdown("<p style='color:#666; font-size:11px; text-align:center;'>CONECTANDO CON WALL STREET...</p>", unsafe_allow_html=True)
+        
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # AREA INTERACTIVA DEL MICRÓFONO PREMIUM REPLICADO
 st.markdown("""
@@ -177,41 +199,4 @@ st.markdown("""
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
             <div class="contenedor-ondas">
                 <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-            </div>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
-
-# Capturador oculto de audio para procesar el dictado por voz
-audio_value = st.audio_input("Registro oculto:")
-
-# Crear la división táctica en la parte inferior para alojar el chat manual y el historial melo
-col_chat_izq, col_chat_der = st.columns([1.5, 2.5])
-
-entrada_texto_marlon = ""
-procesar_entrada = False
-
-with col_chat_izq:
-    st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
-    entrada_texto_marlon = st.text_input("💻 INYECTAR COMANDO MANUAL (ESCRIBIR):", key="input_manual_marlon")
-    if st.button("🚀 ENVIAR REGISTRO"):
-        if entrada_texto_marlon.strip() != "":
-            procesar_entrada = True
-            texto_final_entrada = entrada_texto_marlon
-
-# Evaluar si la señal vino por el micrófono de fábrica
-if audio_value and not procesar_entrada:
-    procesar_entrada = True
-    texto_final_entrada = "Arkon, buenos días" 
-
-# PROCESAMIENTO GENERAL DE LA INTELIGENCIA TÁCTICA
-if procesar_entrada:
-    USER_NAME = "Marlon"
-    texto_marlon_lower = texto_final_entrada.lower()
-    
-    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-        respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo bajo sus órdenes."
-    else:
-        respuesta_texto = f"Transmisión recibida, Señor {USER_NAME}. El núcleo ARKON está preparado para evaluar la estrategia financiera."
-    
+3
