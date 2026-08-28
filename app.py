@@ -17,7 +17,7 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (SU INTERFAZ ORIGINAL)
+# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (SU INTERFAZ ORIGINAL CON REACTOR DE AGUA)
 st.markdown("""
     <style>
     .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
@@ -26,11 +26,67 @@ st.markdown("""
     .header-arkon { text-align: center; margin-bottom: 20px; }
     .titulo-principal { color: #ff2222; font-size: 38px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 5px; }
     .sub-principal { color: #ff6666; font-size: 11px; letter-spacing: 3px; font-weight: bold; }
+    
     .wrapper-reactor { display: flex; justify-content: center; align-items: center; height: 220px; position: relative; margin: 20px 0; }
-    .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; }
-    .reactor-nucleo { width: 150px; height: 150px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-color: #000000; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 40px #ff2222; }
-    .letra-centro { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 10px #ffffff; }
+    .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; z-index: 1; }
+    
+    /* 🌊 BURBUJA LÍQUIDA EN 3D CORREGIDA: Totalmente transparente, las olas se notan por reflejos de luz y volumen */
+    .reactor-nucleo { 
+        width: 150px; 
+        height: 150px; 
+        border-radius: 50%; 
+        position: absolute; 
+        border: 2px solid rgba(255, 255, 255, 0.25); 
+        overflow: hidden; 
+        background: transparent; 
+        box-shadow: 0px 0px 30px rgba(255, 34, 34, 0.4), inset 0px 0px 20px rgba(255, 255, 255, 0.15); 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        z-index: 10;
+        transform: translateZ(0);
+    }
+    
+    /* Olas de agua líquida en 3D 100% transparentes (color blanco humo con opacidad muy baja) */
+    .reactor-nucleo::before, .reactor-nucleo::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        background-color: rgba(255, 255, 255, 0.12);
+        top: 54%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        border-radius: 38%;
+        animation: olasLiquidas3D 6s ease-in-out infinite alternate;
+        pointer-events: none;
+        z-index: 4;
+    }
+    /* Segunda ola cruzada transparente para simular el efecto hidrodinámico */
+    .reactor-nucleo::after {
+        background-color: rgba(255, 255, 255, 0.06);
+        border-radius: 35%;
+        animation: olasLiquidas3D 9s linear infinite;
+        top: 51%;
+    }
+    
+    .letra-centro { 
+        color: #ffffff; 
+        font-family: sans-serif; 
+        font-size: 65px; 
+        font-weight: bold; 
+        position: relative;
+        z-index: 15; 
+        transform: translateY(-4px); 
+        text-shadow: 0px 0px 10px #ffffff, 0px 0px 20px #ff0000; 
+    }
+    
+    /* ANIMACIONES EXCLUSIVAS */
     @keyframes rotarAnillo { 100% { transform: rotate(360deg); } }
+    @keyframes olasLiquidas3D {
+        0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.98); }
+        100% { transform: translate(-50%, -50%) rotate(360deg) scale(1.02); }
+    }
     
     /* MODULACIÓN DEL MICRÓFONO PLANO FLOTANTE SIN LA BARRA GRIS ORIGINAL */
     div[data-testid="stAudioInput"] {
@@ -77,7 +133,6 @@ st.markdown("""
     
     @keyframes latirOnda { 0% { height: 4px; } 100% { height: 18px; } }
     
-    /* DISEÑO EXCLUSIVO DEL HISTORIAL DE TRANSMISIONES COMPACTO */
     .chat-box-hud {
         background-color: rgba(10, 2, 2, 0.85);
         border: 1px solid #ff1111;
@@ -93,7 +148,6 @@ st.markdown("""
     .msg-marlon { color: #38bdf8; margin: 3px 0; font-weight: bold; }
     .msg-arkon { color: #ff3333; margin: 3px 0 8px 0; line-height: 1.3; }
     
-    /* Botón Táctico Pequeño */
     .stButton>button {
         background-color: #1a0303 !important;
         color: #ff6666 !important;
@@ -104,12 +158,7 @@ st.markdown("""
         width: 100%;
         margin-top: 5px;
     }
-    .stButton>button:hover {
-        background-color: #ff2222 !important;
-        color: #ffffff !important;
-        box-shadow: 0px 0px 10px #ff2222;
-    }
-
+    .stButton>button:hover { background-color: #ff2222 !important; color: #ffffff !important; box-shadow: 0px 0px 10px #ff2222; }
     .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
@@ -183,35 +232,3 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Capturador oculto de audio para procesar el dictado por voz
-audio_value = st.audio_input("Registro oculto:")
-
-# Crear la división táctica en la parte inferior para alojar el chat manual y el historial melo
-col_chat_izq, col_chat_der = st.columns([1.5, 2.5])
-
-entrada_texto_marlon = ""
-procesar_entrada = False
-
-with col_chat_izq:
-    st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
-    entrada_texto_marlon = st.text_input("💻 INYECTAR COMANDO MANUAL (ESCRIBIR):", key="input_manual_marlon")
-    if st.button("🚀 ENVIAR REGISTRO"):
-        if entrada_texto_marlon.strip() != "":
-            procesar_entrada = True
-            texto_final_entrada = entrada_texto_marlon
-
-# Evaluar si la señal vino por el micrófono de fábrica
-if audio_value and not procesar_entrada:
-    procesar_entrada = True
-    texto_final_entrada = "Arkon, buenos días" 
-
-# PROCESAMIENTO GENERAL DE LA INTELIGENCIA TÁCTICA
-if procesar_entrada:
-    USER_NAME = "Marlon"
-    texto_marlon_lower = texto_final_entrada.lower()
-    
-    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-        respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo bajo sus órdenes."
-    else:
-        respuesta_texto = f"Transmisión recibida, Señor {USER_NAME}. El núcleo ARKON está preparado para evaluar la estrategia financiera."
-    
