@@ -80,7 +80,7 @@ st.markdown("""
     
     @keyframes latirOnda { 0% { height: 4px; } 100% { height: 18px; } }
     
-    /* DISEÑO EXCLUSIVO DEL HISTORIAL DE TRANSMISIONES COMPACTO Y EXTRA FINO */
+    /* DISEÑO EXCLUSIVO DEL HISTORIAL DE TRANSMISIONES COMPACTO */
     .chat-box-hud {
         background-color: rgba(10, 2, 2, 0.85);
         border: 1px solid #ff1111;
@@ -164,32 +164,32 @@ with col_der:
         </div>
     """, unsafe_allow_html=True)
 
-    # 🔳 BOLETÍN MULTIMEDIA CON NOTICIAS, NÚMEROS E IMÁGENES REALES DE FORMA SEGURA EN STREAMLIT
-    st.markdown('<div class="panel-tactico"><div class="titulo-panel">📰 TITULARES DE LA BOLSA EN VIVO</div>', unsafe_allow_html=True)
-    
-    if noticias_reales:
-        for idx, n in enumerate(noticias_reales):
-            titulo_noticia = n.get('title', 'Actualización de mercado')
-            fuente_noticia = n.get('publisher', 'MERCADO')
-            link_noticia = n.get('link', 'https://yahoo.com')
-            
-            # Buscar si la noticia incluye una imagen real o miniatura de la portada de la agencia
-            imagen_noticia = None
-            if 'thumbnail' in n and 'resolutions' in n['thumbnail'] and n['thumbnail']['resolutions']:
-                imagen_noticia = n['thumbnail']['resolutions'][0].get('url', None)
-            
-            # Renderizar la tarjeta multimedia nativa limpia libre de SyntaxErrors
-            with st.container():
-                st.markdown(f"<p style='color:#ffaa00; font-size:10px; font-weight:bold; margin-bottom:2px;'>📡 {fuente_noticia}</p>", unsafe_allow_html=True)
+    # 🔳 BOLETÍN MULTIMEDIA BLINDADO - CONEXIÓN CON NOTICIAS EN VIVO RESPETANDO SANGRIAS DE PYTHON
+    with st.container():
+        st.markdown('<div class="panel-tactico"><div class="titulo-panel">📰 TITULARES DE LA BOLSA EN VIVO</div>', unsafe_allow_html=True)
+        
+        if noticias_reales:
+            for idx, n in enumerate(noticias_reales):
+                titulo_noticia = n.get('title', 'Actualización de mercado')
+                fuente_noticia = n.get('publisher', 'MERCADO')
+                link_noticia = n.get('link', 'https://yahoo.com')
+                
+                # Extraer miniatura o logotipo de la noticia de corrido
+                imagen_noticia = None
+                if 'thumbnail' in n and 'resolutions' in n['thumbnail'] and n['thumbnail']['resolutions']:
+                    imagen_noticia = n['thumbnail']['resolutions'][0].get('url', None)
+                
+                # Impresión de textos planos limpios para evitar que falle Render
+                st.markdown(f"<p style='color:#ffaa00; font-size:10px; font-weight:bold; margin: 0 0 2px 0;'>📡 {fuente_noticia}</p>", unsafe_allow_html=True)
                 if imagen_noticia:
                     st.image(imagen_noticia, width=120)
-                st.markdown(f"<p style='font-size:11px; margin-bottom:5px; line-height:1.2;'>{titulo_noticia}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='font-size:11px; margin: 0 0 5px 0; line-height:1.2;'>{titulo_noticia}</p>", unsafe_allow_html=True)
                 st.link_button("🌐 VER PORTADA COMPLETA", link_noticia)
-                st.markdown("<hr style='border-top: 1px dashed rgba(255,34,34,0.2); margin:8px 0;'>", unsafe_allow_html=True)
-    else:
-        st.markdown("<p style='color:#666; font-size:11px; text-align:center;'>CONECTANDO CON WALL STREET...</p>", unsafe_allow_html=True)
-        
-    st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown("<p style='color:rgba(255,34,34,0.2); margin:4px 0;'>- - - - - - - - - - - - - - - - - - - -</p>", unsafe_allow_html=True)
+        else:
+            st.markdown("<p style='color:#666; font-size:11px; text-align:center; margin:10px 0;'>CONECTANDO CON WALL STREET...</p>", unsafe_allow_html=True)
+            
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # AREA INTERACTIVA DEL MICRÓFONO PREMIUM REPLICADO
 st.markdown("""
@@ -199,4 +199,3 @@ st.markdown("""
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
             <div class="contenedor-ondas">
                 <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-3
