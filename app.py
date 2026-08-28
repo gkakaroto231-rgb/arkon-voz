@@ -96,7 +96,6 @@ st.markdown("""
     .msg-marlon { color: #38bdf8; margin: 3px 0; font-weight: bold; }
     .msg-arkon { color: #ff3333; margin: 3px 0 8px 0; line-height: 1.3; }
     
-    /* Botón Táctico Pequeño */
     .stButton>button {
         background-color: #1a0303 !important;
         color: #ff6666 !important;
@@ -107,12 +106,7 @@ st.markdown("""
         width: 100%;
         margin-top: 5px;
     }
-    .stButton>button:hover {
-        background-color: #ff2222 !important;
-        color: #ffffff !important;
-        box-shadow: 0px 0px 10px #ff2222;
-    }
-
+    .stButton>button:hover { background-color: #ff2222 !important; color: #ffffff !important; box-shadow: 0px 0px 10px #ff2222; }
     .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
@@ -164,7 +158,7 @@ with col_der:
         </div>
     """, unsafe_allow_html=True)
 
-    # 🔳 BOLETÍN MULTIMEDIA BLINDADO - CONEXIÓN CON NOTICIAS EN VIVO RESPETANDO SANGRIAS DE PYTHON
+    # 🚨 NOTICIAS TRATADAS CON FORMATO PLANO INDESTRUCTIBLE (CERO COMILLAS TRIPLES INTERNAS)
     with st.container():
         st.markdown('<div class="panel-tactico"><div class="titulo-panel">📰 TITULARES DE LA BOLSA EN VIVO</div>', unsafe_allow_html=True)
         
@@ -174,18 +168,18 @@ with col_der:
                 fuente_noticia = n.get('publisher', 'MERCADO')
                 link_noticia = n.get('link', 'https://yahoo.com')
                 
-                # Extraer miniatura o logotipo de la noticia de corrido
+                # Extraer miniatura o logotipo de la noticia
                 imagen_noticia = None
                 if 'thumbnail' in n and 'resolutions' in n['thumbnail'] and n['thumbnail']['resolutions']:
-                    imagen_noticia = n['thumbnail']['resolutions'][0].get('url', None)
+                    imagen_noticia = n['thumbnail']['resolutions'].get('url', None)
                 
-                # Impresión de textos planos limpios para evitar que falle Render
-                st.markdown(f"<p style='color:#ffaa00; font-size:10px; font-weight:bold; margin: 0 0 2px 0;'>📡 {fuente_noticia}</p>", unsafe_allow_html=True)
+                # Renderización plana segura sin HTML abierto
+                st.markdown(f"📡 **{fuente_noticia}**")
                 if imagen_noticia:
                     st.image(imagen_noticia, width=120)
-                st.markdown(f"<p style='font-size:11px; margin: 0 0 5px 0; line-height:1.2;'>{titulo_noticia}</p>", unsafe_allow_html=True)
-                st.link_button("🌐 VER PORTADA COMPLETA", link_noticia)
-                st.markdown("<p style='color:rgba(255,34,34,0.2); margin:4px 0;'>- - - - - - - - - - - - - - - - - - - -</p>", unsafe_allow_html=True)
+                st.write(titulo_noticia)
+                st.link_button("🌐 VER PORTADA COMPLETA", link_noticia, key=f"btn_noticia_{idx}")
+                st.markdown("---")
         else:
             st.markdown("<p style='color:#666; font-size:11px; text-align:center; margin:10px 0;'>CONECTANDO CON WALL STREET...</p>", unsafe_allow_html=True)
             
@@ -199,3 +193,12 @@ st.markdown("""
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
             <div class="contenedor-ondas">
                 <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
+                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
+            </div>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
+# Capturador oculto de audio para procesar el dictado por voz
+audio_value = st.audio_input("Registro oculto:")
+
