@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 import yfinance as yf
+import base64
 
 # CONFIGURACIÓN UNIVERSAL DEL CENTRO DE MANDO TÁCTICO ORIGINAL
 st.set_page_config(page_title="ARKON COMMAND", page_icon="🛡️", layout="wide")
@@ -17,11 +18,86 @@ try:
 except:
     precio_sp = "5,278.40"
 
-# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR (SU INTERFAZ ORIGINAL)
+# ============================================================
+# INYECCIÓN DEL VIDEO DE FONDO ANIMADO EN BASE64 (SU CÓDIGO MAESTRO)
+# ============================================================
+VIDEO_FONDO = "Looping_Black_Triangular_Background___Enchanted_Media.mov"
+
+try:
+    with open(VIDEO_FONDO, "rb") as video_file:
+        video_base64 = base64.b64encode(video_file.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        /* Fondo de toda la aplicación */
+        .stApp {{
+            background: transparent !important;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+        }}
+
+        /* Video de fondo */
+        #arkon-video-background {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            pointer-events: none;
+        }}
+
+        /* Capa oscura para mejorar la lectura */
+        #arkon-video-overlay {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+            pointer-events: none;
+        }}
+
+        /* Mantener el contenido de ARKON por encima */
+        .main,
+        .block-container {{
+            position: relative;
+            z-index: 1;
+        }}
+
+        /* Ocultar la barra superior de Streamlit */
+        header {{
+            background: transparent !important;
+        }}
+        </style>
+
+        <video
+            id="arkon-video-background"
+            autoplay
+            muted
+            loop
+            playsinline
+        >
+            <source
+                src="data:video/mp4;base64,{video_base64}"
+                type="video/mp4"
+            >
+        </video>
+
+        <div id="arkon-video-overlay"></div>
+        """,
+        unsafe_allow_html=True
+    )
+except Exception as e:
+    st.warning(f"No se pudo cargar el fondo de ARKON: {e}")
+
+# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR PARA SUS PANELES
 st.markdown("""
     <style>
-    .stApp { background-color: #030303; color: #ffffff; font-family: 'Courier New', monospace; }
-    .panel-tactico { background-color: rgba(15, 3, 3, 0.6); border: 1px solid #ff2222; border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.1); }
+    .panel-tactico { background-color: rgba(15, 3, 3, 0.85); border: 1px solid #ff2222; border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.2); }
     .titulo-panel { color: #ff6666; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px dashed #ff2222; padding-bottom: 4px; }
     .header-arkon { text-align: center; margin-bottom: 20px; }
     .titulo-principal { color: #ff2222; font-size: 38px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 5px; }
@@ -44,7 +120,7 @@ st.markdown("""
     }
 
     .microfono-bunker-box {
-        background-color: #000000;
+        background-color: rgba(0, 0, 0, 0.9);
         border: 1px solid #ff0000;
         border-radius: 4px;
         padding: 15px;
@@ -52,7 +128,7 @@ st.markdown("""
         align-items: center;
         gap: 20px;
         margin-top: 15px;
-        box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.2);
+        box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.25);
         position: relative;
     }
     .circulo-mic {
@@ -79,7 +155,7 @@ st.markdown("""
     
     /* DISEÑO EXCLUSIVO DEL HISTORIAL DE TRANSMISIONES COMPACTO */
     .chat-box-hud {
-        background-color: rgba(10, 2, 2, 0.85);
+        background-color: rgba(10, 2, 2, 0.9);
         border: 1px solid #ff1111;
         border-radius: 4px;
         padding: 12px;
@@ -104,12 +180,7 @@ st.markdown("""
         width: 100%;
         margin-top: 5px;
     }
-    .stButton>button:hover {
-        background-color: #ff2222 !important;
-        color: #ffffff !important;
-        box-shadow: 0px 0px 10px #ff2222;
-    }
-
+    .stButton>button:hover { background-color: #ff2222 !important; color: #ffffff !important; box-shadow: 0px 0px 10px #ff2222; }
     .stTextInput>div>div>input { background-color: #050505; color: #ff6666; border: 1px solid #ff2222; font-family: monospace; }
     .stSuccess { background-color: #1a0303; color: #ff9999; border: 1px solid #ff2222; font-size: 13px; }
     </style>
@@ -119,7 +190,7 @@ st.markdown("""
 st.markdown('<div class="header-arkon"><div class="titulo-principal">ARKON</div><div class="sub-principal">SISTEMA DE INTELIGENCIA AVANZADA</div></div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("### 🎛️ PANEL DE AJUSTES")
-st.sidebar.success("🎙️ Registrador: Bitácora de Enlace Lista")
+st.sidebar.success("🎙️ Entorno Visual: Video Cinemático Activado")
 
 # DISTRIBUCIÓN DEL TABLERO CON SUS 2 CUADROS ORIGINALES POR LADO
 col_izq, col_centro, col_der = st.columns([1.1, 1.8, 1.1])
@@ -175,43 +246,3 @@ st.markdown("""
         <div class="circulo-mic"><span class="icono-mic">🎙️</span></div>
         <div class="info-mic">
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
-            <div class="contenedor-ondas">
-                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-                <div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div><div class="barra-onda"></div>
-            </div>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
-
-# Capturador oculto de audio para procesar el dictado por voz
-audio_value = st.audio_input("Registro oculto:")
-
-# Crear la división táctica en la parte inferior para alojar el chat manual y el historial melo
-col_chat_izq, col_chat_der = st.columns([1.5, 2.5])
-
-entrada_texto_marlon = ""
-procesar_entrada = False
-
-with col_chat_izq:
-    st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
-    entrada_texto_marlon = st.text_input("💻 INYECTAR COMANDO MANUAL (ESCRIBIR):", key="input_manual_marlon")
-    if st.button("🚀 ENVIAR REGISTRO"):
-        if entrada_texto_marlon.strip() != "":
-            procesar_entrada = True
-            texto_final_entrada = entrada_texto_marlon
-
-# Evaluar si la señal vino por el micrófono de fábrica
-if audio_value and not procesar_entrada:
-    procesar_entrada = True
-    texto_final_entrada = "Arkon, buenos días" 
-
-# PROCESAMIENTO GENERAL DE LA INTELIGENCIA TÁCTICA
-if procesar_entrada:
-    USER_NAME = "Marlon"
-    texto_marlon_lower = texto_final_entrada.lower()
-    
-    if "buenos días" in texto_marlon_lower or "hola" in texto_marlon_lower or "saluda" in texto_marlon_lower:
-        respuesta_texto = f"Buenos días, Señor {USER_NAME}. ARKON se encuentra completamente operativo bajo sus órdenes."
-    else:
-        respuesta_texto = f"Transmisión recibida, Señor {USER_NAME}. El núcleo ARKON está preparado para evaluar la estrategia financiera."
-    
