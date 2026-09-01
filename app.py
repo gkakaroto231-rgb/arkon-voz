@@ -26,54 +26,9 @@ VIDEO_FONDO = "Looping_Black_Triangular_Background___Enchanted_Media.mov"
 try:
     with open(VIDEO_FONDO, "rb") as video_file:
         video_base64 = base64.b64encode(video_file.read()).decode()
-
+        
     st.markdown(
         f"""
-        <style>
-        /* Fondo de toda la aplicación */
-        .stApp {{
-            background: transparent !important;
-            color: #ffffff;
-            font-family: 'Courier New', monospace;
-        }}
-
-        /* Video de fondo */
-        #arkon-video-background {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -2;
-            pointer-events: none;
-        }}
-
-        /* Capa oscura para mejorar la lectura */
-        #arkon-video-overlay {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: -1;
-            pointer-events: none;
-        }}
-
-        /* Mantener el contenido de ARKON por encima */
-        .main,
-        .block-container {{
-            position: relative;
-            z-index: 1;
-        }}
-
-        /* Ocultar la barra superior de Streamlit */
-        header {{
-            background: transparent !important;
-        }}
-        </style>
-
         <video
             id="arkon-video-background"
             autoplay
@@ -86,7 +41,6 @@ try:
                 type="video/mp4"
             >
         </video>
-
         <div id="arkon-video-overlay"></div>
         """,
         unsafe_allow_html=True
@@ -94,21 +48,76 @@ try:
 except Exception as e:
     st.warning(f"No se pudo cargar el fondo de ARKON: {e}")
 
-# ESTILIZACIÓN DE ALTA TECNOLOGÍA EN ROJO FUEGO MILITAR PARA SUS PANELES
+# ============================================================
+# BLOQUE ÚNICO DE ESTILOS CSS CONSOLIDADOS (CON TODOS LOS CIERRES PERFECTOS)
+# ============================================================
 st.markdown("""
     <style>
-    .panel-tactico { background-color: rgba(15, 3, 3, 0.85); border: 1px solid #ff2222; border-radius: 6px; padding: 15px; margin-bottom: 15px; box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.2); }
-    .titulo-panel { color: #ff6666; font-size: 13px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px dashed #ff2222; padding-bottom: 4px; }
+    /* Estilos del Video de Fondo y Estructura Base */
+    .stApp {
+        background: transparent !important;
+        color: #ffffff;
+        font-family: 'Courier New', monospace;
+    }
+    #arkon-video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -2;
+        pointer-events: none;
+    }
+    #arkon-video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: -1;
+        pointer-events: none;
+    }
+    .main, .block-container {
+        position: relative;
+        z-index: 1;
+    }
+    header {
+        background: transparent !important;
+    }
+
+    /* Estilos de los Paneles de su Búnker Original */
+    .panel-tactico { 
+        background-color: rgba(15, 3, 3, 0.85); 
+        border: 1px solid #ff2222; 
+        border-radius: 6px; 
+        padding: 15px; 
+        margin-bottom: 15px; 
+        box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.2); 
+    }
+    .titulo-panel { 
+        color: #ff6666; 
+        font-size: 13px; 
+        font-weight: bold; 
+        letter-spacing: 2px; 
+        margin-bottom: 10px; 
+        text-transform: uppercase; 
+        border-bottom: 1px dashed #ff2222; 
+        padding-bottom: 4px; 
+    }
     .header-arkon { text-align: center; margin-bottom: 20px; }
     .titulo-principal { color: #ff2222; font-size: 38px; font-weight: bold; text-shadow: 0px 0px 20px #ff0000; letter-spacing: 5px; }
     .sub-principal { color: #ff6666; font-size: 11px; letter-spacing: 3px; font-weight: bold; }
+    
+    /* El Reactor Circular central original */
     .wrapper-reactor { display: flex; justify-content: center; align-items: center; height: 220px; position: relative; margin: 20px 0; }
     .anillo-exterior { position: absolute; width: 190px; height: 190px; border: 2px dashed #ff3333; border-radius: 50%; animation: rotarAnillo 20s linear infinite; }
     .reactor-nucleo { width: 150px; height: 150px; border-radius: 50%; position: absolute; border: 3px solid #ff2222; background-color: #000000; display: flex; justify-content: center; align-items: center; box-shadow: 0px 0px 40px #ff2222; }
     .letra-centro { color: #ffffff; font-family: sans-serif; font-size: 65px; font-weight: bold; transform: translateY(-4px); text-shadow: 0px 0px 10px #ffffff; }
     @keyframes rotarAnillo { 100% { transform: rotate(360deg); } }
     
-    /* MODULACIÓN DEL MICRÓFONO PLANO FLOTANTE SIN LA BARRA GRIS ORIGINAL */
+    /* Modulación del Micrófono de la foto sin la Barra Gris */
     div[data-testid="stAudioInput"] {
         background-color: transparent !important;
         border: none !important;
@@ -118,7 +127,6 @@ st.markdown("""
     div[data-testid="stAudioInput"] > div {
         display: none !important;
     }
-
     .microfono-bunker-box {
         background-color: rgba(0, 0, 0, 0.9);
         border: 1px solid #ff0000;
@@ -150,10 +158,9 @@ st.markdown("""
     .barra-onda:nth-child(2n) { animation-delay: 0.1s; }
     .barra-onda:nth-child(3n) { animation-delay: 0.2s; }
     .barra-onda:nth-child(4n) { animation-delay: 0.3s; }
-    
     @keyframes latirOnda { 0% { height: 4px; } 100% { height: 18px; } }
     
-    /* DISEÑO EXCLUSIVO DEL HISTORIAL DE TRANSMISIONES COMPACTO */
+    /* El Historial de Mensajes Táctico */
     .chat-box-hud {
         background-color: rgba(10, 2, 2, 0.9);
         border: 1px solid #ff1111;
@@ -169,7 +176,6 @@ st.markdown("""
     .msg-marlon { color: #38bdf8; margin: 3px 0; font-weight: bold; }
     .msg-arkon { color: #ff3333; margin: 3px 0 8px 0; line-height: 1.3; }
     
-    /* Botón Táctico Pequeño */
     .stButton>button {
         background-color: #1a0303 !important;
         color: #ff6666 !important;
@@ -246,3 +252,4 @@ st.markdown("""
         <div class="circulo-mic"><span class="icono-mic">🎙️</span></div>
         <div class="info-mic">
             <div class="texto-mic-activo">MICRÓFONO ACTIVO // RECONOCIMIENTO SISTEMA</div>
+            <div class="contenedor-ondas">
